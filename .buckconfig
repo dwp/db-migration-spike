@@ -1,0 +1,14 @@
+[download]
+  in_build = True
+
+[java]
+  src_roots = src
+  source_level = 8
+  target_level = 8
+
+[maven_repositories]
+  central = https://repo1.maven.org/maven2
+
+[project]
+  ide = intellij
+  ignore = build

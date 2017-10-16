@@ -1,0 +1,10 @@
+java_library(
+    name = 'common-cxf-configuration',
+    srcs = glob(['*.java']),
+    deps = [
+        '//lib/spring:spring-context',
+    ],
+    visibility = [
+        'PUBLIC',
+    ]
+)

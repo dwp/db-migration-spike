@@ -1,0 +1,14 @@
+java_library(
+    name = 'common-jackson',
+    srcs = glob(['*.java']),
+    exported_deps = [
+        '//src/uk/gov/dwp/common/cxf/configuration:common-cxf-configuration',
+        '//src/uk/gov/dwp/common/id:common-id',
+        '//lib/javax:javax-ws-rs-api',
+        '//lib/jackson:jackson-datatype-jdk8',
+        '//lib/jackson:jackson-jaxrs-json-provider',
+    ],
+    visibility = [
+        'PUBLIC',
+    ]
+)

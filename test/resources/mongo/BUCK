@@ -1,0 +1,11 @@
+java_library(
+    name = 'test-mongo-resources',
+    resources = [
+        'mongo-dao-defaults.yml',
+        'mongo-dao-multiple-servers-and-auth.yml',
+    ],
+    resources_root = '.',
+    visibility = [
+        'PUBLIC',
+    ]
+)

@@ -1,0 +1,18 @@
+server:
+  port: 8008
+
+cxf:
+  contextPath: /personal-details
+
+dao:
+  mongo:
+    serverAddresses:
+      - host: localhost
+        port: 27017
+    options:
+      ssl:
+        enabled: false
+        invalidHostnameAllowed: false
+    dbName: personal-details
+    personalDetails:
+      name: personalDetails

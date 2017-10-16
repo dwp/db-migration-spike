@@ -1,0 +1,11 @@
+java_test(
+	name = 'test',
+	srcs = glob(['*.java']),
+	deps = [
+		'//src/uk/gov/dwp/personal/details/api:personal-details-api',
+		'//src/uk/gov/dwp/personal/details/server/dao:personal-details-dao',
+		'//src/uk/gov/dwp/personal/details/server/resource:personal-details-resource',
+		'//lib/javax:javax-ws-rs-api',
+		'//lib/test:common',
+	],
+)

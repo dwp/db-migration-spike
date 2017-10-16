@@ -1,0 +1,13 @@
+java_library(
+    name = 'personal-details-api-test-support',
+    srcs = glob(['*.java']),
+    deps = [
+        '//src/uk/gov/dwp/personal/details/api:personal-details-api',
+        '//lib/test:hamcrest-core',
+        '//lib/test:hamcrest-library',
+    ],
+    visibility = [
+#        '//test/uk/gov/dwp/personal/details/server/dao/mongo:test',
+	'//test/...',
+    ],
+)

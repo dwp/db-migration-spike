@@ -1,0 +1,12 @@
+java_library(
+    name = 'common-health',
+    srcs = glob(['*.java']),
+    deps = [
+        '//lib/javax:javax-servlet-api',
+    ],
+    visibility = [
+        '//src/uk/gov/dwp/personal/details/server:personal-details-server',
+        '//test/uk/gov/dwp/common/health:test',
+    ]
+)
+

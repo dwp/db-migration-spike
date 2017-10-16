@@ -1,0 +1,16 @@
+java_library(
+    name = "common-mongo",
+    srcs = glob(["*.java"]),
+    deps = [
+        "//src/uk/gov/dwp/common/id:common-id",
+        '//src/uk/gov/dwp/common/jackson/spring:common-jackson-spring',
+        '//lib/jackson:jackson-databind',
+        '//lib/mongo:mongodb-driver',
+        '//lib/slf4j:slf4j-api',
+        '//lib/spring:spring-boot',
+        '//lib/spring:spring-context',
+    ],
+    visibility = [
+        'PUBLIC',
+    ]
+)

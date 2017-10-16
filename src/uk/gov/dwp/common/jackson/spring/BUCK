@@ -1,0 +1,11 @@
+java_library(
+    name = 'common-jackson-spring',
+    srcs = glob(['*.java']),
+    exported_deps = [
+        '//src/uk/gov/dwp/common/jackson:common-jackson',
+        '//lib/spring:spring-context',
+    ],
+    visibility = [
+        'PUBLIC',
+    ]
+)

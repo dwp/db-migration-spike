@@ -1,0 +1,11 @@
+java_library(
+    name = 'personal-details-api',
+    srcs = glob(['*.java']),
+    exported_deps = [
+        '//src/uk/gov/dwp/common/id:common-id',
+        '//lib/javax:javax-ws-rs-api',
+    ],
+    visibility = [
+        'PUBLIC'
+    ]
+)

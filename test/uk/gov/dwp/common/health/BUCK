@@ -1,0 +1,11 @@
+java_test(
+    name = 'test',
+    srcs = glob(['*Test.java']),
+    deps = [
+        '//src/uk/gov/dwp/common/health:common-health',
+        '//lib/javax:javax-servlet-api',
+        '//lib/test:common',
+    ],
+)
+
+

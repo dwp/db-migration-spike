@@ -1,0 +1,7 @@
+# IntelliJ project files
+.buckd/
+.idea/
+buck-out/
+out/
+gen/
+*.iml

@@ -1,0 +1,11 @@
+java_library(
+    name = 'personal-details-resources',
+    resources = [
+        'application.yml',
+        'logback.xml',
+    ],
+    resources_root = '.',
+    visibility = [
+        '//src/uk/gov/dwp/personal/details/server:personal-details-server'
+    ],
+)
