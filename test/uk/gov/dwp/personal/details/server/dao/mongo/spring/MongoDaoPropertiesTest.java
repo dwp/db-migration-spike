@@ -39,7 +39,7 @@ public class MongoDaoPropertiesTest {
 
     @Test
     public void createMongoConfigurationWithMultipleServers() throws Exception {
-        AnnotationConfigApplicationContext applicationContext = createApplicationContext("mongo/mongo-dao-multiple-servers-and-auth.yml");
+        AnnotationConfigApplicationContext applicationContext = createApplicationContext("/mongo-dao-multiple-servers-and-auth.yml");
 
         MongoDaoProperties properties = applicationContext.getBean(MongoDaoProperties.class);
 
@@ -57,7 +57,7 @@ public class MongoDaoPropertiesTest {
 
     @Test
     public void createDefaultMongoConfiguration() {
-        AnnotationConfigApplicationContext applicationContext = createApplicationContext("mongo/mongo-dao-defaults.yml");
+        AnnotationConfigApplicationContext applicationContext = createApplicationContext("/mongo-dao-defaults.yml");
 
         MongoDaoProperties properties = applicationContext.getBean(MongoDaoProperties.class);
 

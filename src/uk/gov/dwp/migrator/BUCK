@@ -1,8 +1,0 @@
-java_library(
-    name = 'migrator',
-    srcs = glob(['**/*.java']),
-    deps = [
-        '//lib/mongo:mongodb-driver',
-        '//lib/slf4j:slf4j-api',
-    ],
-)

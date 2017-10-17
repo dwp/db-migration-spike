@@ -2,11 +2,10 @@ java_library(
     name = 'dao-mongo-test-support',
     srcs = glob(['*.java']),
     resources = [
-        'mongo-dao-test.properties'
+        'resources/mongo-dao-test.properties'
     ],
-    resources_root = '.',
+    resources_root = 'resources',
     deps = [
-        '//src/uk/gov/dwp/personal/details/server/dao/mongo:personal-details-dao-mongo',
         '//lib/mongo:mongodb-driver',
         '//lib/slf4j:slf4j-api',
         '//lib/spring:spring-beans',
@@ -16,6 +15,7 @@ java_library(
         '//lib/spring:spring-test',
         '//lib/test:hamcrest-core',
         '//lib/test:junit',
+        '//src/uk/gov/dwp/personal/details/server/dao/mongo:personal-details-dao-mongo',
     ],
     visibility = [
         'PUBLIC',

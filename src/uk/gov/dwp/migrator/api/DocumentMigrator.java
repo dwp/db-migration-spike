@@ -1,4 +1,4 @@
-package uk.gov.dwp.migrator;
+package uk.gov.dwp.migrator.api;
 
 import org.bson.Document;
 

@@ -1,6 +1,5 @@
 package uk.gov.dwp.personal.details.server.dao.mongo;
 
-import com.mongodb.QueryOperators;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 import uk.gov.dwp.api.PersonalDetails;

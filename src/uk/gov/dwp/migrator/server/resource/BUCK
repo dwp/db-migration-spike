@@ -1,0 +1,11 @@
+java_library(
+    name = 'migrator-resource',
+    srcs = glob(['*.java']),
+    deps = [
+        '//lib/javax:javax-ws-rs-api',
+    ],
+    visibility = [
+        '//src/uk/gov/dwp/migrator/server/resource/configuration:migrator-resource-configuration',
+        '//src/uk/gov/dwp/migrator/server:migrator-server',
+    ],
+)

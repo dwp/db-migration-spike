@@ -1,9 +1,9 @@
 java_library(
-    name = 'personal-details-server',
+    name = 'migrator-server',
     srcs = glob(['*.java']),
     resources = [
         'resources/application.yml',
-        'resources/logback.xml',
+        'resources/logback.xml'
     ],
     resources_root = 'resources',
     deps = [
@@ -29,11 +29,11 @@ java_library(
         '//src/uk/gov/dwp/common/jackson:common-jackson',
         '//src/uk/gov/dwp/common/jackson/spring:common-jackson-spring',
         '//src/uk/gov/dwp/common/mongo:common-mongo',
-        '//src/uk/gov/dwp/personal/details/api:personal-details-api',
-        '//src/uk/gov/dwp/personal/details/server/dao:personal-details-dao',
-        '//src/uk/gov/dwp/personal/details/server/dao/mongo:personal-details-dao-mongo',
-        '//src/uk/gov/dwp/personal/details/server/resource:personal-details-resource',
-        '//src/uk/gov/dwp/personal/details/server/resource/configuration:personal-details-resource-configuration',
+        '//src/uk/gov/dwp/migrator/api:migrator-api',
+#         '//src/uk/gov/dwp/personal/details/server/dao:personal-details-dao',
+#         '//src/uk/gov/dwp/personal/details/server/dao/mongo:personal-details-dao-mongo',
+#         '//src/uk/gov/dwp/personal/details/server/resource:personal-details-resource',
+        '//src/uk/gov/dwp/migrator/server/resource/configuration:migrator-resource-configuration',
     ],
     visibility = [
         'PUBLIC'
