@@ -5,7 +5,6 @@ java_library(
         '//lib/mongo:mongodb-driver',
         '//lib/slf4j:slf4j-api',
         '//src/uk/gov/dwp/migration/api:migration-api',
-        '//src/uk/gov/dwp/migration/notification:migration-notification',
     ],
     visibility = [
         '//src/uk/gov/dwp/migration/mongo/configuration:migration-mongo-configuration',
