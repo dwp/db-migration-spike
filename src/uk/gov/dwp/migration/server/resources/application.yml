@@ -4,7 +4,7 @@ server:
 cxf:
   contextPath: /migration
 
-dao:
+source:
   mongo:
     serverAddresses:
       - host: localhost
@@ -14,5 +14,18 @@ dao:
         enabled: false
         invalidHostnameAllowed: false
     dbName: personal-details
-    personalDetails:
+    collection:
+      name: personalDetails
+
+destination:
+  mongo:
+    serverAddresses:
+      - host: localhost
+        port: 27017
+    options:
+      ssl:
+        enabled: false
+        invalidHostnameAllowed: false
+    dbName: personal-details
+    collection:
       name: personalDetails

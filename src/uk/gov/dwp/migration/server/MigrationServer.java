@@ -16,7 +16,7 @@ import uk.gov.dwp.migration.server.resource.configuration.PingResourceConfigurat
         CxfBusConfiguration.class,
         HealthCheckConfiguration.class,
 //        ApplicationListenerConfiguration.class,
-//        MongoDaoConfig.class,
+        MongoDaoConfig.class,
         PingResourceConfiguration.class
 //        EmbeddedServletContainerAutoConfiguration.class
 })

@@ -1,0 +1,16 @@
+java_library(
+    name = 'migration-mongo-configuration',
+    srcs = glob(['*.java']),
+    exported_deps = [
+        '//src/uk/gov/dwp/migration/mongo:migration-mongo',
+    ],
+    deps = [
+        '//lib/mongo:mongodb-driver',
+        '//lib/spring:spring-boot',
+        '//lib/spring:spring-context',
+        '//src/uk/gov/dwp/common/id:common-id',
+    ],
+    visibility = [
+        '//src/uk/gov/dwp/migration/server:migration-server',
+    ],
+)

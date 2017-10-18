@@ -16,6 +16,7 @@ java_library(
         '//lib/jetty:jetty-server',
         '//lib/logback:logback-classic',
         '//lib/logback:logback-core',
+        '//lib/mongo:mongodb-driver',
         '//lib/slf4j:jcl-over-slf4j',
         '//lib/slf4j:jul-to-slf4j',
         '//lib/slf4j:log4j-over-slf4j',
@@ -30,6 +31,7 @@ java_library(
         '//src/uk/gov/dwp/common/jackson/spring:common-jackson-spring',
         '//src/uk/gov/dwp/common/mongo:common-mongo',
         '//src/uk/gov/dwp/migration/api:migration-api',
+        '//src/uk/gov/dwp/migration/mongo/configuration:migration-mongo-configuration',
         '//src/uk/gov/dwp/migration/server/resource/configuration:migration-resource-configuration',
     ],
     visibility = [
