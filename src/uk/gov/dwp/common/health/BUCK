@@ -6,7 +6,7 @@ java_library(
     ],
     visibility = [
         '//src/uk/gov/dwp/personal/details/server:personal-details-server',
-        '//src/uk/gov/dwp/migrator/server:migrator-server',
+        '//src/uk/gov/dwp/migration/server:migration-server',
         '//test/uk/gov/dwp/common/health:test',
     ]
 )

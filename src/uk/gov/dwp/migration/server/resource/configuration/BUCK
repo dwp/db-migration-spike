@@ -1,0 +1,16 @@
+java_library(
+    name = 'migration-resource-configuration',
+    srcs = glob(['*.java']),
+    exported_deps = [
+        '//src/uk/gov/dwp/migration/server/resource:migration-resource',
+    ],
+    deps = [
+        '//lib/javax:javax-ws-rs-api',
+        '//lib/spring:spring-boot',
+        '//lib/spring:spring-context',
+        '//src/uk/gov/dwp/common/cxf/configuration:common-cxf-configuration',
+    ],
+    visibility = [
+        '//src/uk/gov/dwp/migration/server:migration-server',
+    ],
+)

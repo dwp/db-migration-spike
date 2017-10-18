@@ -1,0 +1,38 @@
+java_library(
+    name = 'migration-server',
+    srcs = glob(['*.java']),
+    resources = [
+        'resources/application.yml',
+        'resources/logback.xml'
+    ],
+    resources_root = 'resources',
+    deps = [
+        '//lib:snakeyaml',
+        '//lib/apache-cxf:cxf-rt-transports-http-jetty',
+        '//lib/jackson:jackson-jaxrs-json-provider',
+        '//lib/javax:javax-annotation-api',
+        '//lib/javax:javax-servlet-api',
+        '//lib/javax:javax-ws-rs-api',
+        '//lib/jetty:jetty-server',
+        '//lib/logback:logback-classic',
+        '//lib/logback:logback-core',
+        '//lib/slf4j:jcl-over-slf4j',
+        '//lib/slf4j:jul-to-slf4j',
+        '//lib/slf4j:log4j-over-slf4j',
+        '//lib/slf4j:slf4j-api',
+        '//lib/spring:spring-boot-autoconfigure',
+        '//lib/spring:spring-boot-with-dependencies',
+        '//lib/spring:spring-web',
+        '//src/uk/gov/dwp/common/cxf/configuration:common-cxf-configuration',
+        '//src/uk/gov/dwp/common/cxf/server:common-cxf-server',
+        '//src/uk/gov/dwp/common/health:common-health',
+        '//src/uk/gov/dwp/common/jackson:common-jackson',
+        '//src/uk/gov/dwp/common/jackson/spring:common-jackson-spring',
+        '//src/uk/gov/dwp/common/mongo:common-mongo',
+        '//src/uk/gov/dwp/migration/api:migration-api',
+        '//src/uk/gov/dwp/migration/server/resource/configuration:migration-resource-configuration',
+    ],
+    visibility = [
+        'PUBLIC'
+    ]
+)

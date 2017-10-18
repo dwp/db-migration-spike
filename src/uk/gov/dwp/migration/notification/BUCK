@@ -1,0 +1,7 @@
+java_library(
+    name = 'migration-notification',
+    srcs = glob(['**/*.java']),
+    visibility = [
+        '//src/uk/gov/dwp/migration/...'
+    ],
+)

@@ -1,0 +1,11 @@
+java_library(
+    name = 'migration-api',
+    srcs = glob(['*.java']),
+    deps = [
+        '//lib/mongo:mongodb-driver'
+    ],
+    visibility = [
+        '//src/uk/gov/dwp/migration/...',
+        '//test/uk/gov/dwp/migration/...',
+    ]
+)
