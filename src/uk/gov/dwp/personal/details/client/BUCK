@@ -1,12 +1,30 @@
 java_library(
     name = 'personal-details-client',
-    srcs = glob(['*.java']),
+    srcs = glob([
+            '**/*.java',
+        ],
+        excludes = [
+            'resources',
+        ],
+    ),
+    resources = [
+        'resources/logback.xml'
+    ],
+    resources_root = 'resources',
     deps = [
-        '//src/uk/gov/dwp/common/id:common-id',
-        '//src/uk/gov/dwp/personal/details/api:personal-details-api',
         '//lib:commons-lang3',
         '//lib:javafaker',
+        '//lib/apache-cxf:cxf-core',
+        '//lib/apache-cxf:cxf-rt-frontend-jaxrs',
+        '//lib/apache-cxf:cxf-rt-rs-client',
+        '//lib/apache-cxf:cxf-rt-transports-http',
+        '//lib/jackson:jackson-jaxrs-json-provider',
+        '//lib/logback:logback-classic',
+        '//lib/logback:logback-core',
         '//lib/slf4j:slf4j-api',
+        '//src/uk/gov/dwp/common/id:common-id',
+        '//src/uk/gov/dwp/common/jackson:common-jackson',
+        '//src/uk/gov/dwp/personal/details/api:personal-details-api',
     ],
     visibility = [
         'PUBLIC'

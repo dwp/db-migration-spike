@@ -15,21 +15,31 @@ public class RandomPersonalDetailsBuilder {
 
     private final Faker faker = new Faker();
 
-    private LocalDate localDate;
+    private PersonalDetailsId personalDetailsId;
+    private LocalDate dateOfBirth;
     private String firstName;
     private String lastName;
 
+    private RandomPersonalDetailsBuilder() {
+    }
+
     public static RandomPersonalDetailsBuilder withRandomPersonalDetails() {
         return new RandomPersonalDetailsBuilder()
+                .withPersonalDetailsId(PersonalDetailsId.newPersonalDetailsId())
                 .withRandomFirstName()
                 .withRandomLastName()
                 .withRandomDateOfBirth();
     }
 
+    public RandomPersonalDetailsBuilder withPersonalDetailsId(PersonalDetailsId personalDetailsId) {
+        this.personalDetailsId = personalDetailsId;
+        return this;
+    }
+
     public RandomPersonalDetailsBuilder withRandomDateOfBirth() {
         Month month = Month.of(RandomUtils.nextInt(1, 12));
         int year = RandomUtils.nextInt(MIN_YEAR_OF_BIRTH, MAX_YEAR_OF_BIRTH);
-        this.localDate = LocalDate.of(
+        this.dateOfBirth = LocalDate.of(
                 year,
                 month,
                 getRandomDayOfMonth(year, month)
@@ -61,9 +71,9 @@ public class RandomPersonalDetailsBuilder {
 
     public PersonalDetails build() {
         return new PersonalDetails(
-                PersonalDetailsId.newPersonalDetailsId(),
+                personalDetailsId,
                 firstName + " "  + lastName,
-                localDate
+                dateOfBirth
         );
     }
 }
