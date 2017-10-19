@@ -1,3 +1,5 @@
+include_defs('//tools/docker/docker.defs')
+
 java_library(
     name = 'personal-details-server',
     srcs = glob(['*.java']),
@@ -38,4 +40,8 @@ java_library(
     visibility = [
         'PUBLIC'
     ]
+)
+
+docker(
+    src = [ '$(location :personal-details-server)' ]
 )

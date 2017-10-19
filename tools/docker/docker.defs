@@ -1,0 +1,3 @@
+def docker(
+    srcs = []):
+    print("Hello",file=stderr)

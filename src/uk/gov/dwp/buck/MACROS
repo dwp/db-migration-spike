@@ -1,5 +1,10 @@
-def docker(name,src=[],docker_file='Dockerfile',target_name='container'):
-    genrule(target_name,
+def docker(
+    name,
+    src=[],
+    docker_file='Dockerfile',
+    target_name='container'):
+    genrule(
+        target_name,
         srcs = [docker_file],
         bash = ('&&'.join(map(lambda d: 'rsync -r ' + d + ' .',src)) if len(src) else 'true') + ' &&' +
                 'cp $SRCS Dockerfile.copy &&' +

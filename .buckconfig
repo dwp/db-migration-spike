@@ -1,3 +1,6 @@
+[alias]
+  personal-details-server = //src/uk/gov/dwp/personal/details/server:personal-details-server
+
 [download]
   in_build = True
 
