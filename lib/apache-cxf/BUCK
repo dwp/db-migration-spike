@@ -29,6 +29,7 @@ java_library(
     ],
     visibility = [
         '//src/uk/gov/dwp/common/cxf/server:common-cxf-server',
+        '//src/uk/gov/dwp/personal/details/server:personal-details-docker',
         '//src/uk/gov/dwp/personal/details/server:personal-details-server',
         '//src/uk/gov/dwp/migration/server:migration-server',
     ]

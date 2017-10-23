@@ -2,16 +2,17 @@ java_library(
     name = 'personal-details-resource-configuration',
     srcs = glob(['*.java']),
     deps = [
+        '//lib/javax:javax-ws-rs-api',
+        '//lib/spring:spring-boot',
+        '//lib/spring:spring-context',
         '//src/uk/gov/dwp/common/cxf/configuration:common-cxf-configuration',
         '//src/uk/gov/dwp/personal/details/api:personal-details-api',
         '//src/uk/gov/dwp/personal/details/server/dao:personal-details-dao',
         '//src/uk/gov/dwp/personal/details/server/dao/mongo:personal-details-dao-mongo',
         '//src/uk/gov/dwp/personal/details/server/resource:personal-details-resource',
-        '//lib/javax:javax-ws-rs-api',
-        '//lib/spring:spring-boot',
-        '//lib/spring:spring-context',
     ],
     visibility = [
+        '//src/uk/gov/dwp/personal/details/server:personal-details-docker',
         '//src/uk/gov/dwp/personal/details/server:personal-details-server',
     ],
 )

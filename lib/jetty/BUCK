@@ -60,6 +60,7 @@ java_library(
         '//lib/javax:javax-servlet-api',
     ],
     visibility = [
+        '//src/uk/gov/dwp/personal/details/server:personal-details-docker',
         '//src/uk/gov/dwp/personal/details/server:personal-details-server',
         '//src/uk/gov/dwp/migration/server:migration-server',
     ],

@@ -1,4 +1,35 @@
-include_defs('//tools/docker/docker.defs')
+# include_defs('//tools/docker/docker.defs')
+include_defs('//src/uk/gov/dwp/buck/docker.def')
+
+PERSONAL_DETAILS_SERVER_LIBS = [
+    '//lib:snakeyaml',
+    '//lib/apache-cxf:cxf-rt-transports-http-jetty',
+    '//lib/jackson:jackson-jaxrs-json-provider',
+    '//lib/javax:javax-annotation-api',
+    '//lib/javax:javax-servlet-api',
+    '//lib/javax:javax-ws-rs-api',
+    '//lib/jetty:jetty-server',
+    '//lib/logback:logback-classic',
+    '//lib/logback:logback-core',
+    '//lib/slf4j:jcl-over-slf4j',
+    '//lib/slf4j:jul-to-slf4j',
+    '//lib/slf4j:log4j-over-slf4j',
+    '//lib/slf4j:slf4j-api',
+    '//lib/spring:spring-boot-autoconfigure',
+    '//lib/spring:spring-boot-with-dependencies',
+    '//lib/spring:spring-web',
+    '//src/uk/gov/dwp/common/cxf/configuration:common-cxf-configuration',
+    '//src/uk/gov/dwp/common/cxf/server:common-cxf-server',
+    '//src/uk/gov/dwp/common/health:common-health',
+    '//src/uk/gov/dwp/common/jackson:common-jackson',
+    '//src/uk/gov/dwp/common/jackson/spring:common-jackson-spring',
+    '//src/uk/gov/dwp/common/mongo:common-mongo',
+    '//src/uk/gov/dwp/personal/details/api:personal-details-api',
+    '//src/uk/gov/dwp/personal/details/server/dao:personal-details-dao',
+    '//src/uk/gov/dwp/personal/details/server/dao/mongo:personal-details-dao-mongo',
+    '//src/uk/gov/dwp/personal/details/server/resource:personal-details-resource',
+    '//src/uk/gov/dwp/personal/details/server/resource/configuration:personal-details-resource-configuration',
+]
 
 java_library(
     name = 'personal-details-server',
@@ -8,40 +39,18 @@ java_library(
         'resources/logback.xml',
     ],
     resources_root = 'resources',
-    deps = [
-        '//lib:snakeyaml',
-        '//lib/apache-cxf:cxf-rt-transports-http-jetty',
-        '//lib/jackson:jackson-jaxrs-json-provider',
-        '//lib/javax:javax-annotation-api',
-        '//lib/javax:javax-servlet-api',
-        '//lib/javax:javax-ws-rs-api',
-        '//lib/jetty:jetty-server',
-        '//lib/logback:logback-classic',
-        '//lib/logback:logback-core',
-        '//lib/slf4j:jcl-over-slf4j',
-        '//lib/slf4j:jul-to-slf4j',
-        '//lib/slf4j:log4j-over-slf4j',
-        '//lib/slf4j:slf4j-api',
-        '//lib/spring:spring-boot-autoconfigure',
-        '//lib/spring:spring-boot-with-dependencies',
-        '//lib/spring:spring-web',
-        '//src/uk/gov/dwp/common/cxf/configuration:common-cxf-configuration',
-        '//src/uk/gov/dwp/common/cxf/server:common-cxf-server',
-        '//src/uk/gov/dwp/common/health:common-health',
-        '//src/uk/gov/dwp/common/jackson:common-jackson',
-        '//src/uk/gov/dwp/common/jackson/spring:common-jackson-spring',
-        '//src/uk/gov/dwp/common/mongo:common-mongo',
-        '//src/uk/gov/dwp/personal/details/api:personal-details-api',
-        '//src/uk/gov/dwp/personal/details/server/dao:personal-details-dao',
-        '//src/uk/gov/dwp/personal/details/server/dao/mongo:personal-details-dao-mongo',
-        '//src/uk/gov/dwp/personal/details/server/resource:personal-details-resource',
-        '//src/uk/gov/dwp/personal/details/server/resource/configuration:personal-details-resource-configuration',
-    ],
+    deps = PERSONAL_DETAILS_SERVER_LIBS,
     visibility = [
         'PUBLIC'
     ]
 )
 
 docker(
-    src = [ '$(location :personal-details-server)' ]
+    name = 'personal-details-docker',
+    app_home = '/srv/app/personal-details-docker',
+    cmd = 'CMD java -cp /srv/app/personal-details-docker/. uk.gov.dwp.personal.details.server.PersonalDetailsServer',
+    lib = PERSONAL_DETAILS_SERVER_LIBS + [
+        ':personal-details-server',
+    ],
+    docker_file = 'foo.tar',
 )
