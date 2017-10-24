@@ -2,12 +2,13 @@ java_library(
     name = 'personal-details-resource',
     srcs = glob(['*.java']),
     deps = [
+        '//lib/javax:javax-ws-rs-api',
         '//src/uk/gov/dwp/personal/details/api:personal-details-api',
         '//src/uk/gov/dwp/personal/details/server/dao:personal-details-dao',
-        '//lib/javax:javax-ws-rs-api',
     ],
     visibility = [
         '//src/uk/gov/dwp/personal/details/server/resource/configuration:personal-details-resource-configuration',
+        '//src/uk/gov/dwp/personal/details/server:personal-details-docker',
         '//src/uk/gov/dwp/personal/details/server:personal-details-server',
         '//test/uk/gov/dwp/personal/details/server/resource:test',
     ],
