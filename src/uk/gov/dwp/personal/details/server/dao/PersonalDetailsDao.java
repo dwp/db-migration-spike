@@ -1,7 +1,7 @@
 package uk.gov.dwp.personal.details.server.dao;
 
-import uk.gov.dwp.api.PersonalDetails;
-import uk.gov.dwp.api.PersonalDetailsId;
+import uk.gov.dwp.personal.details.api.PersonalDetails;
+import uk.gov.dwp.personal.details.api.PersonalDetailsId;
 
 public interface PersonalDetailsDao {
 

@@ -2,9 +2,9 @@ package uk.gov.dwp.personal.details.client.find;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uk.gov.dwp.api.PersonalDetails;
-import uk.gov.dwp.api.PersonalDetailsClient;
-import uk.gov.dwp.api.PersonalDetailsId;
+import uk.gov.dwp.personal.details.api.PersonalDetails;
+import uk.gov.dwp.personal.details.api.PersonalDetailsClient;
+import uk.gov.dwp.personal.details.api.PersonalDetailsId;
 
 import java.util.Optional;
 import java.util.function.Supplier;

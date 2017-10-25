@@ -1,10 +1,10 @@
-package uk.gov.dwp.api;
+package uk.gov.dwp.personal.details.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
 
-import static uk.gov.dwp.api.PersonalDetailsId.newPersonalDetailsId;
+import static uk.gov.dwp.personal.details.api.PersonalDetailsId.newPersonalDetailsId;
 
 public class PersonalDetails {
 

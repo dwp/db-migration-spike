@@ -2,9 +2,9 @@ package uk.gov.dwp.personal.details.server.dao.mongo;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import uk.gov.dwp.api.PersonalDetails.PersonalDetailsBuilder;
-import uk.gov.dwp.api.PersonalDetailsId;
-import uk.gov.dwp.api.PersonalDetailsMatcher;
+import uk.gov.dwp.personal.details.api.PersonalDetails.PersonalDetailsBuilder;
+import uk.gov.dwp.personal.details.api.PersonalDetailsId;
+import uk.gov.dwp.personal.details.api.PersonalDetailsMatcher;
 import uk.gov.dwp.personal.details.server.dao.PersonalDetailsDao;
 import uk.gov.dwp.personal.details.server.dao.mongo.support.AbstractMongoDaoTest;
 
@@ -14,8 +14,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
-import static uk.gov.dwp.api.PersonalDetails.newPersonalDetails;
-import static uk.gov.dwp.api.PersonalDetailsId.newPersonalDetailsId;
+import static uk.gov.dwp.personal.details.api.PersonalDetails.newPersonalDetails;
+import static uk.gov.dwp.personal.details.api.PersonalDetailsId.newPersonalDetailsId;
 
 public class MongoPersonalDetailsDaoTest extends AbstractMongoDaoTest {
 

@@ -10,8 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Import;
-import uk.gov.dwp.api.PersonalDetails;
-import uk.gov.dwp.api.PersonalDetailsId;
 import uk.gov.dwp.common.id.Id;
 import uk.gov.dwp.common.jackson.spring.JacksonConfiguration;
 import uk.gov.dwp.personal.details.server.dao.PersonalDetailsDao;

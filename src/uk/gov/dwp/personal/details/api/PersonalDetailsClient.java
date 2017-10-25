@@ -1,4 +1,4 @@
-package uk.gov.dwp.api;
+package uk.gov.dwp.personal.details.api;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
