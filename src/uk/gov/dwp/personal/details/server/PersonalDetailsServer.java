@@ -16,7 +16,6 @@ import uk.gov.dwp.personal.details.server.resource.configuration.PersonalDetails
         PropertyPlaceholderAutoConfiguration.class,
         CxfBusConfiguration.class,
         HealthCheckConfiguration.class,
-        ApplicationListenerConfiguration.class,
         MongoDaoConfig.class,
         PersonalDetailsResourceConfiguration.class
 //        EmbeddedServletContainerAutoConfiguration.class
