@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Import;
 import uk.gov.dwp.common.cxf.server.CxfBusConfiguration;
+import uk.gov.dwp.migration.mongo.configuration.MongoDaoConfig;
 import uk.gov.dwp.migration.server.resource.configuration.PingResourceConfiguration;
 
 @SpringBootApplication
