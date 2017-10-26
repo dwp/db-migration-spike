@@ -7,15 +7,15 @@ import java.time.LocalDate;
 
 import static uk.gov.dwp.personal.details.type.PersonalDetailsId.newPersonalDetailsId;
 
-public class PersonalDetails {
+public class CreatePersonalDetailsRequest {
 
     private final PersonalDetailsId personalDetailsId;
     private final String name;
     private final LocalDate dateOfBirth;
 
-    public PersonalDetails(@JsonProperty("personalDetailsId") PersonalDetailsId personalDetailsId,
-                           @JsonProperty("name") String name,
-                           @JsonProperty("dateOfBirth") LocalDate dateOfBirth) {
+    public CreatePersonalDetailsRequest(@JsonProperty("personalDetailsId") PersonalDetailsId personalDetailsId,
+                                        @JsonProperty("name") String name,
+                                        @JsonProperty("dateOfBirth") LocalDate dateOfBirth) {
         this.personalDetailsId = personalDetailsId;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -33,37 +33,37 @@ public class PersonalDetails {
         return dateOfBirth;
     }
 
-    public static PersonalDetailsBuilder newPersonalDetails() {
-        return new PersonalDetailsBuilder()
+    public static CreatePersonalDetailsRequestBuilder newPersonalDetailsRequest() {
+        return new CreatePersonalDetailsRequestBuilder()
                 .withPersonalDetailsId(newPersonalDetailsId());
     }
 
-    public static class PersonalDetailsBuilder {
+    public static class CreatePersonalDetailsRequestBuilder {
 
         private PersonalDetailsId personalDetailsId;
         private String name;
         private LocalDate dateOfBirth;
 
-        private PersonalDetailsBuilder() {
+        private CreatePersonalDetailsRequestBuilder() {
         }
 
-        public PersonalDetailsBuilder withPersonalDetailsId(PersonalDetailsId personalDetailsId) {
+        public CreatePersonalDetailsRequestBuilder withPersonalDetailsId(PersonalDetailsId personalDetailsId) {
             this.personalDetailsId = personalDetailsId;
             return this;
         }
 
-        public PersonalDetailsBuilder withName(String name) {
+        public CreatePersonalDetailsRequestBuilder withName(String name) {
             this.name = name;
             return this;
         }
 
-        public PersonalDetailsBuilder withDateOfBirth(LocalDate dateOfBirth) {
+        public CreatePersonalDetailsRequestBuilder withDateOfBirth(LocalDate dateOfBirth) {
             this.dateOfBirth = dateOfBirth;
             return this;
         }
 
-        public PersonalDetails build() {
-            return new PersonalDetails(
+        public CreatePersonalDetailsRequest build() {
+            return new CreatePersonalDetailsRequest(
                     personalDetailsId,
                     name,
                     dateOfBirth

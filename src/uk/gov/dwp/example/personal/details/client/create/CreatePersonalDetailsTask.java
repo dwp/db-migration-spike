@@ -3,12 +3,12 @@ package uk.gov.dwp.example.personal.details.client.create;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.gov.dwp.personal.details.client.PersonalDetailsClient;
-import uk.gov.dwp.personal.details.client.PersonalDetailsId;
+import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static uk.gov.dwp.example.personal.details.client.RandomPersonalDetailsBuilder.withRandomPersonalDetails;
+import static uk.gov.dwp.example.personal.details.client.RandomCreatePersonalDetailsRequestBuilder.newRandomCreatePersonalDetailsRequest;
 
 public class CreatePersonalDetailsTask implements Runnable {
 
@@ -27,7 +27,7 @@ public class CreatePersonalDetailsTask implements Runnable {
     public void run() {
         try {
             PersonalDetailsId personalDetailsId = PersonalDetailsId.newPersonalDetailsId();
-            personalDetailsClient.create(withRandomPersonalDetails().withPersonalDetailsId(personalDetailsId).build());
+            personalDetailsClient.create(newRandomCreatePersonalDetailsRequest().withPersonalDetailsId(personalDetailsId).build());
             personalDetailsIdRegistry.add(personalDetailsId);
         } catch (Exception e) {
             LOGGER.error("Could not create PersonalDetails", e);

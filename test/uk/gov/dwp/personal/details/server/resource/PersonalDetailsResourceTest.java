@@ -2,9 +2,11 @@ package uk.gov.dwp.personal.details.server.resource;
 
 import org.junit.After;
 import org.junit.Test;
+import uk.gov.dwp.personal.details.client.CreatePersonalDetailsRequest;
 import uk.gov.dwp.personal.details.client.PersonalDetails;
-import uk.gov.dwp.personal.details.client.PersonalDetailsId;
+import uk.gov.dwp.personal.details.client.UpdatePersonalDetailsRequest;
 import uk.gov.dwp.personal.details.server.dao.PersonalDetailsDao;
+import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -18,8 +20,14 @@ public class PersonalDetailsResourceTest {
     private static final PersonalDetailsId PERSONAL_DETAILS_ID = PersonalDetailsId.newPersonalDetailsId();
     private final PersonalDetailsDao personalDetailsDao = mock(PersonalDetailsDao.class);
     private final PersonalDetails personalDetails = mock(PersonalDetails.class);
+    private final CreatePersonalDetailsRequestAdapter createPersonalDetailsRequestAdapter = mock(CreatePersonalDetailsRequestAdapter.class);
+    private final UpdatePersonalDetailsRequestAdapter updatePersonalDetailsRequestAdapter = mock(UpdatePersonalDetailsRequestAdapter.class);
 
-    private final PersonalDetailsResource underTest = new PersonalDetailsResource(personalDetailsDao);
+    private final PersonalDetailsResource underTest = new PersonalDetailsResource(
+            personalDetailsDao,
+            createPersonalDetailsRequestAdapter,
+            updatePersonalDetailsRequestAdapter
+    );
 
     @After
     public void tearDown() {
@@ -37,14 +45,22 @@ public class PersonalDetailsResourceTest {
 
     @Test
     public void createPersonalDetailsDelegatesToDao() throws Exception {
-        underTest.create(personalDetails);
+        CreatePersonalDetailsRequest createPersonalDetailsRequest = mock(CreatePersonalDetailsRequest.class);
+        when(createPersonalDetailsRequestAdapter.toPersonalDetails(createPersonalDetailsRequest))
+                .thenReturn(personalDetails);
+
+        underTest.create(createPersonalDetailsRequest);
 
         verify(personalDetailsDao).create(personalDetails);
     }
 
     @Test
     public void updatePersonalDetailsDelegatesToDao() throws Exception {
-        underTest.update(personalDetails);
+        UpdatePersonalDetailsRequest updatePersonalDetailsRequest = mock(UpdatePersonalDetailsRequest.class);
+        when(updatePersonalDetailsRequestAdapter.toPersonalDetails(updatePersonalDetailsRequest))
+                .thenReturn(personalDetails);
+
+        underTest.update(updatePersonalDetailsRequest);
 
         verify(personalDetailsDao).update(personalDetails);
     }

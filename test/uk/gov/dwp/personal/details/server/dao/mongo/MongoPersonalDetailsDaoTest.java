@@ -3,10 +3,10 @@ package uk.gov.dwp.personal.details.server.dao.mongo;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import uk.gov.dwp.personal.details.client.PersonalDetails.PersonalDetailsBuilder;
-import uk.gov.dwp.personal.details.client.PersonalDetailsId;
 import uk.gov.dwp.personal.details.client.PersonalDetailsMatcher;
 import uk.gov.dwp.personal.details.server.dao.PersonalDetailsDao;
 import uk.gov.dwp.personal.details.server.dao.mongo.support.AbstractMongoDaoTest;
+import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 
 import java.time.LocalDate;
 
@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static uk.gov.dwp.personal.details.client.PersonalDetails.newPersonalDetails;
-import static uk.gov.dwp.personal.details.client.PersonalDetailsId.newPersonalDetailsId;
+import static uk.gov.dwp.personal.details.type.PersonalDetailsId.newPersonalDetailsId;
 
 public class MongoPersonalDetailsDaoTest extends AbstractMongoDaoTest {
 

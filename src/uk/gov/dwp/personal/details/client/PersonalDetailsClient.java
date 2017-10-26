@@ -1,5 +1,7 @@
 package uk.gov.dwp.personal.details.client;
 
+import uk.gov.dwp.personal.details.type.PersonalDetailsId;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -20,10 +22,10 @@ public interface PersonalDetailsClient {
     PersonalDetails findById(@PathParam("personalDetailsId") PersonalDetailsId personalDetailsId);
 
     @POST
-    void create(PersonalDetails personalDetails);
+    void create(CreatePersonalDetailsRequest createPersonalDetailsRequest);
 
     @PUT
-    void update(PersonalDetails personalDetails);
+    void update(UpdatePersonalDetailsRequest updatePersonalDetailsRequest);
 
     @DELETE
     @Path("{personalDetailsId}")

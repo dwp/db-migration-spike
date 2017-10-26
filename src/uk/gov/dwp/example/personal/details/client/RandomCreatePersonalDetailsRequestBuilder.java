@@ -2,13 +2,13 @@ package uk.gov.dwp.example.personal.details.client;
 
 import com.github.javafaker.Faker;
 import org.apache.commons.lang3.RandomUtils;
-import uk.gov.dwp.personal.details.client.PersonalDetails;
-import uk.gov.dwp.personal.details.client.PersonalDetailsId;
+import uk.gov.dwp.personal.details.client.CreatePersonalDetailsRequest;
+import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 
 import java.time.LocalDate;
 import java.time.Month;
 
-public class RandomPersonalDetailsBuilder {
+public class RandomCreatePersonalDetailsRequestBuilder {
 
     private static final int MAX_YEAR_OF_BIRTH = LocalDate.now().getYear();
     private static final int MIN_YEAR_OF_BIRTH = MAX_YEAR_OF_BIRTH - 110;
@@ -20,23 +20,23 @@ public class RandomPersonalDetailsBuilder {
     private String firstName;
     private String lastName;
 
-    private RandomPersonalDetailsBuilder() {
+    private RandomCreatePersonalDetailsRequestBuilder() {
     }
 
-    public static RandomPersonalDetailsBuilder withRandomPersonalDetails() {
-        return new RandomPersonalDetailsBuilder()
+    public static RandomCreatePersonalDetailsRequestBuilder newRandomCreatePersonalDetailsRequest() {
+        return new RandomCreatePersonalDetailsRequestBuilder()
                 .withPersonalDetailsId(PersonalDetailsId.newPersonalDetailsId())
                 .withRandomFirstName()
                 .withRandomLastName()
                 .withRandomDateOfBirth();
     }
 
-    public RandomPersonalDetailsBuilder withPersonalDetailsId(PersonalDetailsId personalDetailsId) {
+    public RandomCreatePersonalDetailsRequestBuilder withPersonalDetailsId(PersonalDetailsId personalDetailsId) {
         this.personalDetailsId = personalDetailsId;
         return this;
     }
 
-    public RandomPersonalDetailsBuilder withRandomDateOfBirth() {
+    public RandomCreatePersonalDetailsRequestBuilder withRandomDateOfBirth() {
         Month month = Month.of(RandomUtils.nextInt(1, 12));
         int year = RandomUtils.nextInt(MIN_YEAR_OF_BIRTH, MAX_YEAR_OF_BIRTH);
         this.dateOfBirth = LocalDate.of(
@@ -59,18 +59,18 @@ public class RandomPersonalDetailsBuilder {
         return ((year & 4) == 0) && ((year % 100) != 0 || (year % 400) == 0);
     }
 
-    public RandomPersonalDetailsBuilder withRandomFirstName() {
+    public RandomCreatePersonalDetailsRequestBuilder withRandomFirstName() {
         firstName = faker.name().firstName();
         return this;
     }
 
-    public RandomPersonalDetailsBuilder withRandomLastName() {
+    public RandomCreatePersonalDetailsRequestBuilder withRandomLastName() {
         this.lastName = faker.name().lastName();
         return this;
     }
 
-    public PersonalDetails build() {
-        return new PersonalDetails(
+    public CreatePersonalDetailsRequest build() {
+        return new CreatePersonalDetailsRequest(
                 personalDetailsId,
                 firstName + " "  + lastName,
                 dateOfBirth

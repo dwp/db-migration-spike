@@ -1,7 +1,7 @@
 package uk.gov.dwp.personal.details.server.dao;
 
 import uk.gov.dwp.personal.details.client.PersonalDetails;
-import uk.gov.dwp.personal.details.client.PersonalDetailsId;
+import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 
 public interface PersonalDetailsDao {
 

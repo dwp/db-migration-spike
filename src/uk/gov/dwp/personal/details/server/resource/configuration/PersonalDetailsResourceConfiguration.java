@@ -7,7 +7,9 @@ import uk.gov.dwp.common.cxf.configuration.CxfConfiguration;
 import uk.gov.dwp.common.cxf.configuration.ResourceRegistry;
 import uk.gov.dwp.personal.details.server.dao.PersonalDetailsDao;
 import uk.gov.dwp.personal.details.server.dao.mongo.spring.MongoDaoConfig;
+import uk.gov.dwp.personal.details.server.resource.CreatePersonalDetailsRequestAdapter;
 import uk.gov.dwp.personal.details.server.resource.PersonalDetailsResource;
+import uk.gov.dwp.personal.details.server.resource.UpdatePersonalDetailsRequestAdapter;
 
 @Configuration
 @Import({
@@ -19,6 +21,6 @@ public class PersonalDetailsResourceConfiguration {
     @Bean
     public PersonalDetailsResource personalDetailsResource(ResourceRegistry resourceRegistry,
                                                            PersonalDetailsDao personalDetailsDao) {
-        return resourceRegistry.add(new PersonalDetailsResource(personalDetailsDao));
+        return resourceRegistry.add(new PersonalDetailsResource(personalDetailsDao, new CreatePersonalDetailsRequestAdapter(), new UpdatePersonalDetailsRequestAdapter()));
     }
 }

@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.gov.dwp.personal.details.client.PersonalDetails;
 import uk.gov.dwp.personal.details.client.PersonalDetailsClient;
-import uk.gov.dwp.personal.details.client.PersonalDetailsId;
+import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 
 import java.util.Optional;
 import java.util.function.Supplier;

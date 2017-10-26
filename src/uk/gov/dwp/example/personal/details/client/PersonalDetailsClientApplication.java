@@ -16,7 +16,7 @@ import uk.gov.dwp.example.personal.details.client.create.CreatePersonalDetailsTa
 import uk.gov.dwp.example.personal.details.client.find.FindPersonalDetailsService;
 import uk.gov.dwp.example.personal.details.client.find.FindPersonalDetailsTask;
 import uk.gov.dwp.personal.details.client.PersonalDetailsClient;
-import uk.gov.dwp.personal.details.client.PersonalDetailsId;
+import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 
 import java.time.Duration;
 import java.util.ArrayList;
