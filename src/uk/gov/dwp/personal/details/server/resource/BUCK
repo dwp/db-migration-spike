@@ -5,6 +5,7 @@ java_library(
         '//lib/javax:javax-ws-rs-api',
         '//src/uk/gov/dwp/personal/details/client:personal-details-client',
         '//src/uk/gov/dwp/personal/details/server/dao:personal-details-dao',
+        '//src/uk/gov/dwp/personal/details/server/model:personal-details-model',
     ],
     visibility = [
         '//src/uk/gov/dwp/personal/details/server/resource/configuration:personal-details-resource-configuration',

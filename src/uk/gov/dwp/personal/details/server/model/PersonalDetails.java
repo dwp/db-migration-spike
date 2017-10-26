@@ -1,6 +1,5 @@
-package uk.gov.dwp.personal.details.client;
+package uk.gov.dwp.personal.details.server.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 
 import java.time.LocalDate;
@@ -13,9 +12,9 @@ public class PersonalDetails {
     private final String name;
     private final LocalDate dateOfBirth;
 
-    public PersonalDetails(@JsonProperty("personalDetailsId") PersonalDetailsId personalDetailsId,
-                           @JsonProperty("name") String name,
-                           @JsonProperty("dateOfBirth") LocalDate dateOfBirth) {
+    public PersonalDetails(PersonalDetailsId personalDetailsId,
+                           String name,
+                           LocalDate dateOfBirth) {
         this.personalDetailsId = personalDetailsId;
         this.name = name;
         this.dateOfBirth = dateOfBirth;

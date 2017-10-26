@@ -3,8 +3,8 @@ package uk.gov.dwp.personal.details.server.dao.mongo;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 import uk.gov.dwp.common.mongo.DocumentWithIdConverter;
-import uk.gov.dwp.personal.details.client.PersonalDetails;
 import uk.gov.dwp.personal.details.server.dao.PersonalDetailsDao;
+import uk.gov.dwp.personal.details.server.model.PersonalDetails;
 import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 
 import static uk.gov.dwp.common.mongo.DocumentWithIdConverter._ID;

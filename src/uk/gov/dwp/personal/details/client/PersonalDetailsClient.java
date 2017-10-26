@@ -19,7 +19,7 @@ public interface PersonalDetailsClient {
 
     @GET
     @Path("{personalDetailsId}")
-    PersonalDetails findById(@PathParam("personalDetailsId") PersonalDetailsId personalDetailsId);
+    PersonalDetailsResponse findById(@PathParam("personalDetailsId") PersonalDetailsId personalDetailsId);
 
     @POST
     void create(CreatePersonalDetailsRequest createPersonalDetailsRequest);

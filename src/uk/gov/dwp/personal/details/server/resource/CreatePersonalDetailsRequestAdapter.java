@@ -1,7 +1,7 @@
 package uk.gov.dwp.personal.details.server.resource;
 
 import uk.gov.dwp.personal.details.client.CreatePersonalDetailsRequest;
-import uk.gov.dwp.personal.details.client.PersonalDetails;
+import uk.gov.dwp.personal.details.server.model.PersonalDetails;
 
 public class CreatePersonalDetailsRequestAdapter {
 

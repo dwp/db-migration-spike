@@ -4,7 +4,7 @@ java_library(
     deps = [
         '//lib/javax:javax-ws-rs-api',
         '//src/uk/gov/dwp/common/id:common-id',
-        '//src/uk/gov/dwp/personal/details/client:personal-details-client',
+        '//src/uk/gov/dwp/personal/details/server/model:personal-details-model',
     ],
     visibility = [
         'PUBLIC'

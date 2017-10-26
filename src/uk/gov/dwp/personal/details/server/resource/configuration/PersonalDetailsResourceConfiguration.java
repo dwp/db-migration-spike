@@ -9,6 +9,7 @@ import uk.gov.dwp.personal.details.server.dao.PersonalDetailsDao;
 import uk.gov.dwp.personal.details.server.dao.mongo.spring.MongoDaoConfig;
 import uk.gov.dwp.personal.details.server.resource.CreatePersonalDetailsRequestAdapter;
 import uk.gov.dwp.personal.details.server.resource.PersonalDetailsResource;
+import uk.gov.dwp.personal.details.server.resource.PersonalDetailsResponseAdapter;
 import uk.gov.dwp.personal.details.server.resource.UpdatePersonalDetailsRequestAdapter;
 
 @Configuration
@@ -21,6 +22,6 @@ public class PersonalDetailsResourceConfiguration {
     @Bean
     public PersonalDetailsResource personalDetailsResource(ResourceRegistry resourceRegistry,
                                                            PersonalDetailsDao personalDetailsDao) {
-        return resourceRegistry.add(new PersonalDetailsResource(personalDetailsDao, new CreatePersonalDetailsRequestAdapter(), new UpdatePersonalDetailsRequestAdapter()));
+        return resourceRegistry.add(new PersonalDetailsResource(personalDetailsDao, new PersonalDetailsResponseAdapter(), new CreatePersonalDetailsRequestAdapter(), new UpdatePersonalDetailsRequestAdapter()));
     }
 }

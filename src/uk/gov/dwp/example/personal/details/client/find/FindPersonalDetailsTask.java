@@ -2,8 +2,8 @@ package uk.gov.dwp.example.personal.details.client.find;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uk.gov.dwp.personal.details.client.PersonalDetails;
 import uk.gov.dwp.personal.details.client.PersonalDetailsClient;
+import uk.gov.dwp.personal.details.client.PersonalDetailsResponse;
 import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 
 import java.util.Optional;
@@ -26,7 +26,7 @@ public class FindPersonalDetailsTask implements Runnable {
     public void run() {
         try {
             personalDetailsIdSupplier.get().ifPresent(personalDetailsId -> {
-                PersonalDetails personalDetails = personalDetailsClient.findById(personalDetailsId);
+                PersonalDetailsResponse personalDetails = personalDetailsClient.findById(personalDetailsId);
                 LOGGER.debug("Found PersonalDetails: {}", personalDetails.getPersonalDetailsId());
             });
         } catch (Exception e) {
