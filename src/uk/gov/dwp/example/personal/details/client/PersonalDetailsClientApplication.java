@@ -1,4 +1,4 @@
-package uk.gov.dwp.personal.details.client;
+package uk.gov.dwp.example.personal.details.client;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,12 +11,12 @@ import uk.gov.dwp.common.id.Id;
 import uk.gov.dwp.common.jackson.ISO8601DateFormatWithMilliSeconds;
 import uk.gov.dwp.common.jackson.IdDeserializer;
 import uk.gov.dwp.common.jackson.IdSerializer;
+import uk.gov.dwp.example.personal.details.client.create.CreatePersonalDetailsService;
+import uk.gov.dwp.example.personal.details.client.create.CreatePersonalDetailsTask;
+import uk.gov.dwp.example.personal.details.client.find.FindPersonalDetailsService;
+import uk.gov.dwp.example.personal.details.client.find.FindPersonalDetailsTask;
 import uk.gov.dwp.personal.details.api.PersonalDetailsClient;
 import uk.gov.dwp.personal.details.api.PersonalDetailsId;
-import uk.gov.dwp.personal.details.client.create.CreatePersonalDetailsService;
-import uk.gov.dwp.personal.details.client.create.CreatePersonalDetailsTask;
-import uk.gov.dwp.personal.details.client.find.FindPersonalDetailsService;
-import uk.gov.dwp.personal.details.client.find.FindPersonalDetailsTask;
 
 import java.time.Duration;
 import java.util.ArrayList;

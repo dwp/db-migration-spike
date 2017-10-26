@@ -1,4 +1,4 @@
-package uk.gov.dwp.personal.details.client.create;
+package uk.gov.dwp.example.personal.details.client.create;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

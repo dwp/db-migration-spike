@@ -1,4 +1,4 @@
-package uk.gov.dwp.personal.details.client;
+package uk.gov.dwp.example.personal.details.client;
 
 import com.github.javafaker.Faker;
 import org.apache.commons.lang3.RandomUtils;

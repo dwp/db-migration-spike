@@ -1,4 +1,4 @@
-package uk.gov.dwp.personal.details.client.create;
+package uk.gov.dwp.example.personal.details.client.create;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,7 +8,7 @@ import uk.gov.dwp.personal.details.api.PersonalDetailsId;
 import java.util.ArrayList;
 import java.util.List;
 
-import static uk.gov.dwp.personal.details.client.RandomPersonalDetailsBuilder.withRandomPersonalDetails;
+import static uk.gov.dwp.example.personal.details.client.RandomPersonalDetailsBuilder.withRandomPersonalDetails;
 
 public class CreatePersonalDetailsTask implements Runnable {
 

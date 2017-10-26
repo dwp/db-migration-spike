@@ -1,4 +1,4 @@
-package uk.gov.dwp.personal.details.client.find;
+package uk.gov.dwp.example.personal.details.client.find;
 
 import org.junit.Test;
 import uk.gov.dwp.personal.details.api.PersonalDetails;

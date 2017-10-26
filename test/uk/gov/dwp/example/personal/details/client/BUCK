@@ -4,7 +4,7 @@ java_test(
     deps = [
         '//lib/slf4j:slf4j-api',
         '//lib/test:common',
+        '//src/uk/gov/dwp/example/personal/details/client:example-personal-details-client',
         '//src/uk/gov/dwp/personal/details/api:personal-details-api',
-        '//src/uk/gov/dwp/personal/details/client:personal-details-client',
     ],
 )
