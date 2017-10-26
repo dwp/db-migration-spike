@@ -6,7 +6,7 @@ java_library(
         '//lib/spring:spring-boot',
         '//lib/spring:spring-context',
         '//src/uk/gov/dwp/common/cxf/configuration:common-cxf-configuration',
-        '//src/uk/gov/dwp/personal/details/api:personal-details-api',
+        '//src/uk/gov/dwp/personal/details/client:personal-details-client',
         '//src/uk/gov/dwp/personal/details/server/dao:personal-details-dao',
         '//src/uk/gov/dwp/personal/details/server/dao/mongo:personal-details-dao-mongo',
         '//src/uk/gov/dwp/personal/details/server/resource:personal-details-resource',

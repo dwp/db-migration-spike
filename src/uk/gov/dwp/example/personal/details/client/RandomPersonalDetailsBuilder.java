@@ -2,8 +2,8 @@ package uk.gov.dwp.example.personal.details.client;
 
 import com.github.javafaker.Faker;
 import org.apache.commons.lang3.RandomUtils;
-import uk.gov.dwp.personal.details.api.PersonalDetails;
-import uk.gov.dwp.personal.details.api.PersonalDetailsId;
+import uk.gov.dwp.personal.details.client.PersonalDetails;
+import uk.gov.dwp.personal.details.client.PersonalDetailsId;
 
 import java.time.LocalDate;
 import java.time.Month;

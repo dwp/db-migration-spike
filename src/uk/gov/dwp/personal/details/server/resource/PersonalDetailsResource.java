@@ -1,8 +1,8 @@
 package uk.gov.dwp.personal.details.server.resource;
 
-import uk.gov.dwp.personal.details.api.PersonalDetails;
-import uk.gov.dwp.personal.details.api.PersonalDetailsClient;
-import uk.gov.dwp.personal.details.api.PersonalDetailsId;
+import uk.gov.dwp.personal.details.client.PersonalDetails;
+import uk.gov.dwp.personal.details.client.PersonalDetailsClient;
+import uk.gov.dwp.personal.details.client.PersonalDetailsId;
 import uk.gov.dwp.personal.details.server.dao.PersonalDetailsDao;
 
 public class PersonalDetailsResource implements PersonalDetailsClient {

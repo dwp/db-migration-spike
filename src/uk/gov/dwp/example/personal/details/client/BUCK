@@ -24,7 +24,7 @@ java_library(
         '//lib/slf4j:slf4j-api',
         '//src/uk/gov/dwp/common/id:common-id',
         '//src/uk/gov/dwp/common/jackson:common-jackson',
-        '//src/uk/gov/dwp/personal/details/api:personal-details-api',
+        '//src/uk/gov/dwp/personal/details/client:personal-details-client',
     ],
     visibility = [
         'PUBLIC'

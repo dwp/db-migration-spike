@@ -2,8 +2,8 @@ package uk.gov.dwp.personal.details.server.dao.mongo;
 
 import org.bson.Document;
 import uk.gov.dwp.common.mongo.DocumentWithIdConverter;
-import uk.gov.dwp.personal.details.api.PersonalDetails;
-import uk.gov.dwp.personal.details.api.PersonalDetailsId;
+import uk.gov.dwp.personal.details.client.PersonalDetails;
+import uk.gov.dwp.personal.details.client.PersonalDetailsId;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

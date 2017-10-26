@@ -3,7 +3,7 @@ java_library(
     srcs = glob(['*.java']),
     deps = [
         '//lib/javax:javax-ws-rs-api',
-        '//src/uk/gov/dwp/personal/details/api:personal-details-api',
+        '//src/uk/gov/dwp/personal/details/client:personal-details-client',
         '//src/uk/gov/dwp/personal/details/server/dao:personal-details-dao',
     ],
     visibility = [

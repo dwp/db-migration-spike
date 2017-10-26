@@ -1,9 +1,9 @@
 package uk.gov.dwp.example.personal.details.client.find;
 
 import org.junit.Test;
-import uk.gov.dwp.personal.details.api.PersonalDetails;
-import uk.gov.dwp.personal.details.api.PersonalDetailsClient;
-import uk.gov.dwp.personal.details.api.PersonalDetailsId;
+import uk.gov.dwp.personal.details.client.PersonalDetails;
+import uk.gov.dwp.personal.details.client.PersonalDetailsClient;
+import uk.gov.dwp.personal.details.client.PersonalDetailsId;
 
 import java.util.Optional;
 

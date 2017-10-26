@@ -23,7 +23,7 @@ PERSONAL_DETAILS_SERVER_LIBS = [
     '//src/uk/gov/dwp/common/jackson:common-jackson',
     '//src/uk/gov/dwp/common/jackson/spring:common-jackson-spring',
     '//src/uk/gov/dwp/common/mongo:common-mongo',
-    '//src/uk/gov/dwp/personal/details/api:personal-details-api',
+    '//src/uk/gov/dwp/personal/details/client:personal-details-client',
     '//src/uk/gov/dwp/personal/details/server/dao:personal-details-dao',
     '//src/uk/gov/dwp/personal/details/server/dao/mongo:personal-details-dao-mongo',
     '//src/uk/gov/dwp/personal/details/server/resource:personal-details-resource',

@@ -1,4 +1,4 @@
-package uk.gov.dwp.personal.details.api;
+package uk.gov.dwp.personal.details.client;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import uk.gov.dwp.common.id.Id;

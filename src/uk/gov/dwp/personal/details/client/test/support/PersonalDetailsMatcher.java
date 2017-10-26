@@ -1,4 +1,4 @@
-package uk.gov.dwp.personal.details.api;
+package uk.gov.dwp.personal.details.client;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
