@@ -11,23 +11,13 @@ import uk.gov.dwp.common.id.Id;
 import uk.gov.dwp.common.jackson.ISO8601DateFormatWithMilliSeconds;
 import uk.gov.dwp.common.jackson.IdDeserializer;
 import uk.gov.dwp.common.jackson.IdSerializer;
+import uk.gov.dwp.example.personal.details.client.configuration.PersonalDetailsServiceConfiguration;
 import uk.gov.dwp.example.personal.details.client.create.CreatePersonalDetailsService;
-import uk.gov.dwp.example.personal.details.client.create.CreatePersonalDetailsTask;
 import uk.gov.dwp.example.personal.details.client.find.FindPersonalDetailsService;
-import uk.gov.dwp.example.personal.details.client.find.FindPersonalDetailsTask;
 import uk.gov.dwp.example.personal.details.client.update.UpdatePersonalDetailsService;
-import uk.gov.dwp.example.personal.details.client.update.UpdatePersonalDetailsTask;
 import uk.gov.dwp.personal.details.client.PersonalDetailsClient;
-import uk.gov.dwp.personal.details.type.PersonalDetailsId;
-
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.function.Supplier;
 
 import static java.util.Collections.singletonList;
-import static java.util.concurrent.Executors.newSingleThreadScheduledExecutor;
-import static org.apache.commons.lang3.RandomUtils.nextInt;
 
 public class PersonalDetailsClientApplication {
 
@@ -57,48 +47,14 @@ public class PersonalDetailsClientApplication {
                 PersonalDetailsClient.class,
                 singletonList(new JacksonJsonProvider(objectMapper()))
         );
-        ArrayList<PersonalDetailsId> personalDetailsIdRegistry = new ArrayList<>();
+        PersonalDetailsServiceConfiguration personalDetailsServiceConfiguration = new PersonalDetailsServiceConfiguration(personalDetailsClient);
 
-        Supplier<Optional<PersonalDetailsId>> personalDetailsIdGenerator = () -> personalDetailsIdRegistry.isEmpty() ? Optional.empty() : Optional.of(personalDetailsIdRegistry.get(nextInt(0, personalDetailsIdRegistry.size() - 1)));
         PersonalDetailsClientApplication personalDetailsClientApplication = new PersonalDetailsClientApplication(
-                createPersonalDetailsService(personalDetailsClient, personalDetailsIdRegistry),
-                findPersonalDetailsService(personalDetailsClient, personalDetailsIdGenerator),
-                updatePersonalDetailsService(personalDetailsClient, personalDetailsIdGenerator)
+                personalDetailsServiceConfiguration.createPersonalDetailsService(),
+                personalDetailsServiceConfiguration.findPersonalDetailsService(),
+                personalDetailsServiceConfiguration.updatePersonalDetailsService()
         );
         personalDetailsClientApplication.start();
-    }
-
-    private static CreatePersonalDetailsService createPersonalDetailsService(PersonalDetailsClient personalDetailsClient,
-                                                                            ArrayList<PersonalDetailsId> personalDetailsIdRegistry) {
-        return new CreatePersonalDetailsService(
-                newSingleThreadScheduledExecutor(),
-                new CreatePersonalDetailsTask(personalDetailsClient, personalDetailsIdRegistry),
-                Duration.ofSeconds(2L)
-        );
-    }
-
-    private static FindPersonalDetailsService findPersonalDetailsService(PersonalDetailsClient personalDetailsClient,
-                                                                         Supplier<Optional<PersonalDetailsId>> personalDetailsIdGenerator) {
-        return new FindPersonalDetailsService(
-                newSingleThreadScheduledExecutor(),
-                new FindPersonalDetailsTask(
-                        personalDetailsClient,
-                        personalDetailsIdGenerator),
-                Duration.ofSeconds(1L)
-        );
-    }
-
-    private static UpdatePersonalDetailsService updatePersonalDetailsService(PersonalDetailsClient personalDetailsClient,
-                                                                             Supplier<Optional<PersonalDetailsId>> personalDetailsIdGenerator) {
-        return new UpdatePersonalDetailsService(
-                newSingleThreadScheduledExecutor(),
-                new UpdatePersonalDetailsTask(
-                        personalDetailsClient,
-                        personalDetailsIdGenerator,
-                        new RandomPersonalDetailsGenerator()
-                ),
-                Duration.ofSeconds(3L)
-        );
     }
 
 

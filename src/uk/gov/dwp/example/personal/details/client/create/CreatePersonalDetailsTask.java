@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import uk.gov.dwp.personal.details.client.PersonalDetailsClient;
 import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static uk.gov.dwp.example.personal.details.client.create.RandomCreatePersonalDetailsRequestBuilder.newRandomCreatePersonalDetailsRequest;
@@ -18,7 +17,7 @@ public class CreatePersonalDetailsTask implements Runnable {
     private final List<PersonalDetailsId> personalDetailsIdRegistry;
 
     public CreatePersonalDetailsTask(PersonalDetailsClient personalDetailsClient,
-                                     ArrayList<PersonalDetailsId> personalDetailsIdRegistry) {
+                                     List<PersonalDetailsId> personalDetailsIdRegistry) {
         this.personalDetailsClient = personalDetailsClient;
         this.personalDetailsIdRegistry = personalDetailsIdRegistry;
     }
