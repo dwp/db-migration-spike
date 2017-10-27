@@ -3,6 +3,8 @@ package uk.gov.dwp.example.personal.details.client.configuration;
 import uk.gov.dwp.example.personal.details.client.RandomPersonalDetailsGenerator;
 import uk.gov.dwp.example.personal.details.client.create.CreatePersonalDetailsService;
 import uk.gov.dwp.example.personal.details.client.create.CreatePersonalDetailsTask;
+import uk.gov.dwp.example.personal.details.client.delete.DeletePersonalDetailsService;
+import uk.gov.dwp.example.personal.details.client.delete.DeletePersonalDetailsTask;
 import uk.gov.dwp.example.personal.details.client.find.FindPersonalDetailsService;
 import uk.gov.dwp.example.personal.details.client.find.FindPersonalDetailsTask;
 import uk.gov.dwp.example.personal.details.client.update.UpdatePersonalDetailsService;
@@ -37,6 +39,17 @@ public class PersonalDetailsServiceConfiguration {
                 newSingleThreadScheduledExecutor(),
                 new CreatePersonalDetailsTask(personalDetailsClient, personalDetailsIdRegistry),
                 Duration.ofSeconds(2L)
+        );
+    }
+
+    public DeletePersonalDetailsService deletePersonalDetailsService() {
+        return new DeletePersonalDetailsService(
+                newSingleThreadScheduledExecutor(),
+                new DeletePersonalDetailsTask(
+                        personalDetailsClient,
+                        personalDetailsIdRegistry, personalDetailsIdGenerator
+                ),
+                Duration.ofSeconds(5L)
         );
     }
 

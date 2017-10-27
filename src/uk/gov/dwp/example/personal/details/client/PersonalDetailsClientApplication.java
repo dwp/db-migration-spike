@@ -13,6 +13,7 @@ import uk.gov.dwp.common.jackson.IdDeserializer;
 import uk.gov.dwp.common.jackson.IdSerializer;
 import uk.gov.dwp.example.personal.details.client.configuration.PersonalDetailsServiceConfiguration;
 import uk.gov.dwp.example.personal.details.client.create.CreatePersonalDetailsService;
+import uk.gov.dwp.example.personal.details.client.delete.DeletePersonalDetailsService;
 import uk.gov.dwp.example.personal.details.client.find.FindPersonalDetailsService;
 import uk.gov.dwp.example.personal.details.client.update.UpdatePersonalDetailsService;
 import uk.gov.dwp.personal.details.client.PersonalDetailsClient;
@@ -22,25 +23,32 @@ import static java.util.Collections.singletonList;
 public class PersonalDetailsClientApplication {
 
     private final CreatePersonalDetailsService createPersonalDetailsService;
+    private final DeletePersonalDetailsService deletePersonalDetailsService;
     private final FindPersonalDetailsService findPersonalDetailsService;
     private final UpdatePersonalDetailsService updatePersonalDetailsService;
 
     public PersonalDetailsClientApplication(CreatePersonalDetailsService createPersonalDetailsService,
+                                            DeletePersonalDetailsService deletePersonalDetailsService,
                                             FindPersonalDetailsService findPersonalDetailsService,
                                             UpdatePersonalDetailsService updatePersonalDetailsService) {
         this.createPersonalDetailsService = createPersonalDetailsService;
+        this.deletePersonalDetailsService = deletePersonalDetailsService;
         this.findPersonalDetailsService = findPersonalDetailsService;
         this.updatePersonalDetailsService = updatePersonalDetailsService;
     }
 
     public void start() {
         createPersonalDetailsService.start();
+        deletePersonalDetailsService.start();
         findPersonalDetailsService.start();
         updatePersonalDetailsService.start();
     }
 
     public static void main(String[] args) {
-        String url = args[0];
+        if (args.length != 1) {
+            throw new IllegalArgumentException("URL of the personalDetails web server must be provided e.g. http://localhost:8008/personal-details");
+        }
+        final String url = args[0];
 
         PersonalDetailsClient personalDetailsClient = JAXRSClientFactory.create(
                 url,
@@ -51,6 +59,7 @@ public class PersonalDetailsClientApplication {
 
         PersonalDetailsClientApplication personalDetailsClientApplication = new PersonalDetailsClientApplication(
                 personalDetailsServiceConfiguration.createPersonalDetailsService(),
+                personalDetailsServiceConfiguration.deletePersonalDetailsService(),
                 personalDetailsServiceConfiguration.findPersonalDetailsService(),
                 personalDetailsServiceConfiguration.updatePersonalDetailsService()
         );
