@@ -28,6 +28,7 @@ public class CreatePersonalDetailsTask implements Runnable {
         try {
             PersonalDetailsId personalDetailsId = PersonalDetailsId.newPersonalDetailsId();
             personalDetailsClient.create(newRandomCreatePersonalDetailsRequest().withPersonalDetailsId(personalDetailsId).build());
+            LOGGER.debug("Created personalDetails with id: {}", personalDetailsId);
             personalDetailsIdRegistry.add(personalDetailsId);
         } catch (Exception e) {
             LOGGER.error("Could not create PersonalDetails", e);

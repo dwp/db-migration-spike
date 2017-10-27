@@ -29,13 +29,18 @@ import static org.apache.commons.lang3.RandomUtils.nextInt;
 public class PersonalDetailsClientApplication {
 
     private final CreatePersonalDetailsService createPersonalDetailsService;
+    private final FindPersonalDetailsService findPersonalDetailsService;
 
-    public PersonalDetailsClientApplication(CreatePersonalDetailsService createPersonalDetailsService, FindPersonalDetailsService personalDetailsService) {
+    public PersonalDetailsClientApplication(CreatePersonalDetailsService createPersonalDetailsService,
+                                            FindPersonalDetailsService findPersonalDetailsService) {
         this.createPersonalDetailsService = createPersonalDetailsService;
+        this.findPersonalDetailsService = findPersonalDetailsService;
     }
 
     public void start() {
         createPersonalDetailsService.start();
+        findPersonalDetailsService.start();
+
     }
 
     public static void main(String[] args) {
