@@ -14,6 +14,7 @@ import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -29,7 +30,7 @@ public class PersonalDetailsServiceConfiguration {
 
     public PersonalDetailsServiceConfiguration(PersonalDetailsClient personalDetailsClient) {
         this.personalDetailsClient = personalDetailsClient;
-        this.personalDetailsIdRegistry = new ArrayList<>();
+        this.personalDetailsIdRegistry = Collections.synchronizedList(new ArrayList<>());
         this.personalDetailsIdGenerator = () -> personalDetailsIdRegistry.isEmpty() ? Optional.empty() : Optional.of(personalDetailsIdRegistry.get(nextInt(0, personalDetailsIdRegistry.size() - 1)));
     }
 

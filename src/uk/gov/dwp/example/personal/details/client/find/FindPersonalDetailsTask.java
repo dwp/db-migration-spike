@@ -27,7 +27,11 @@ public class FindPersonalDetailsTask implements Runnable {
         try {
             personalDetailsIdSupplier.get().ifPresent(personalDetailsId -> {
                 PersonalDetailsResponse personalDetails = personalDetailsClient.findById(personalDetailsId);
-                LOGGER.debug("Found PersonalDetails: {}", personalDetails.getPersonalDetailsId());
+                if (personalDetails != null) {
+                    LOGGER.debug("Found PersonalDetails: {}", personalDetails.getPersonalDetailsId());
+                } else {
+                    LOGGER.warn("Could not find personalDetails: {}", personalDetailsId);
+                }
             });
         } catch (Exception e) {
             LOGGER.error("Could not create PersonalDetails", e);

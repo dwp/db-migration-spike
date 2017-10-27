@@ -20,7 +20,8 @@ public class DeletePersonalDetailsTaskTest {
 
     @Test
     public void updateWhenPersonalDetailsWhenListIsEmpty() {
-        new DeletePersonalDetailsTask(personalDetailsClient, personalDetailsIdRegistry, Optional::empty).run();
+        new DeletePersonalDetailsTask(personalDetailsClient, personalDetailsIdRegistry, Optional::empty)
+                .run();
 
         verifyZeroInteractions(personalDetailsClient);
         verifyZeroInteractions(personalDetailsIdRegistry);
@@ -29,7 +30,8 @@ public class DeletePersonalDetailsTaskTest {
     @Test
     public void updatePersonalDetailsWhenListIsNotEmpty() {
 
-        new DeletePersonalDetailsTask(personalDetailsClient, personalDetailsIdRegistry, () -> Optional.of(PERSONAL_DETAILS_ID)).run();
+        new DeletePersonalDetailsTask(personalDetailsClient, personalDetailsIdRegistry, () -> Optional.of(PERSONAL_DETAILS_ID))
+                .run();
 
         verify(personalDetailsClient).delete(PERSONAL_DETAILS_ID);
         verify(personalDetailsIdRegistry).remove(PERSONAL_DETAILS_ID);

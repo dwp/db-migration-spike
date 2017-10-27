@@ -29,5 +29,5 @@ public interface PersonalDetailsClient {
 
     @DELETE
     @Path("{personalDetailsId}")
-    void delete(PersonalDetailsId personalDetailsId);
+    void delete(@PathParam("personalDetailsId") PersonalDetailsId personalDetailsId);
 }
