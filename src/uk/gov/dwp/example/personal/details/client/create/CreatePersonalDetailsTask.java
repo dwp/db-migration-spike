@@ -8,7 +8,7 @@ import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 import java.util.ArrayList;
 import java.util.List;
 
-import static uk.gov.dwp.example.personal.details.client.RandomCreatePersonalDetailsRequestBuilder.newRandomCreatePersonalDetailsRequest;
+import static uk.gov.dwp.example.personal.details.client.create.RandomCreatePersonalDetailsRequestBuilder.newRandomCreatePersonalDetailsRequest;
 
 public class CreatePersonalDetailsTask implements Runnable {
 

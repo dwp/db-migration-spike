@@ -15,12 +15,15 @@ import uk.gov.dwp.example.personal.details.client.create.CreatePersonalDetailsSe
 import uk.gov.dwp.example.personal.details.client.create.CreatePersonalDetailsTask;
 import uk.gov.dwp.example.personal.details.client.find.FindPersonalDetailsService;
 import uk.gov.dwp.example.personal.details.client.find.FindPersonalDetailsTask;
+import uk.gov.dwp.example.personal.details.client.update.UpdatePersonalDetailsService;
+import uk.gov.dwp.example.personal.details.client.update.UpdatePersonalDetailsTask;
 import uk.gov.dwp.personal.details.client.PersonalDetailsClient;
 import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 import static java.util.Collections.singletonList;
 import static java.util.concurrent.Executors.newSingleThreadScheduledExecutor;
@@ -30,17 +33,20 @@ public class PersonalDetailsClientApplication {
 
     private final CreatePersonalDetailsService createPersonalDetailsService;
     private final FindPersonalDetailsService findPersonalDetailsService;
+    private final UpdatePersonalDetailsService updatePersonalDetailsService;
 
     public PersonalDetailsClientApplication(CreatePersonalDetailsService createPersonalDetailsService,
-                                            FindPersonalDetailsService findPersonalDetailsService) {
+                                            FindPersonalDetailsService findPersonalDetailsService,
+                                            UpdatePersonalDetailsService updatePersonalDetailsService) {
         this.createPersonalDetailsService = createPersonalDetailsService;
         this.findPersonalDetailsService = findPersonalDetailsService;
+        this.updatePersonalDetailsService = updatePersonalDetailsService;
     }
 
     public void start() {
         createPersonalDetailsService.start();
         findPersonalDetailsService.start();
-
+        updatePersonalDetailsService.start();
     }
 
     public static void main(String[] args) {
@@ -53,9 +59,11 @@ public class PersonalDetailsClientApplication {
         );
         ArrayList<PersonalDetailsId> personalDetailsIdRegistry = new ArrayList<>();
 
+        Supplier<Optional<PersonalDetailsId>> personalDetailsIdGenerator = () -> personalDetailsIdRegistry.isEmpty() ? Optional.empty() : Optional.of(personalDetailsIdRegistry.get(nextInt(0, personalDetailsIdRegistry.size() - 1)));
         PersonalDetailsClientApplication personalDetailsClientApplication = new PersonalDetailsClientApplication(
                 createPersonalDetailsService(personalDetailsClient, personalDetailsIdRegistry),
-                findPersonalDetailsService(personalDetailsClient, personalDetailsIdRegistry)
+                findPersonalDetailsService(personalDetailsClient, personalDetailsIdGenerator),
+                updatePersonalDetailsService(personalDetailsClient, personalDetailsIdGenerator)
         );
         personalDetailsClientApplication.start();
     }
@@ -70,13 +78,26 @@ public class PersonalDetailsClientApplication {
     }
 
     private static FindPersonalDetailsService findPersonalDetailsService(PersonalDetailsClient personalDetailsClient,
-                                                                        ArrayList<PersonalDetailsId> personalDetailsIdRegistry) {
+                                                                         Supplier<Optional<PersonalDetailsId>> personalDetailsIdGenerator) {
         return new FindPersonalDetailsService(
                 newSingleThreadScheduledExecutor(),
                 new FindPersonalDetailsTask(
                         personalDetailsClient,
-                        () -> personalDetailsIdRegistry.isEmpty() ? Optional.empty() : Optional.of(personalDetailsIdRegistry.get(nextInt(0, personalDetailsIdRegistry.size() - 1)))),
+                        personalDetailsIdGenerator),
                 Duration.ofSeconds(1L)
+        );
+    }
+
+    private static UpdatePersonalDetailsService updatePersonalDetailsService(PersonalDetailsClient personalDetailsClient,
+                                                                             Supplier<Optional<PersonalDetailsId>> personalDetailsIdGenerator) {
+        return new UpdatePersonalDetailsService(
+                newSingleThreadScheduledExecutor(),
+                new UpdatePersonalDetailsTask(
+                        personalDetailsClient,
+                        personalDetailsIdGenerator,
+                        new RandomPersonalDetailsGenerator()
+                ),
+                Duration.ofSeconds(3L)
         );
     }
 
