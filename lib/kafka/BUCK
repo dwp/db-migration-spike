@@ -1,0 +1,44 @@
+prebuilt_jar(
+    name='kafka-clients',
+    binary_jar=':kafka-clients-mvn',
+)
+remote_file(
+    name='kafka-clients-mvn',
+    out='kafka-clients-0.11.0.1.jar',
+    url='mvn:org.apache.kafka:kafka-clients:jar:0.11.0.1',
+    sha1='03145da6edad54b6f8fe5e5f2e17bf54775baff2',
+)
+
+prebuilt_jar(
+    name = 'lz4',
+    binary_jar = ':lz4-mvn',
+)
+remote_file(
+    name = 'lz4-mvn',
+    out  = 'lz4-1.3.0.jar',
+    url  = 'mvn:net.jpountz.lz4:lz4:jar:1.3.0',
+    sha1 = 'c708bb2590c0652a642236ef45d9f99ff842a2ce',
+)
+
+prebuilt_jar(
+    name = 'snappy-java',
+    binary_jar = ':snappy-java-mvn',
+)
+remote_file(
+    name = 'snappy-java-mvn',
+    out  = 'snappy-java-1.1.4.jar',
+    url  = 'mvn:org.xerial.snappy:snappy-java:jar:1.1.4',
+    sha1 = 'd94ae6d7d27242eaa4b6c323f881edbb98e48da6',
+)
+
+java_library(
+    name = 'kafka-clients-with-dependencies',
+    exported_deps = [
+        ':kafka-clients',
+        ':lz4',
+        ':snappy-java'
+    ],
+    visibility = [
+        'PUBLIC',
+    ],
+)

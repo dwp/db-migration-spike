@@ -1,6 +1,8 @@
 package uk.gov.dwp.personal.details.server.dao.mongo;
 
 import com.mongodb.client.MongoCollection;
+import org.apache.kafka.clients.producer.Producer;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.bson.Document;
 import uk.gov.dwp.common.mongo.DocumentWithIdConverter;
 import uk.gov.dwp.personal.details.server.dao.PersonalDetailsDao;
@@ -13,6 +15,7 @@ public class MongoPersonalDetailsDao implements PersonalDetailsDao {
 
     private final MongoCollection<Document> collection;
     private final DocumentWithIdConverter<PersonalDetails, PersonalDetailsId> documentConverter;
+    private final Producer<String, Document> producer;
 
     public MongoPersonalDetailsDao(MongoCollection<Document> collection,
                                    DocumentWithIdConverter<PersonalDetails, PersonalDetailsId> documentConverter) {
@@ -22,7 +25,10 @@ public class MongoPersonalDetailsDao implements PersonalDetailsDao {
 
     @Override
     public void create(PersonalDetails personalDetails) {
-        collection.insertOne(documentConverter.convertFromObject(personalDetails));
+        Document document = documentConverter.convertFromObject(personalDetails);
+        producer.send(new ProducerRecord<>("some-topic", personalDetails.getPersonalDetailsId(), document));
+        collection.insertOne(document);
+
     }
 
     @Override

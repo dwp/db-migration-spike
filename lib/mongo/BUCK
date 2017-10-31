@@ -1,10 +1,12 @@
 prebuilt_jar(name='bson', binary_jar=':bson-mvn')
-prebuilt_jar(name='mongodb-driver-jar', binary_jar=':mongodb-driver-mvn')
-prebuilt_jar(name='mongodb-driver-core', binary_jar=':mongodb-driver-core-mvn')
+prebuilt_jar(name='mongodb-driver-jar', binary_jar=':mongodb-driver-mvn', source_jar=':mongodb-driver-src')
+prebuilt_jar(name='mongodb-driver-core', binary_jar=':mongodb-driver-core-mvn', source_jar=':mongodb-driver-core-src')
 
-remote_file(name='mongodb-driver-mvn', out='mongodb-driver-3.4.2.jar', url='mvn:org.mongodb:mongodb-driver:jar:3.4.2', sha1='d565cc4db7fd756973b1500424577a503d17f48a')
+remote_file(name='mongodb-driver-mvn', out='mongodb-driver-3.4.3.jar', url='mvn:org.mongodb:mongodb-driver:jar:3.4.3', sha1='a1c708919fdca8da4a527cb4ea9df30f8db9993b')
+remote_file(name='mongodb-driver-src', out='mongodb-driver-3.4.3-sources.jar', url='mvn:org.mongodb:mongodb-driver:src:3.4.3', sha1='587c808ed917177d993d1318b4fdc4bff57053c7')
 remote_file(name='bson-mvn', out='bson-3.4.2.jar', url='mvn:org.mongodb:bson:jar:3.4.2', sha1='8455e0c6926ff2bf444325ea46fd8b74adaf0362')
-remote_file(name='mongodb-driver-core-mvn', out='mongodb-driver-core-3.4.2.jar', url='mvn:org.mongodb:mongodb-driver-core:jar:3.4.2', sha1='d0a18b4e46fe79467a71d7f9f1bc5932de670829')
+remote_file(name='mongodb-driver-core-mvn', out='mongodb-driver-core-3.4.3.jar', url='mvn:org.mongodb:mongodb-driver-core:jar:3.4.3', sha1='c588da4e7b4ac9330e58d4d5b414508ccb14367b')
+remote_file(name='mongodb-driver-core-src', out='mongodb-driver-core-3.4.3-sources.jar', url='mvn:org.mongodb:mongodb-driver-core:src:3.4.3', sha1='0f11455e2e10a5b451178c25e3f51299eda71ad0')
 
 java_library(
     name = 'mongodb-driver',

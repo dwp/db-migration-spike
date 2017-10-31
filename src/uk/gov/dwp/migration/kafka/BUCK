@@ -1,5 +1,5 @@
 java_library(
-    name = 'migration-mongo',
+    name = 'migration-kafka',
     srcs = glob(['*.java']),
     deps = [
         '//lib/kafka:kafka-clients-with-dependencies',
@@ -8,7 +8,6 @@ java_library(
         '//src/uk/gov/dwp/migration/api:migration-api',
     ],
     visibility = [
-        '//src/uk/gov/dwp/migration/mongo/configuration:migration-mongo-configuration',
-        '//test/uk/gov/dwp/migration/...',
-    ]
+        'PUBLIC',
+    ],
 )

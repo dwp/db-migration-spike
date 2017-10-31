@@ -14,7 +14,7 @@ public class MongoDocumentWriterTest {
     private final Migration migration = mock(Migration.class);
     private final Document document = mock(Document.class);
 
-    private final MongoDocumentWriter underTest = new MongoDocumentWriter(mongoCollection);
+    private final MongoDocumentWriter underTest = new MongoDocumentWriter(mongoCollection, producer);
 
     @Test
     public void name() throws Exception {

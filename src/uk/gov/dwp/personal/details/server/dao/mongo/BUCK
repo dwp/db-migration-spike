@@ -3,6 +3,7 @@ java_library(
     srcs = glob(['**/*.java']),
     deps = [
         '//lib/jackson:jackson-databind',
+        '//lib/kafka:kafka-clients-with-dependencies',
         '//lib/mongo:mongodb-driver',
         '//lib/slf4j:slf4j-api',
         '//lib/spring:spring-boot',
