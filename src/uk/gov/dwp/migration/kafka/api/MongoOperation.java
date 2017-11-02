@@ -3,6 +3,8 @@ package uk.gov.dwp.migration.kafka.api;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import java.util.Map;
+
 @JsonTypeInfo(use = JsonTypeInfo.Id.CUSTOM, property = "@type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = MongoDeleteMessage.class),
@@ -10,5 +12,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = MongoUpdateMessage.class),
 })
 public interface MongoOperation {
+
+    String getDb();
+
+    String getCollection();
 
 }

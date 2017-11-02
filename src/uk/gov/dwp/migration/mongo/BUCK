@@ -2,9 +2,12 @@ java_library(
     name = 'migration-mongo',
     srcs = glob(['*.java']),
     deps = [
+        '//lib/jackson:jackson-core',
         '//lib/mongo:mongodb-driver',
         '//lib/slf4j:slf4j-api',
         '//src/uk/gov/dwp/migration/api:migration-api',
+        '//src/uk/gov/dwp/migration/kafka/api:migration-kafka-api',
+        '//src/uk/gov/dwp/migration/kafka/producer:migration-kafka-producer',
     ],
     visibility = [
         '//src/uk/gov/dwp/migration/mongo/configuration:migration-mongo-configuration',

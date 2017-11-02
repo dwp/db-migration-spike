@@ -22,7 +22,7 @@ public class MongoOperationConsumer {
         this.mongoOperationProcessor = mongoOperationProcessor;
     }
 
-    public void consume() {
+    public void consumeRecords() {
         ConsumerRecords<String, String> consumerRecords = kafkaConsumer.poll(1000);
         for (ConsumerRecord<String, String> consumerRecord : consumerRecords) {
             try {

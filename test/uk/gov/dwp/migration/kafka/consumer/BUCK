@@ -1,0 +1,12 @@
+java_test(
+    name = 'test',
+    srcs = glob(['*.java']),
+    deps = [
+        '//lib/jackson:jackson-core',
+        '//lib/jackson:jackson-databind',
+        '//lib/kafka:kafka-clients-with-dependencies',
+        '//lib/test:common',
+        '//src/uk/gov/dwp/migration/kafka/api:migration-kafka-api',
+        '//src/uk/gov/dwp/migration/kafka/consumer:migration-kafka-consumer',
+    ],
+)

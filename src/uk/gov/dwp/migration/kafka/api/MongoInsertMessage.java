@@ -12,25 +12,27 @@ public class MongoInsertMessage implements MongoOperation {
 
     private final String db;
     private final String collection;
-    private final Map dbObject;
+    private final Map<String, Object> dbObject;
 
     public MongoInsertMessage(@JsonProperty("db") String db,
                               @JsonProperty("collection") String collection,
-                              @JsonProperty("dbObject") Map dbObject) {
+                              @JsonProperty("dbObject") Map<String, Object> dbObject) {
         this.db = db;
         this.collection = collection;
         this.dbObject = dbObject;
     }
 
+    @Override
     public String getDb() {
         return db;
     }
 
+    @Override
     public String getCollection() {
         return collection;
     }
 
-    public Map getDbObject() {
+    public Map<String, Object> getDbObject() {
         return dbObject;
     }
 

@@ -1,5 +1,5 @@
 java_library(
-    name = 'migration-kafka-consumer',
+    name = 'migration-kafka-producer',
     srcs = glob(['*.java']),
     deps = [
         '//lib:commons-lang3',
@@ -7,7 +7,6 @@ java_library(
         '//lib/jackson:jackson-core',
         '//lib/jackson:jackson-databind',
         '//lib/kafka:kafka-clients-with-dependencies',
-        '//lib/mongo:mongodb-driver',
         '//lib/slf4j:slf4j-api',
         '//src/uk/gov/dwp/common/id:common-id',
         '//src/uk/gov/dwp/migration/kafka/api:migration-kafka-api',

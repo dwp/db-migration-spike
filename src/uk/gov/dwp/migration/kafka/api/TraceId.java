@@ -13,7 +13,7 @@ public class TraceId implements Id<UUID> {
         this.id = id;
     }
 
-    public static TraceId newPersonalDetailsId() {
+    public static TraceId newTraceId() {
         return new TraceId(UUID.randomUUID());
     }
 

@@ -12,25 +12,27 @@ public class MongoDeleteMessage implements MongoOperation {
 
     private final String db;
     private final String collection;
-    private final Map key;
+    private final Map<String, Object> key;
 
     public MongoDeleteMessage(@JsonProperty("db") String db,
                               @JsonProperty("collection") String collection,
-                              @JsonProperty("key") Map key) {
+                              @JsonProperty("key") Map<String, Object> key) {
         this.db = db;
         this.collection = collection;
         this.key = key;
     }
 
+    @Override
     public String getDb() {
         return db;
     }
 
+    @Override
     public String getCollection() {
         return collection;
     }
 
-    public Object getKey() {
+    public Map<String, Object> getKey() {
         return key;
     }
 
