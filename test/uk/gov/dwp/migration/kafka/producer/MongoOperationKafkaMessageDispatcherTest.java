@@ -11,14 +11,14 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
-public class MongoOperationKafaMessageDispatcherTest {
+public class MongoOperationKafkaMessageDispatcherTest {
 
     private final KafkaProducerRecordFactory kafkaProducerRecordFactory = mock(KafkaProducerRecordFactory.class);
     private final KafkaProducer kafkaProducer = mock(KafkaProducer.class);
     private final MongoOperation mongoOperation = mock(MongoOperation.class);
     private final JsonProcessingException jsonProcessingException = mock(JsonProcessingException.class);
 
-    private final MongoOperationKafaMessageDispatcher underTest = new MongoOperationKafaMessageDispatcher(
+    private final MongoOperationKafkaMessageDispatcher underTest = new MongoOperationKafkaMessageDispatcher(
             kafkaProducer,
             kafkaProducerRecordFactory
     );

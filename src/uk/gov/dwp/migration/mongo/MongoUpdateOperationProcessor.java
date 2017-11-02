@@ -6,15 +6,14 @@ import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.gov.dwp.migration.api.DocumentMigrator;
-import uk.gov.dwp.migration.kafka.api.MongoInsertMessage;
 import uk.gov.dwp.migration.kafka.api.MongoOperation;
 import uk.gov.dwp.migration.kafka.api.MongoOperationProcessor;
 import uk.gov.dwp.migration.kafka.api.MongoUpdateMessage;
 import uk.gov.dwp.migration.kafka.producer.MongoOperationKafkaMessageDispatcher;
 
-public class MongoInsertOperationProcessor implements MongoOperationProcessor {
+public class MongoUpdateOperationProcessor implements MongoOperationProcessor {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(MongoInsertOperationProcessor.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(MongoUpdateOperationProcessor.class);
 
     private final MongoCollection<Document> mongoCollection;
     private final String db;
@@ -22,7 +21,7 @@ public class MongoInsertOperationProcessor implements MongoOperationProcessor {
     private final MongoOperationKafkaMessageDispatcher mongoOperationKafaMessageDispatcher;
     private final DocumentMigrator documentMigrator;
 
-    public MongoInsertOperationProcessor(MongoCollection mongoCollection,
+    public MongoUpdateOperationProcessor(MongoCollection mongoCollection,
                                          String db,
                                          String collection,
                                          MongoOperationKafkaMessageDispatcher mongoOperationKafaMessageDispatcher,
@@ -38,12 +37,16 @@ public class MongoInsertOperationProcessor implements MongoOperationProcessor {
     public void process(MongoOperation mongoOperation) {
         // Migrate the document (if appropriate) and write and "update" record to the Kafka feed
         // When migrating the document what do we set the _lastModifiedDateTime to be if we set it to now()
-        Document document = documentMigrator.migrate(new Document(((MongoInsertMessage) mongoOperation).getDbObject()));
+        Document document = documentMigrator.migrate(new Document(((MongoUpdateMessage) mongoOperation).getDbObject()));
         try {
-            mongoCollection.insertOne(document);
+            Document originalDocument = mongoCollection.findOneAndReplace(new Document("_id", document.get("_id")), document);
+            if (originalDocument == null) {
+                mongoCollection.insertOne(document);
+            }
             mongoOperationKafaMessageDispatcher.send(new MongoUpdateMessage(db, collection, document));
         } catch (MongoWriteException e) {
-            LOGGER.warn("Document: {} already exists", document.get("_id"));
+            // TODO: Should we try and findOneAndReplace??
+            LOGGER.warn("Unable to update: {}", document.get("_id"));
         }
     }
 }

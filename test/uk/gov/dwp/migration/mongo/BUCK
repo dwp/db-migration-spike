@@ -5,6 +5,7 @@ java_test(
         '//lib/mongo:mongodb-driver',
         '//lib/test:common',
         '//src/uk/gov/dwp/migration/api:migration-api',
+        '//src/uk/gov/dwp/migration/kafka/producer:migration-kafka-producer',
         '//src/uk/gov/dwp/migration/mongo:migration-mongo',
     ],
 )

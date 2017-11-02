@@ -7,16 +7,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.gov.dwp.migration.kafka.api.MongoOperation;
 
-public class MongoOperationKafaMessageDispatcher {
+public class MongoOperationKafkaMessageDispatcher {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MongoOperationKafaMessageDispatcher.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MongoOperationKafkaMessageDispatcher.class);
     private static final Logger KAFKA_ERROR_LOG = LoggerFactory.getLogger("KAFKA_ERROR_LOG");
 
     private final Producer<String, String> kafkaProducer;
     private final KafkaProducerRecordFactory kafkaProducerRecordFactory;
 
-    public MongoOperationKafaMessageDispatcher(Producer<String, String> kafkaProducer,
-                                               KafkaProducerRecordFactory kafkaProducerRecordFactory) {
+    public MongoOperationKafkaMessageDispatcher(Producer<String, String> kafkaProducer,
+                                                KafkaProducerRecordFactory kafkaProducerRecordFactory) {
         this.kafkaProducer = kafkaProducer;
         this.kafkaProducerRecordFactory = kafkaProducerRecordFactory;
     }
