@@ -1,15 +1,15 @@
-package uk.gov.dwp.migration.kafka.producer;
+package uk.gov.dwp.common.kafka.mongo.producer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import uk.gov.dwp.migration.kafka.api.KafkaMessageWrapper;
-import uk.gov.dwp.migration.kafka.api.MongoOperation;
+import uk.gov.dwp.common.kafka.mongo.api.KafkaMessageWrapper;
+import uk.gov.dwp.common.kafka.mongo.api.MongoOperation;
 
 import java.time.Instant;
 
 import static java.util.UUID.randomUUID;
-import static uk.gov.dwp.migration.kafka.api.TraceId.newTraceId;
+import static uk.gov.dwp.common.kafka.mongo.api.TraceId.newTraceId;
 
 public class KafkaProducerRecordFactory {
 

@@ -1,6 +1,6 @@
 package uk.gov.dwp.migration.kafka.consumer;
 
-import uk.gov.dwp.migration.kafka.api.MongoOperation;
+import uk.gov.dwp.common.kafka.mongo.api.MongoOperation;
 import uk.gov.dwp.migration.kafka.api.MongoOperationProcessor;
 
 import java.util.Map;

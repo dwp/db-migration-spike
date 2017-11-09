@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
-import uk.gov.dwp.migration.kafka.api.KafkaMessageWrapper;
+import uk.gov.dwp.common.kafka.mongo.api.KafkaMessageWrapper;
 
 import java.io.IOException;
 

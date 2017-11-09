@@ -1,9 +1,7 @@
-package uk.gov.dwp.migration.kafka.api;
+package uk.gov.dwp.common.kafka.mongo.api;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
-import java.util.Map;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.CUSTOM, property = "@type")
 @JsonSubTypes({

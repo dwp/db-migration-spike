@@ -4,8 +4,9 @@ java_test(
     deps = [
         '//lib/mongo:mongodb-driver',
         '//lib/test:common',
+        '//src/uk/gov/dwp/common/kafka/mongo/api:common-kafka-mongo-api',
+        '//src/uk/gov/dwp/common/kafka/mongo/producer:common-kafka-mongo-producer',
         '//src/uk/gov/dwp/migration/api:migration-api',
-        '//src/uk/gov/dwp/migration/kafka/producer:migration-kafka-producer',
         '//src/uk/gov/dwp/migration/mongo:migration-mongo',
     ],
 )

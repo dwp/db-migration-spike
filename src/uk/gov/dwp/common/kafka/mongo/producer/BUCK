@@ -1,13 +1,17 @@
-java_test(
-    name = 'test',
+java_library(
+    name = 'common-kafka-mongo-producer',
     srcs = glob(['*.java']),
     deps = [
+        '//lib:commons-lang3',
+        '//lib/jackson:jackson-annotations',
         '//lib/jackson:jackson-core',
         '//lib/jackson:jackson-databind',
         '//lib/kafka:kafka-clients-with-dependencies',
-        '//lib/test:common',
+        '//lib/slf4j:slf4j-api',
+        '//src/uk/gov/dwp/common/id:common-id',
         '//src/uk/gov/dwp/common/kafka/mongo/api:common-kafka-mongo-api',
-        '//src/uk/gov/dwp/migration/kafka/api:migration-kafka-api',
-        '//src/uk/gov/dwp/migration/kafka/consumer:migration-kafka-consumer',
     ],
+    visibility = [
+        'PUBLIC',
+    ]
 )

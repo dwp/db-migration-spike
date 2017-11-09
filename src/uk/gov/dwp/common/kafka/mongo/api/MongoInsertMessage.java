@@ -1,8 +1,7 @@
-package uk.gov.dwp.migration.kafka.api;
+package uk.gov.dwp.common.kafka.mongo.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Map;

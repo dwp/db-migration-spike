@@ -4,7 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.junit.Test;
-import uk.gov.dwp.migration.kafka.api.MongoOperation;
+import uk.gov.dwp.common.kafka.mongo.api.MongoOperation;
+import uk.gov.dwp.common.kafka.mongo.producer.KafkaProducerRecordFactory;
+import uk.gov.dwp.common.kafka.mongo.producer.MongoOperationKafkaMessageDispatcher;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;

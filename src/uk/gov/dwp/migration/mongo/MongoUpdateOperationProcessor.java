@@ -5,11 +5,11 @@ import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.gov.dwp.common.kafka.mongo.api.MongoOperation;
+import uk.gov.dwp.common.kafka.mongo.api.MongoUpdateMessage;
+import uk.gov.dwp.common.kafka.mongo.producer.MongoOperationKafkaMessageDispatcher;
 import uk.gov.dwp.migration.api.DocumentMigrator;
-import uk.gov.dwp.migration.kafka.api.MongoOperation;
 import uk.gov.dwp.migration.kafka.api.MongoOperationProcessor;
-import uk.gov.dwp.migration.kafka.api.MongoUpdateMessage;
-import uk.gov.dwp.migration.kafka.producer.MongoOperationKafkaMessageDispatcher;
 
 public class MongoUpdateOperationProcessor implements MongoOperationProcessor {
 

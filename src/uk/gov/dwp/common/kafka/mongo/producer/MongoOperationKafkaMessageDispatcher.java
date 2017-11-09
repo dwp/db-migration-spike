@@ -1,11 +1,11 @@
-package uk.gov.dwp.migration.kafka.producer;
+package uk.gov.dwp.common.kafka.mongo.producer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uk.gov.dwp.migration.kafka.api.MongoOperation;
+import uk.gov.dwp.common.kafka.mongo.api.MongoOperation;
 
 public class MongoOperationKafkaMessageDispatcher {
 

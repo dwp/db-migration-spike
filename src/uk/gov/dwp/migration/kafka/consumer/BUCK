@@ -10,6 +10,7 @@ java_library(
         '//lib/mongo:mongodb-driver',
         '//lib/slf4j:slf4j-api',
         '//src/uk/gov/dwp/common/id:common-id',
+        '//src/uk/gov/dwp/common/kafka/mongo/api:common-kafka-mongo-api',
         '//src/uk/gov/dwp/migration/kafka/api:migration-kafka-api',
     ],
     visibility = [

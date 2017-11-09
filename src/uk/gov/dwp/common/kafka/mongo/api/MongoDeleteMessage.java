@@ -1,25 +1,24 @@
-package uk.gov.dwp.migration.kafka.api;
+package uk.gov.dwp.common.kafka.mongo.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Map;
 
-@JsonTypeName("MONGO_UPDATE")
-public class MongoUpdateMessage implements MongoOperation {
+@JsonTypeName("MONGO_DELETE")
+public class MongoDeleteMessage implements MongoOperation {
 
     private final String db;
     private final String collection;
-    private final Map<String, Object> dbObject;
+    private final Map<String, Object> key;
 
-    public MongoUpdateMessage(@JsonProperty("db") String db,
+    public MongoDeleteMessage(@JsonProperty("db") String db,
                               @JsonProperty("collection") String collection,
-                              @JsonProperty("dbObject") Map<String, Object> dbObject) {
+                              @JsonProperty("key") Map<String, Object> key) {
         this.db = db;
         this.collection = collection;
-        this.dbObject = dbObject;
+        this.key = key;
     }
 
     @Override
@@ -32,8 +31,8 @@ public class MongoUpdateMessage implements MongoOperation {
         return collection;
     }
 
-    public Map<String, Object> getDbObject() {
-        return dbObject;
+    public Map<String, Object> getKey() {
+        return key;
     }
 
     @Override

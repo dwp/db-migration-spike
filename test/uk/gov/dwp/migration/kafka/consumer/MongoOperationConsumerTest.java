@@ -5,8 +5,8 @@ import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.junit.Test;
-import uk.gov.dwp.migration.kafka.api.KafkaMessageWrapper;
-import uk.gov.dwp.migration.kafka.api.MongoOperation;
+import uk.gov.dwp.common.kafka.mongo.api.KafkaMessageWrapper;
+import uk.gov.dwp.common.kafka.mongo.api.MongoOperation;
 
 import static java.util.Collections.singletonList;
 import static org.mockito.Mockito.mock;
