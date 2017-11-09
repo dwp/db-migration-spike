@@ -2,7 +2,7 @@ prebuilt_jar(
     name='awaitility',
     binary_jar=':awaitility-mvn',
     visibility=[
-        '//core/component-test:queue-triage-core-component-test',
+        'PUBLIC',
     ])
 prebuilt_jar(name='byte-buddy', binary_jar=':byte-buddy-mvn')
 prebuilt_jar(name='hamcrest-core', binary_jar=':hamcrest-core-mvn', visibility=['PUBLIC'])
@@ -14,14 +14,9 @@ prebuilt_jar(name='jgiven-junit', binary_jar=':jgiven-junit-mvn')
 prebuilt_jar(name='jgiven-html-app', binary_jar=':jgiven-html-app-mvn')
 prebuilt_jar(name='jgiven-html5-report', binary_jar=':jgiven-html5-report-mvn')
 prebuilt_jar(name='jgiven-spring', binary_jar=':jgiven-spring-mvn', visibility=['PUBLIC'])
+prebuilt_jar(name='jsonassert', binary_jar=':jsonassert-mvn', visibility=['PUBLIC'])
 prebuilt_jar(name='junit', binary_jar=':junit-mvn', visibility=['PUBLIC'])
-prebuilt_jar(
-    name = 'mockito-core',
-    binary_jar = ':mockito-core-mvn',
-    visibility = [
-        '//web/component-test:queue-triage-web-component-test',
-    ],
-)
+prebuilt_jar(name='mockito-core', binary_jar=':mockito-core-mvn' )
 prebuilt_jar(name='objenesis', binary_jar=':objenesis-mvn')
 prebuilt_jar(name='paranamer', binary_jar=':paranamer-mvn')
 
@@ -36,6 +31,7 @@ remote_file(name='jgiven-html-app-mvn', out='jgiven-html-app-0.15.1.jar', url='m
 remote_file(name='jgiven-html5-report-mvn', out='jgiven-html5-report-0.15.1.jar', url='mvn:com.tngtech.jgiven:jgiven-html5-report:jar:0.15.1', sha1='6d011ce29cdf5f6ab1c5863ba523fa9973463b29')
 remote_file(name='jgiven-junit-mvn', out='jgiven-junit-0.15.1.jar', url='mvn:com.tngtech.jgiven:jgiven-junit:jar:0.15.1', sha1='0b862638480787929088efb28632d212a6701fa2')
 remote_file(name='jgiven-spring-mvn', out='jgiven-spring-0.15.1.jar', url='mvn:com.tngtech.jgiven:jgiven-spring:jar:0.15.1', sha1='312abfa016e04e88fe73e4a97fcc396534c82d9d')
+remote_file(name='jsonassert-mvn', out='jsonassert-1.5.0.jar', url='mvn:org.skyscreamer:jsonassert:jar:1.5.0', sha1='6c9d5fe2f59da598d9aefc1cfc6528ff3cf32df3')
 remote_file(name='junit-mvn', out='junit-4.12.jar', url='mvn:junit:junit:jar:4.12', sha1='2973d150c0dc1fefe998f834810d68f278ea58ec')
 remote_file(name='mockito-core-mvn', out='mockito-core-2.8.9.jar', url='mvn:org.mockito:mockito-core:jar:2.8.9', sha1='1afb35b2d77d40567756c379e54c18da3574a96e')
 remote_file(name='objenesis-mvn', out='objenesis-2.5.1.jar', url='mvn:org.objenesis:objenesis:jar:2.5.1', sha1='272bab9a4e5994757044d1fc43ce480c8cb907a4')
@@ -72,6 +68,16 @@ java_library(
     ],
 )
 
+java_library(
+    name = 'json-assert',
+    exported_deps = [
+        ':jsonassert',
+        '//lib:android-json',
+    ],
+    visibility = [
+        'PUBLIC',
+    ],
+)
 java_binary(
     name = 'jgiven-html5-report-with-deps',
     main_class = 'com.tngtech.jgiven.report.ReportGenerator',

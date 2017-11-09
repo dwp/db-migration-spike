@@ -1,4 +1,5 @@
 prebuilt_jar(name='accessors-smart', binary_jar=':accessors-smart-mvn', visibility=['PUBLIC'])
+prebuilt_jar(name='android-json', binary_jar=':android-json-mvn', visibility=['PUBLIC'])
 prebuilt_jar(name='aopalliance', binary_jar=':aopalliance-mvn', visibility=['PUBLIC'])
 prebuilt_jar(name='apache-el', binary_jar=':apache-el-mvn', visibility=['PUBLIC'])
 prebuilt_jar(name='asm', binary_jar=':asm-mvn', visibility=['PUBLIC'])
@@ -27,6 +28,7 @@ prebuilt_jar(name='xercesImpl', binary_jar=':xercesImpl-mvn', visibility=['PUBLI
 prebuilt_jar(name='xml-apis', binary_jar=':xml-apis-mvn', visibility=['PUBLIC'])
 
 remote_file(name='accessors-smart-mvn', out='accessors-smart-1.2.jar', url='mvn:net.minidev:accessors-smart:jar:1.2', sha1='c592b500269bfde36096641b01238a8350f8aa31')
+remote_file(name='android-json-mvn', out='android-json-0.0.20131108.vaadin1.jar', url='mvn:com.vaadin.external.google:android-json:jar:0.0.20131108.vaadin1', sha1='fa26d351fe62a6a17f5cda1287c1c6110dec413f')
 remote_file(name='aopalliance-mvn', out='aopalliance-1.0.jar', url='mvn:aopalliance:aopalliance:jar:1.0', sha1='0235ba8b489512805ac13a8f9ea77a1ca5ebe3e8')
 remote_file(name='apache-el-mvn', out='apache-el-8.0.33.jar', url='mvn:org.mortbay.jasper:apache-el:jar:8.0.33', sha1='1b8fa2179b3937cada939317bb135815e79c0ac2')
 remote_file(name='asm-mvn', out='asm-5.1.jar', url='mvn:org.ow2.asm:asm:jar:5.1', sha1='5ef31c4fe953b1fd00b8a88fa1d6820e8785bb45')

@@ -1,0 +1,14 @@
+java_test(
+    name = 'test',
+    srcs = glob(['*.java']),
+    deps = [
+        '//lib/jackson:jackson-databind',
+        '//lib/mongo:mongodb-driver',
+        '//lib/spring:spring-context',
+        '//lib/test:common',
+        '//lib/test:json-assert',
+        '//src/uk/gov/dwp/common/jackson:common-jackson',
+        '//src/uk/gov/dwp/common/jackson/spring:common-jackson-spring',
+        '//src/uk/gov/dwp/common/kafka/mongo/api:common-kafka-mongo-api',
+    ],
+)
