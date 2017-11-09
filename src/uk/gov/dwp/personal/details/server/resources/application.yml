@@ -16,3 +16,5 @@ dao:
     dbName: personal-details
     personalDetails:
       name: personalDetails
+      username: personalDetailsUser
+      password: Passw0rd
