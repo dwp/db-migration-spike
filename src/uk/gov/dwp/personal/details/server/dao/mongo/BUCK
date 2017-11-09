@@ -17,3 +17,19 @@ java_library(
         'PUBLIC'
     ]
 )
+
+export_file(
+    name = 'mongo-personal-details-roles.sh',
+    src  = 'mongo-personal-details-roles.sh',
+)
+
+export_file(
+    name = 'mongo-personal-details-users.sh',
+    src  = 'mongo-personal-details-users.sh',
+)
+
+genrule(
+    name = 'create-users-and-roles',
+    cmd = '$(location :mongo-personal-details-roles.sh) > $OUT && $(location :mongo-personal-details-users.sh) >> $OUT',
+    out = 'create-users-and-roles.log'
+)
