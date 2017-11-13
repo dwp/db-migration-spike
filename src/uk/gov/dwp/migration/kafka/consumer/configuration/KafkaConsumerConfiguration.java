@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import uk.gov.dwp.common.jackson.spring.JacksonConfiguration;
-import uk.gov.dwp.migration.kafka.api.MongoOperation;
+import uk.gov.dwp.common.kafka.mongo.api.MongoOperation;
 import uk.gov.dwp.migration.kafka.api.MongoOperationProcessor;
 import uk.gov.dwp.migration.kafka.consumer.CompositeMongoOperationProcessor;
 import uk.gov.dwp.migration.kafka.consumer.MongoOperationConsumer;

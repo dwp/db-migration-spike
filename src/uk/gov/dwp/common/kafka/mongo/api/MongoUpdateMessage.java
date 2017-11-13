@@ -6,8 +6,12 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Map;
 
-@JsonTypeName("MONGO_UPDATE")
+import static uk.gov.dwp.common.kafka.mongo.api.MongoUpdateMessage.MONGO_UPDATE;
+
+@JsonTypeName(MONGO_UPDATE)
 public class MongoUpdateMessage implements MongoOperation {
+
+    public static final String MONGO_UPDATE = "MONGO_UPDATE";
 
     private final String db;
     private final String collection;

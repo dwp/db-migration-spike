@@ -1,7 +1,12 @@
 java_test(
     name = 'test',
     srcs = glob(['*.java']),
+    resources = [
+        'resources/sampleKafkaMessages.json',
+    ],
+    resources_root = 'resources',
     deps = [
+        '//lib:commons-io',
         '//lib/jackson:jackson-databind',
         '//lib/mongo:mongodb-driver',
         '//lib/spring:spring-context',

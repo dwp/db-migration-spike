@@ -15,7 +15,7 @@ public class KafkaMessageWrapper<T extends MongoOperation> {
     private final String version;
     private final T message;
 
-    public KafkaMessageWrapper(@JsonProperty("type") String type,
+    public KafkaMessageWrapper(@JsonProperty("@type") String type,
                                @JsonProperty("traceId") TraceId traceId,
                                @JsonProperty("unitOfWorkId") UUID unitOfWorkId,
                                @JsonProperty("timestamp") Instant timestamp,
@@ -29,6 +29,7 @@ public class KafkaMessageWrapper<T extends MongoOperation> {
         this.message = message;
     }
 
+    @JsonProperty("@type")
     public String getType() {
         return type;
     }

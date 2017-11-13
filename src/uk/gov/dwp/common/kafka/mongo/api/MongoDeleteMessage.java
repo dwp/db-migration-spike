@@ -6,8 +6,12 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Map;
 
-@JsonTypeName("MONGO_DELETE")
+import static uk.gov.dwp.common.kafka.mongo.api.MongoDeleteMessage.MONGO_DELETE;
+
+@JsonTypeName(MONGO_DELETE)
 public class MongoDeleteMessage implements MongoOperation {
+
+    public static final String MONGO_DELETE = "MONGO_DELETE";
 
     private final String db;
     private final String collection;
