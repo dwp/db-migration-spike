@@ -1,5 +1,6 @@
 package uk.gov.dwp.common.kafka.configuration;
 
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -38,7 +39,7 @@ public class KafkaProperties {
         this.topic = topic;
     }
 
-    public Properties toKafkaProperties() {
+    public Properties toKafkaProducerProperties() {
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, url);
         props.put(ProducerConfig.ACKS_CONFIG, "all");
@@ -47,5 +48,14 @@ public class KafkaProperties {
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         return props;
     }
+
+    public Properties toKafkaConsumerProperties() {
+        Properties props = new Properties();
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, url);
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
+        return props;
+    }
+
 
 }

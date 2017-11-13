@@ -18,7 +18,8 @@ dao:
       name: personalDetails
       username: personalDetailsUser
       password: Passw0rd
-  kafka:
-    url: localhost:9092
-    retries: 0
-    topic: mongo.updates
+
+kafka:
+  url: localhost:9092
+  retries: 0
+  topic: mongo.updates

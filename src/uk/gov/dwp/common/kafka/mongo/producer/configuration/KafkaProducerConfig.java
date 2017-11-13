@@ -21,7 +21,7 @@ public class KafkaProducerConfig {
 
     @Bean
     public Producer<String, String> kafkaProducer(KafkaProperties kafkaProperties) {
-        return new KafkaProducer<>(kafkaProperties.toKafkaProperties());
+        return new KafkaProducer<>(kafkaProperties.toKafkaProducerProperties());
     }
 
     @Bean

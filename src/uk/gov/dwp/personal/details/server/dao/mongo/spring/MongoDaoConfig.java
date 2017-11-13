@@ -8,11 +8,11 @@ import org.bson.Transformer;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Import;
 import uk.gov.dwp.common.id.Id;
 import uk.gov.dwp.common.jackson.spring.JacksonConfiguration;
 import uk.gov.dwp.common.kafka.mongo.producer.MongoOperationKafkaMessageDispatcher;
+import uk.gov.dwp.common.kafka.mongo.producer.configuration.KafkaProducerConfig;
 import uk.gov.dwp.personal.details.server.dao.PersonalDetailsDao;
 import uk.gov.dwp.personal.details.server.dao.mongo.MongoPersonalDetailsDao;
 import uk.gov.dwp.personal.details.server.dao.mongo.PersonalDetailsDocumentConverter;
@@ -30,7 +30,10 @@ import static java.time.ZoneOffset.UTC;
 import static java.util.Collections.singletonList;
 
 @Configuration
-@Import(JacksonConfiguration.class)
+@Import({
+        JacksonConfiguration.class,
+        KafkaProducerConfig.class
+})
 @EnableConfigurationProperties(MongoDaoProperties.class)
 public class MongoDaoConfig {
 
@@ -45,7 +48,6 @@ public class MongoDaoConfig {
     }
 
     @Bean
-    @DependsOn("mongoDaoProperties")
     public MongoClient mongoClient(MongoDaoProperties mongoDaoProperties) {
         return new MongoClient(
                 createSeeds(mongoDaoProperties),
@@ -55,7 +57,6 @@ public class MongoDaoConfig {
     }
 
     @Bean
-    @DependsOn("mongoDaoProperties")
     public PersonalDetailsDao personalDetailsDao(MongoClient mongoClient,
                                                  MongoDaoProperties mongoDaoProperties,
                                                  PersonalDetailsDocumentConverter personalDetailsDocumentConverter,
