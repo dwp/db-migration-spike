@@ -8,7 +8,6 @@ import org.bson.Transformer;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 import uk.gov.dwp.common.id.Id;
 
 import java.time.Instant;
@@ -24,7 +23,10 @@ import static java.time.ZoneOffset.UTC;
 import static java.util.Collections.singletonList;
 
 @Configuration
-@EnableConfigurationProperties(SourceMongoDaoProperties.class)
+@EnableConfigurationProperties({
+        DestinationMongoDaoProperties.class,
+        SourceMongoDaoProperties.class
+})
 public class MongoDaoConfig {
 
     static {
@@ -38,8 +40,7 @@ public class MongoDaoConfig {
     }
 
     @Bean
-    @DependsOn("sourceMongoDaoProperties")
-    public MongoClient sourceMongoClient(MongoDaoProperties sourceMongoDaoProperties) {
+    public MongoClient sourceMongoClient(SourceMongoDaoProperties sourceMongoDaoProperties) {
         return new MongoClient(
                 createSeeds(sourceMongoDaoProperties),
                 createCredentials(sourceMongoDaoProperties),
@@ -48,8 +49,7 @@ public class MongoDaoConfig {
     }
 
     @Bean
-    @DependsOn("destinationMongoDaoProperties")
-    public MongoClient destinationMongoClient(MongoDaoProperties destinationMongoDaoProperties) {
+    public MongoClient destinationMongoClient(DestinationMongoDaoProperties destinationMongoDaoProperties) {
         return new MongoClient(
                 createSeeds(destinationMongoDaoProperties),
                 createCredentials(destinationMongoDaoProperties),

@@ -16,6 +16,8 @@ source:
     dbName: personal-details
     collection:
       name: personalDetails
+      username: personalDetailsUser
+      password: Passw0rd
 
 destination:
   mongo:
@@ -29,3 +31,10 @@ destination:
     dbName: personal-details
     collection:
       name: personalDetails
+      username: personalDetailsUser
+      password: Passw0rd
+
+kafka:
+  url: localhost:9092
+  retries: 0
+  topic: mongo.updates
