@@ -13,8 +13,8 @@ java_library(
         '//lib/spring:spring-boot-test',
         '//lib/spring:spring-context',
         '//lib/spring:spring-test',
-        '//lib/test:hamcrest-core',
-        '//lib/test:junit',
+        '//lib/test:common',
+        '//src/uk/gov/dwp/common/kafka/mongo/producer:common-kafka-mongo-producer',
         '//src/uk/gov/dwp/personal/details/server/dao/mongo:personal-details-dao-mongo',
     ],
     visibility = [

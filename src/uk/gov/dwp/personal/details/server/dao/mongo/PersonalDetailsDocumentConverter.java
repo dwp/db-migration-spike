@@ -11,8 +11,8 @@ import java.time.format.DateTimeFormatter;
 public class PersonalDetailsDocumentConverter implements DocumentWithIdConverter<PersonalDetails, PersonalDetailsId> {
 
     private static final DateTimeFormatter LOCAL_DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd");
-    private static final String NAME_FIELD = "name";
-    private static final String DATE_OF_BIRTH_FIELD = "dateOfBirth";
+    public static final String NAME_FIELD = "name";
+    public static final String DATE_OF_BIRTH_FIELD = "dateOfBirth";
 
     @Override
     public Document createId(PersonalDetailsId personalDetailsId) {

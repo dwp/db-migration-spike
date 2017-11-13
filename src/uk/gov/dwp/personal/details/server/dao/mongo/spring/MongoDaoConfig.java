@@ -12,6 +12,7 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Import;
 import uk.gov.dwp.common.id.Id;
 import uk.gov.dwp.common.jackson.spring.JacksonConfiguration;
+import uk.gov.dwp.common.kafka.mongo.producer.MongoOperationKafkaMessageDispatcher;
 import uk.gov.dwp.personal.details.server.dao.PersonalDetailsDao;
 import uk.gov.dwp.personal.details.server.dao.mongo.MongoPersonalDetailsDao;
 import uk.gov.dwp.personal.details.server.dao.mongo.PersonalDetailsDocumentConverter;
@@ -57,13 +58,16 @@ public class MongoDaoConfig {
     @DependsOn("mongoDaoProperties")
     public PersonalDetailsDao personalDetailsDao(MongoClient mongoClient,
                                                  MongoDaoProperties mongoDaoProperties,
-                                                 PersonalDetailsDocumentConverter personalDetailsDocumentConverter) {
+                                                 PersonalDetailsDocumentConverter personalDetailsDocumentConverter,
+                                                 MongoOperationKafkaMessageDispatcher kafkaMessageDispatcher) {
         return new MongoPersonalDetailsDao(
+                mongoDaoProperties.getDbName(),
+                mongoDaoProperties.getPersonalDetails().getName(),
                 mongoClient
                         .getDatabase(mongoDaoProperties.getDbName())
                         .getCollection(mongoDaoProperties.getPersonalDetails().getName()),
-                personalDetailsDocumentConverter
-        );
+                personalDetailsDocumentConverter,
+                kafkaMessageDispatcher);
     }
 
     @Bean

@@ -14,6 +14,8 @@ java_test(
         '//lib/spring:spring-boot-with-dependencies',
         '//lib/spring:spring-test',
         '//lib/test:common',
+        '//src/uk/gov/dwp/common/kafka/mongo/api:common-kafka-mongo-api',
+        '//src/uk/gov/dwp/common/kafka/mongo/producer:common-kafka-mongo-producer',
         '//src/uk/gov/dwp/common/mongo:common-mongo',
         '//src/uk/gov/dwp/personal/details/client:personal-details-client',
         '//src/uk/gov/dwp/personal/details/client/test/support:personal-details-client-test-support',

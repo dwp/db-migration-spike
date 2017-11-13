@@ -37,7 +37,7 @@ public class MongoUpdateOperationProcessor implements MongoOperationProcessor {
     public void process(MongoOperation mongoOperation) {
         // Migrate the document (if appropriate) and write and "update" record to the Kafka feed
         // When migrating the document what do we set the _lastModifiedDateTime to be if we set it to now()
-        Document document = documentMigrator.migrate(new Document(((MongoUpdateMessage) mongoOperation).getDbObject()));
+        Document document = documentMigrator.migrate(new Document(((MongoUpdateMessage) mongoOperation).getData()));
         try {
             Document originalDocument = mongoCollection.findOneAndReplace(new Document("_id", document.get("_id")), document);
             if (originalDocument == null) {

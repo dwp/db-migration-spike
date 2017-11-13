@@ -31,7 +31,9 @@ public class MongoDeleteMessage implements MongoOperation {
         return collection;
     }
 
-    public Map<String, Object> getKey() {
+    @Override
+    @JsonProperty("key")
+    public Map<String, Object> getData() {
         return key;
     }
 

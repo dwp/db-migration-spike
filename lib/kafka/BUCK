@@ -1,6 +1,9 @@
 prebuilt_jar(
     name='kafka-clients',
     binary_jar=':kafka-clients-mvn',
+    visibility = [
+        'PUBLIC',
+    ],
 )
 remote_file(
     name='kafka-clients-mvn',

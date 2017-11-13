@@ -5,7 +5,6 @@ import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uk.gov.dwp.common.kafka.mongo.api.MongoInsertMessage;
 import uk.gov.dwp.common.kafka.mongo.api.MongoOperation;
 import uk.gov.dwp.common.kafka.mongo.api.MongoUpdateMessage;
 import uk.gov.dwp.common.kafka.mongo.producer.MongoOperationKafkaMessageDispatcher;
@@ -38,7 +37,7 @@ public class MongoInsertOperationProcessor implements MongoOperationProcessor {
     public void process(MongoOperation mongoOperation) {
         // Migrate the document (if appropriate) and write and "update" record to the Kafka feed
         // When migrating the document what do we set the _lastModifiedDateTime to be if we set it to now()
-        Document document = documentMigrator.migrate(new Document(((MongoInsertMessage) mongoOperation).getDbObject()));
+        Document document = documentMigrator.migrate(new Document((mongoOperation).getData()));
         try {
             mongoCollection.insertOne(document);
             mongoOperationKafaMessageDispatcher.send(new MongoUpdateMessage(db, collection, document));

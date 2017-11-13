@@ -11,14 +11,14 @@ public class MongoInsertMessage implements MongoOperation {
 
     private final String db;
     private final String collection;
-    private final Map<String, Object> dbObject;
+    private final Map<String, Object> data;
 
     public MongoInsertMessage(@JsonProperty("db") String db,
                               @JsonProperty("collection") String collection,
-                              @JsonProperty("dbObject") Map<String, Object> dbObject) {
+                              @JsonProperty("dbObject") Map<String, Object> data) {
         this.db = db;
         this.collection = collection;
-        this.dbObject = dbObject;
+        this.data = data;
     }
 
     @Override
@@ -31,8 +31,10 @@ public class MongoInsertMessage implements MongoOperation {
         return collection;
     }
 
-    public Map<String, Object> getDbObject() {
-        return dbObject;
+    @Override
+    @JsonProperty("dbObject")
+    public Map<String, Object> getData() {
+        return data;
     }
 
     @Override
