@@ -6,10 +6,35 @@ prebuilt_jar(
     ],
 )
 remote_file(
-    name='kafka-clients-mvn',
-    out='kafka-clients-0.11.0.1.jar',
-    url='mvn:org.apache.kafka:kafka-clients:jar:0.11.0.1',
-    sha1='03145da6edad54b6f8fe5e5f2e17bf54775baff2',
+    name = 'kafka-clients-mvn',
+    out  = 'kafka-clients-1.0.0.jar',
+    url  = 'mvn:org.apache.kafka:kafka-clients:jar:1.0.0',
+    sha1 = '98a12cfff3a5b7ca77e68aba7adccfd817b2d846',
+)
+
+prebuilt_jar(
+    name = 'kafka-streams',
+    binary_jar = ':kafka-streams-mvn',
+    visibility = [
+        'PUBLIC',
+    ],
+)
+remote_file(
+    name = 'kafka-streams-mvn',
+    out  = 'kafka-streams-1.0.0.jar',
+    url  = 'mvn:org.apache.kafka:kafka-streams:jar:1.0.0',
+    sha1 = 'a6c87c367176beb7650eb2df173fd9fe6e38656f',
+)
+
+prebuilt_jar(
+    name = 'connect-json',
+    binary_jar = ':connect-json-mvn',
+)
+remote_file(
+    name = 'connect-json-mvn',
+    out  = 'connect-json-1.0.0.jar',
+    url  = 'mvn:org.apache.kafka:connect-json:jar:1.0.0',
+    sha1 = '4bcd05d3bcc2f04673407b2c483d783362677f0e'
 )
 
 prebuilt_jar(
@@ -40,6 +65,20 @@ java_library(
         ':kafka-clients',
         ':lz4',
         ':snappy-java'
+    ],
+    visibility = [
+        'PUBLIC',
+    ],
+)
+
+java_library(
+    name = 'kafka-streams-with-dependencies',
+    exported_deps = [
+        ':connect-json',
+        ':kafka-clients',
+        ':kafka-streams',
+        ':lz4',
+        ':snappy-java',
     ],
     visibility = [
         'PUBLIC',

@@ -1,4 +1,4 @@
-package uk.gov.dwp.personal.details.server.dao.mongo.support;
+package uk.gov.dwp.common.mongo.test.support;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;

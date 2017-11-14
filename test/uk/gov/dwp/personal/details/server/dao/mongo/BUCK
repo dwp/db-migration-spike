@@ -17,6 +17,7 @@ java_test(
         '//src/uk/gov/dwp/common/kafka/mongo/api:common-kafka-mongo-api',
         '//src/uk/gov/dwp/common/kafka/mongo/producer:common-kafka-mongo-producer',
         '//src/uk/gov/dwp/common/mongo:common-mongo',
+        '//src/uk/gov/dwp/common/mongo/test/support:common-mongo-test-support',
         '//src/uk/gov/dwp/personal/details/client:personal-details-client',
         '//src/uk/gov/dwp/personal/details/client/test/support:personal-details-client-test-support',
         '//src/uk/gov/dwp/personal/details/server/dao:personal-details-dao',

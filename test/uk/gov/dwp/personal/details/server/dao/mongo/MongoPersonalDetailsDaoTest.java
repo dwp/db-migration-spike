@@ -12,10 +12,10 @@ import uk.gov.dwp.common.kafka.mongo.api.MongoDeleteMessage;
 import uk.gov.dwp.common.kafka.mongo.api.MongoInsertMessage;
 import uk.gov.dwp.common.kafka.mongo.api.MongoOperation;
 import uk.gov.dwp.common.kafka.mongo.api.MongoUpdateMessage;
+import uk.gov.dwp.common.mongo.test.support.DocumentMatcher;
 import uk.gov.dwp.personal.details.client.PersonalDetailsMatcher;
 import uk.gov.dwp.personal.details.server.dao.PersonalDetailsDao;
 import uk.gov.dwp.personal.details.server.dao.mongo.support.AbstractMongoDaoTest;
-import uk.gov.dwp.personal.details.server.dao.mongo.support.DocumentMatcher;
 import uk.gov.dwp.personal.details.server.model.PersonalDetails.PersonalDetailsBuilder;
 import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 

@@ -1,22 +1,22 @@
-package uk.gov.dwp.personal.details.server.dao.mongo.support;
+package uk.gov.dwp.common.mongo.test.support;
 
-import org.bson.Document;
+import com.mongodb.DBObject;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
-public class DocumentMatcher extends TypeSafeMatcher<Document> {
+public class DBObjectMatcher extends TypeSafeMatcher<DBObject> {
 
     private final String fieldName;
     private final Matcher<? extends Object> fieldValue;
 
-    public DocumentMatcher(String fieldName, Matcher<? extends Object> fieldValue) {
+    public DBObjectMatcher(String fieldName, Matcher<? extends Object> fieldValue) {
         this.fieldName = fieldName;
         this.fieldValue = fieldValue;
     }
 
     @Override
-    protected boolean matchesSafely(Document item) {
+    protected boolean matchesSafely(DBObject item) {
         return fieldValue.matches(item.get(fieldName));
     }
 
@@ -25,7 +25,7 @@ public class DocumentMatcher extends TypeSafeMatcher<Document> {
         description.appendText(fieldName).appendText(" is ").appendValue(fieldValue);
     }
 
-    public static DocumentMatcher hasField(String fieldName, Matcher<? extends Object> fieldValue) {
-        return new DocumentMatcher(fieldName, fieldValue);
+    public static DBObjectMatcher hasField(String fieldName, Matcher<? extends Object> fieldValue) {
+        return new DBObjectMatcher(fieldName, fieldValue);
     }
 }
