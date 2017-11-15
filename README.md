@@ -30,3 +30,21 @@ Consists of 3 core parts:
 KafkaConsumer listens to topic and consumes any CRUD operations
 
 Once the migration is complete
+
+## Building
+
+## Running
+### Starting Mongo
+```bash
+./start-mongo.sh
+```
+
+### Starting Kafka
+```bash
+./start-mongo.sh
+```
+
+### Starting HA Proxy
+```bash
+./start-haproxy.sh
+```

@@ -44,9 +44,10 @@ if options.lib:
 make_clean_dir(path.join(working_dir, 'docker'))
 
 with open(path.join(working_dir, 'docker', options.out), 'w') as dockerfile:
+    dockerfile.write('FROM java:8\n\n')
     for jar in jars:
-        dockerfile.write('COPY %s %s/lib/.\n' % (jar, options.home))
-    dockerfile.write(options.cmd)
+        dockerfile.write('COPY %s %s/lib/\n' % (jar[jar.find('buck-out'):], options.home))
+    dockerfile.write('\n%s\n' % options.cmd)
         # try:
         #     check_call(['tar', 'cvf', options.out, '.'], cwd=working_dir)
         # except KeyboardInterrupt:

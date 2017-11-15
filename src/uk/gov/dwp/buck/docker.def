@@ -7,7 +7,7 @@ def docker(
     docker_file = 'Dockerfile'):
     cmd = [
         '$(exe //src/uk/gov/dwp/buck:create_dockerfile)',
-        '--cmd', cmd,
+        '--cmd', "'%s'" % cmd,
         '--out', '$OUT',
         '--home', app_home,
         '--tmp', '$TMP']
