@@ -30,7 +30,7 @@ destination:
         invalidHostnameAllowed: false
     dbName: personal-details
     collection:
-      name: personalDetails
+      name: personalDetailsV2
       username: personalDetailsUser
       password: Passw0rd
 

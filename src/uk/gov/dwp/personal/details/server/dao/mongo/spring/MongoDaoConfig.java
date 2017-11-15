@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Import;
 import uk.gov.dwp.common.id.Id;
 import uk.gov.dwp.common.jackson.spring.JacksonConfiguration;
 import uk.gov.dwp.common.kafka.mongo.producer.MongoOperationKafkaMessageDispatcher;
-import uk.gov.dwp.common.kafka.mongo.producer.configuration.KafkaProducerConfig;
 import uk.gov.dwp.personal.details.server.dao.PersonalDetailsDao;
 import uk.gov.dwp.personal.details.server.dao.mongo.MongoPersonalDetailsDao;
 import uk.gov.dwp.personal.details.server.dao.mongo.PersonalDetailsDocumentConverter;
@@ -31,8 +30,7 @@ import static java.util.Collections.singletonList;
 
 @Configuration
 @Import({
-        JacksonConfiguration.class,
-        KafkaProducerConfig.class
+        JacksonConfiguration.class
 })
 @EnableConfigurationProperties(MongoDaoProperties.class)
 public class MongoDaoConfig {

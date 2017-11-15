@@ -9,6 +9,13 @@ java_library(
         '//lib/spring:spring-boot',
         '//lib/spring:spring-context',
         '//src/uk/gov/dwp/common/id:common-id',
+        '//src/uk/gov/dwp/common/kafka/mongo/api:common-kafka-mongo-api',
+        '//src/uk/gov/dwp/common/kafka/mongo/api:common-kafka-mongo-api',
+        '//src/uk/gov/dwp/common/kafka/mongo/producer:common-kafka-mongo-producer',
+        '//src/uk/gov/dwp/common/kafka/mongo/producer/configuration:common-kafka-mongo-producer-configuration',
+        '//src/uk/gov/dwp/migration/api:migration-api',
+        '//src/uk/gov/dwp/migration/kafka/api:migration-kafka-api',
+        '//src/uk/gov/dwp/migration/kafka/consumer:migration-kafka-consumer',
     ],
     visibility = [
         '//src/uk/gov/dwp/migration/server:migration-server',

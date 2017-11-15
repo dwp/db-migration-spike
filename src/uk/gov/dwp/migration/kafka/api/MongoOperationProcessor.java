@@ -2,7 +2,7 @@ package uk.gov.dwp.migration.kafka.api;
 
 import uk.gov.dwp.common.kafka.mongo.api.MongoOperation;
 
-public interface MongoOperationProcessor {
+public interface MongoOperationProcessor<T extends MongoOperation> {
 
-    void process(MongoOperation mongoOperation);
+    void process(T mongoOperation);
 }

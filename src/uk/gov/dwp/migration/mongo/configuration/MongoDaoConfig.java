@@ -3,12 +3,20 @@ package uk.gov.dwp.migration.mongo.configuration;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoCollection;
 import org.bson.BSON;
+import org.bson.Document;
 import org.bson.Transformer;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import uk.gov.dwp.common.id.Id;
+import uk.gov.dwp.common.kafka.mongo.producer.MongoOperationKafkaMessageDispatcher;
+import uk.gov.dwp.migration.api.DocumentMigrator;
+import uk.gov.dwp.migration.kafka.consumer.MongoOperationDelegatingProcessor;
+import uk.gov.dwp.migration.mongo.MongoDeleteOperationProcessor;
+import uk.gov.dwp.migration.mongo.MongoInsertOperationProcessor;
+import uk.gov.dwp.migration.mongo.MongoUpdateOperationProcessor;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -54,6 +62,37 @@ public class MongoDaoConfig {
                 createSeeds(destinationMongoDaoProperties),
                 createCredentials(destinationMongoDaoProperties),
                 destinationMongoDaoProperties.mongoClientOptions()
+        );
+    }
+
+    @Bean
+    public MongoOperationDelegatingProcessor mongoOperationDelegatingProcessor(DestinationMongoDaoProperties destinationMongoDaoProperties,
+                                                                               MongoClient destinationMongoClient,
+                                                                               MongoOperationKafkaMessageDispatcher mongoOperationKafkaMessageDispatcher,
+                                                                               DocumentMigrator documentMigrator) {
+        String destinationDbName = destinationMongoDaoProperties.getDbName();
+        String destinationCollectionName = destinationMongoDaoProperties.getCollection().getName();
+        MongoCollection<Document> destinationCollection = destinationMongoClient
+                .getDatabase(destinationDbName)
+                .getCollection(destinationCollectionName);
+        return new MongoOperationDelegatingProcessor(
+                destinationDbName,
+                destinationCollectionName,
+                new MongoInsertOperationProcessor(
+                        destinationCollection,
+                        destinationDbName,
+                        destinationCollectionName,
+                        mongoOperationKafkaMessageDispatcher,
+                        documentMigrator
+                ),
+                new MongoUpdateOperationProcessor(
+                        destinationCollection,
+                        destinationDbName,
+                        destinationCollectionName,
+                        mongoOperationKafkaMessageDispatcher,
+                        documentMigrator
+                ),
+                new MongoDeleteOperationProcessor(destinationCollection)
         );
     }
 

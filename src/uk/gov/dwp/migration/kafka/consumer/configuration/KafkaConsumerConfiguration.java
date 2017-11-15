@@ -8,12 +8,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import uk.gov.dwp.common.jackson.spring.JacksonConfiguration;
 import uk.gov.dwp.common.kafka.configuration.KafkaProperties;
-import uk.gov.dwp.migration.kafka.consumer.CompositeMongoOperationProcessor;
-import uk.gov.dwp.migration.kafka.consumer.DbCollectionMongoOperationProcessor;
+import uk.gov.dwp.migration.kafka.consumer.ConsumerRecordAdapterProcessor;
+import uk.gov.dwp.migration.kafka.consumer.ConsumerRecordProcessor;
+import uk.gov.dwp.migration.kafka.consumer.KafkaMessageListener;
 import uk.gov.dwp.migration.kafka.consumer.MongoOperationConsumer;
+import uk.gov.dwp.migration.kafka.consumer.MongoOperationDelegatingProcessorRegistry;
 import uk.gov.dwp.migration.mongo.configuration.DestinationMongoDaoProperties;
 
 import java.util.Collections;
+import java.util.concurrent.Executors;
 
 @Configuration
 @Import({
@@ -27,32 +30,36 @@ public class KafkaConsumerConfiguration {
 
     @Bean
     public Consumer<String, String> kafkaConsumer(KafkaProperties kafkaProperties) {
-        return new KafkaConsumer<>(kafkaProperties.toKafkaConsumerProperties());
+        KafkaConsumer<String, String> consumer = new KafkaConsumer<>(kafkaProperties.toKafkaConsumerProperties());
+        consumer.subscribe(Collections.singleton(kafkaProperties.getTopic()));
+        return consumer;
+    }
+
+    @Bean(initMethod = "start", destroyMethod = "stop")
+    public KafkaMessageListener kafkaMessageListener(MongoOperationConsumer mongoOperationConsumer) {
+        return new KafkaMessageListener(
+                Executors.newSingleThreadExecutor(),
+                mongoOperationConsumer
+        );
+    }
+
+    @Bean
+    public ConsumerRecordAdapterProcessor consumerRecordAdapterProcessor(JacksonConfiguration jacksonConfiguration,
+                                                                         MongoOperationDelegatingProcessorRegistry mongoOperationDelegatingProcessorRegistry) {
+        return new ConsumerRecordAdapterProcessor(
+                jacksonConfiguration.objectMapper(),
+                mongoOperationDelegatingProcessorRegistry
+        );
+    }
+
+    @Bean
+    public MongoOperationDelegatingProcessorRegistry mongoOperationDelegatingProcessorRegistry() {
+        return new MongoOperationDelegatingProcessorRegistry();
     }
 
     @Bean
     public MongoOperationConsumer mongoOperationConsumer(Consumer<String, String> kafkaConsumer,
-                                                         JacksonConfiguration jacksonConfiguration,
-                                                         DbCollectionMongoOperationProcessor dbCollectionMongoOperationProcessor) {
-        return new MongoOperationConsumer(
-                kafkaConsumer,
-                jacksonConfiguration.objectMapper(),
-                dbCollectionMongoOperationProcessor
-        );
-    }
-
-    @Bean
-    public DbCollectionMongoOperationProcessor dbCollectionMongoOperationProcessor(DestinationMongoDaoProperties destinationMongoDaoProperties,
-                                                                                   CompositeMongoOperationProcessor compositeMongoOperationProcessor) {
-        return new DbCollectionMongoOperationProcessor(
-                destinationMongoDaoProperties.getDbName(),
-                destinationMongoDaoProperties.getCollection().getName(),
-                compositeMongoOperationProcessor
-        );
-    }
-
-    @Bean
-    public CompositeMongoOperationProcessor compositeMongoOperationProcessor() {
-        return new CompositeMongoOperationProcessor(Collections.emptyMap());
+                                                         ConsumerRecordProcessor<String, String> consumerRecordProcessor) {
+        return new MongoOperationConsumer(kafkaConsumer, consumerRecordProcessor);
     }
 }

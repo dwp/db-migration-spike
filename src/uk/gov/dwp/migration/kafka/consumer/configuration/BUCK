@@ -6,7 +6,7 @@ java_library(
         '//lib/jackson:jackson-annotations',
         '//lib/jackson:jackson-core',
         '//lib/jackson:jackson-databind',
-        '//lib/kafka:kafka-clients-with-dependencies',
+        '//lib/kafka:kafka-streams-with-dependencies',
         '//lib/slf4j:slf4j-api',
         '//lib/spring:spring-boot',
         '//lib/spring:spring-context',
