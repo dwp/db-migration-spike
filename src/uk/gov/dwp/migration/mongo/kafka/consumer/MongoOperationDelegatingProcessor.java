@@ -1,4 +1,4 @@
-package uk.gov.dwp.migration.kafka.consumer;
+package uk.gov.dwp.migration.mongo.kafka.consumer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,7 +6,7 @@ import uk.gov.dwp.common.kafka.mongo.api.MongoDeleteMessage;
 import uk.gov.dwp.common.kafka.mongo.api.MongoInsertMessage;
 import uk.gov.dwp.common.kafka.mongo.api.MongoOperation;
 import uk.gov.dwp.common.kafka.mongo.api.MongoUpdateMessage;
-import uk.gov.dwp.migration.kafka.api.MongoOperationProcessor;
+import uk.gov.dwp.migration.mongo.kafka.api.MongoOperationProcessor;
 
 import java.util.HashMap;
 import java.util.Map;

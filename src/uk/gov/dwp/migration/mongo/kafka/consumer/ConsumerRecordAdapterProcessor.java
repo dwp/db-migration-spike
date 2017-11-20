@@ -1,4 +1,4 @@
-package uk.gov.dwp.migration.kafka.consumer;
+package uk.gov.dwp.migration.mongo.kafka.consumer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.gov.dwp.common.kafka.mongo.api.KafkaMessageWrapper;
 import uk.gov.dwp.common.kafka.mongo.api.MongoOperation;
-import uk.gov.dwp.migration.kafka.api.MongoOperationProcessor;
+import uk.gov.dwp.migration.mongo.kafka.api.MongoOperationProcessor;
 
 import java.io.IOException;
 

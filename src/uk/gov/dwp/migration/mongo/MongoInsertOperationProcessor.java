@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 import uk.gov.dwp.common.kafka.mongo.api.MongoInsertMessage;
 import uk.gov.dwp.common.kafka.mongo.api.MongoUpdateMessage;
 import uk.gov.dwp.common.kafka.mongo.producer.MongoOperationKafkaMessageDispatcher;
-import uk.gov.dwp.migration.api.DocumentMigrator;
-import uk.gov.dwp.migration.kafka.api.MongoOperationProcessor;
+import uk.gov.dwp.migration.mongo.api.DocumentMigrator;
+import uk.gov.dwp.migration.mongo.kafka.api.MongoOperationProcessor;
 
 public class MongoInsertOperationProcessor implements MongoOperationProcessor<MongoInsertMessage> {
 

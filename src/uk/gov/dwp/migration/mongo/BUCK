@@ -7,11 +7,12 @@ java_library(
         '//lib/slf4j:slf4j-api',
         '//src/uk/gov/dwp/common/kafka/mongo/api:common-kafka-mongo-api',
         '//src/uk/gov/dwp/common/kafka/mongo/producer:common-kafka-mongo-producer',
-        '//src/uk/gov/dwp/migration/api:migration-api',
-        '//src/uk/gov/dwp/migration/kafka/api:migration-kafka-api',
+        '//src/uk/gov/dwp/migration/mongo/api:migration-mongo-api',
+        '//src/uk/gov/dwp/migration/mongo/kafka/api:migration-mongo-kafka-api',
     ],
     visibility = [
         '//src/uk/gov/dwp/migration/mongo/configuration:migration-mongo-configuration',
+        '//src/uk/gov/dwp/migration/server/migrations/configuration:migration-server-migrations-configuration',
         '//test/uk/gov/dwp/migration/...',
     ]
 )

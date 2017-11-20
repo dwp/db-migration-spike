@@ -8,6 +8,6 @@ java_test(
         '//lib/test:common',
         '//src/uk/gov/dwp/common/kafka/mongo/api:common-kafka-mongo-api',
         '//src/uk/gov/dwp/common/kafka/mongo/producer:common-kafka-mongo-producer',
-        '//src/uk/gov/dwp/migration/kafka/api:migration-kafka-api',
+        '//src/uk/gov/dwp/migration/mongo/kafka/api:migration-mongo-kafka-api',
     ],
 )

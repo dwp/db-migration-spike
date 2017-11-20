@@ -1,4 +1,4 @@
-package uk.gov.dwp.migration.kafka.consumer;
+package uk.gov.dwp.migration.mongo.kafka.consumer;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 

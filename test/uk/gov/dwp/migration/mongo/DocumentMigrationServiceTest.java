@@ -3,9 +3,9 @@ package uk.gov.dwp.migration.mongo;
 import org.bson.Document;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import uk.gov.dwp.migration.api.DocumentMigrator;
-import uk.gov.dwp.migration.api.DocumentWriter;
-import uk.gov.dwp.migration.api.Migration;
+import uk.gov.dwp.migration.mongo.api.DocumentMigrator;
+import uk.gov.dwp.migration.mongo.api.DocumentWriter;
+import uk.gov.dwp.migration.mongo.api.Migration;
 
 import java.util.Collections;
 

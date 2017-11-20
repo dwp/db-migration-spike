@@ -1,4 +1,4 @@
-package uk.gov.dwp.migration.kafka.consumer.configuration;
+package uk.gov.dwp.migration.mongo.kafka.consumer.configuration;
 
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -8,12 +8,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import uk.gov.dwp.common.jackson.spring.JacksonConfiguration;
 import uk.gov.dwp.common.kafka.configuration.KafkaProperties;
-import uk.gov.dwp.migration.kafka.consumer.ConsumerRecordAdapterProcessor;
-import uk.gov.dwp.migration.kafka.consumer.ConsumerRecordProcessor;
-import uk.gov.dwp.migration.kafka.consumer.KafkaMessageListener;
-import uk.gov.dwp.migration.kafka.consumer.MongoOperationConsumer;
-import uk.gov.dwp.migration.kafka.consumer.MongoOperationDelegatingProcessorRegistry;
 import uk.gov.dwp.migration.mongo.configuration.DestinationMongoDaoProperties;
+import uk.gov.dwp.migration.mongo.kafka.consumer.ConsumerRecordAdapterProcessor;
+import uk.gov.dwp.migration.mongo.kafka.consumer.ConsumerRecordProcessor;
+import uk.gov.dwp.migration.mongo.kafka.consumer.KafkaMessageListener;
+import uk.gov.dwp.migration.mongo.kafka.consumer.MongoOperationConsumer;
+import uk.gov.dwp.migration.mongo.kafka.consumer.MongoOperationDelegatingProcessorRegistry;
 
 import java.util.Collections;
 import java.util.concurrent.Executors;

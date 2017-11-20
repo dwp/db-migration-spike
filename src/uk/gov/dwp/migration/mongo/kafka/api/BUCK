@@ -1,5 +1,5 @@
 java_library(
-    name = 'migration-kafka-api',
+    name = 'migration-mongo-kafka-api',
     srcs = glob(['*.java']),
     deps = [
         '//src/uk/gov/dwp/common/kafka/mongo/api:common-kafka-mongo-api',

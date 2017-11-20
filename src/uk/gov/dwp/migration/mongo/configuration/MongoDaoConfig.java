@@ -12,11 +12,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import uk.gov.dwp.common.id.Id;
 import uk.gov.dwp.common.kafka.mongo.producer.MongoOperationKafkaMessageDispatcher;
-import uk.gov.dwp.migration.api.DocumentMigrator;
-import uk.gov.dwp.migration.kafka.consumer.MongoOperationDelegatingProcessor;
 import uk.gov.dwp.migration.mongo.MongoDeleteOperationProcessor;
 import uk.gov.dwp.migration.mongo.MongoInsertOperationProcessor;
 import uk.gov.dwp.migration.mongo.MongoUpdateOperationProcessor;
+import uk.gov.dwp.migration.mongo.api.DocumentMigrator;
+import uk.gov.dwp.migration.mongo.kafka.consumer.MongoOperationDelegatingProcessor;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -57,12 +57,26 @@ public class MongoDaoConfig {
     }
 
     @Bean
+    public MongoCollection<Document> sourceMongoCollection(SourceMongoDaoProperties sourceMongoDaoProperties) {
+        return sourceMongoClient(sourceMongoDaoProperties)
+                .getDatabase(sourceMongoDaoProperties.getDbName())
+                .getCollection(sourceMongoDaoProperties.getCollection().getName());
+    }
+
+    @Bean
     public MongoClient destinationMongoClient(DestinationMongoDaoProperties destinationMongoDaoProperties) {
         return new MongoClient(
                 createSeeds(destinationMongoDaoProperties),
                 createCredentials(destinationMongoDaoProperties),
                 destinationMongoDaoProperties.mongoClientOptions()
         );
+    }
+
+    @Bean
+    public MongoCollection<Document> destinationMongoCollection(DestinationMongoDaoProperties destinationMongoDaoProperties) {
+        return destinationMongoClient(destinationMongoDaoProperties)
+                .getDatabase(destinationMongoDaoProperties.getDbName())
+                .getCollection(destinationMongoDaoProperties.getCollection().getName());
     }
 
     @Bean

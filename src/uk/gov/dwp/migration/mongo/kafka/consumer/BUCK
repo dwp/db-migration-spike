@@ -1,5 +1,5 @@
 java_library(
-    name = 'migration-kafka-consumer',
+    name = 'migration-mongo-kafka-consumer',
     srcs = glob(['*.java']),
     deps = [
         '//lib:commons-lang3',
@@ -11,7 +11,7 @@ java_library(
         '//lib/slf4j:slf4j-api',
         '//src/uk/gov/dwp/common/id:common-id',
         '//src/uk/gov/dwp/common/kafka/mongo/api:common-kafka-mongo-api',
-        '//src/uk/gov/dwp/migration/kafka/api:migration-kafka-api',
+        '//src/uk/gov/dwp/migration/mongo/kafka/api:migration-mongo-kafka-api',
     ],
     visibility = [
         'PUBLIC',

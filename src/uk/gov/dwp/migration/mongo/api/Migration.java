@@ -1,4 +1,4 @@
-package uk.gov.dwp.migration.api;
+package uk.gov.dwp.migration.mongo.api;
 
 import java.time.Instant;
 

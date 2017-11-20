@@ -5,8 +5,8 @@ import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uk.gov.dwp.migration.api.DocumentWriter;
-import uk.gov.dwp.migration.api.Migration;
+import uk.gov.dwp.migration.mongo.api.DocumentWriter;
+import uk.gov.dwp.migration.mongo.api.Migration;
 
 public class MongoDocumentWriter implements DocumentWriter {
 

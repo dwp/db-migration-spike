@@ -5,8 +5,8 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uk.gov.dwp.migration.api.DocumentSelector;
-import uk.gov.dwp.migration.api.Migration;
+import uk.gov.dwp.migration.mongo.api.DocumentSelector;
+import uk.gov.dwp.migration.mongo.api.Migration;
 
 public class MongoDocumentSelector implements DocumentSelector<Document> {
 

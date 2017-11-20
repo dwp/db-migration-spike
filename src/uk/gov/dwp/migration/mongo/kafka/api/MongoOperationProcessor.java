@@ -1,4 +1,4 @@
-package uk.gov.dwp.migration.kafka.api;
+package uk.gov.dwp.migration.mongo.kafka.api;
 
 import uk.gov.dwp.common.kafka.mongo.api.MongoOperation;
 

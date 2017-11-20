@@ -3,7 +3,7 @@ package uk.gov.dwp.migration.mongo;
 import com.mongodb.client.MongoCollection;
 import org.junit.Test;
 import uk.gov.dwp.common.kafka.mongo.producer.MongoOperationKafkaMessageDispatcher;
-import uk.gov.dwp.migration.api.DocumentMigrator;
+import uk.gov.dwp.migration.mongo.api.DocumentMigrator;
 
 import static org.mockito.Mockito.mock;
 

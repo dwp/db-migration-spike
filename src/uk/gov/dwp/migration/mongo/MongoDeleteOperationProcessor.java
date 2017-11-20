@@ -6,7 +6,7 @@ import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.gov.dwp.common.kafka.mongo.api.MongoDeleteMessage;
-import uk.gov.dwp.migration.kafka.api.MongoOperationProcessor;
+import uk.gov.dwp.migration.mongo.kafka.api.MongoOperationProcessor;
 
 import java.time.Instant;
 

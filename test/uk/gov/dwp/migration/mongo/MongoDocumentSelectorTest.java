@@ -6,7 +6,7 @@ import com.mongodb.client.MongoCollection;
 import org.bson.conversions.Bson;
 import org.junit.Before;
 import org.junit.Test;
-import uk.gov.dwp.migration.api.Migration;
+import uk.gov.dwp.migration.mongo.api.Migration;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;

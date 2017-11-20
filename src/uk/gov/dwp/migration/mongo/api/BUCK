@@ -1,5 +1,5 @@
 java_library(
-    name = 'migration-api',
+    name = 'migration-mongo-api',
     srcs = glob(['*.java']),
     deps = [
         '//lib/mongo:mongodb-driver'

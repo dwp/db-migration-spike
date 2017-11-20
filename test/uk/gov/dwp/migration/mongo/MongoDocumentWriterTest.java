@@ -3,7 +3,7 @@ package uk.gov.dwp.migration.mongo;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 import org.junit.Test;
-import uk.gov.dwp.migration.api.Migration;
+import uk.gov.dwp.migration.mongo.api.Migration;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
