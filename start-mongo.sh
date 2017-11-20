@@ -12,7 +12,7 @@ if [ ! "$(docker ps -q -f name=${CONTAINER_NAME})" ]; then
         docker rm ${CONTAINER_NAME}
     fi
     echo "Running ${CONTAINER_NAME}"
-    docker run -d --name ${CONTAINER_NAME} ${IMAGE_NAME} --auth
+    docker run -d -p 28018:27017 --name ${CONTAINER_NAME} ${IMAGE_NAME} --auth
     # Allow mongo time to start
     sleep 2
     echo "Creating admin user"
