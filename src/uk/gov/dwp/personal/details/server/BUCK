@@ -58,4 +58,4 @@ docker(
 )
 
 # TODO: Define a macro to build a docker image from the Dockerfile produced above
-# docker build --tag=personal-details-server --file=buck-out/gen/src/uk/gov/dwp/personal/details/server/personal-details-docker/Dockerfile .
+# docker build --tag=personal-details-server:1.0 --file=buck-out/gen/src/uk/gov/dwp/personal/details/server/personal-details-docker/Dockerfile .
