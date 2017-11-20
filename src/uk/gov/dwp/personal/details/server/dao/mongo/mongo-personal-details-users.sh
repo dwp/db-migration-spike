@@ -12,6 +12,7 @@ mongo --username=${MONGO_ADMIN_USER} \
       --password=${MONGO_ADMIN_PASSWORD} \
       --authenticationDatabase=${MONGO_ADMIN_DB} \
       ${MONGO_DB_ADDRESS} <<!
+db.dropUser("personalDetailsUser")
 db.createUser({
   user: "personalDetailsUser",
   pwd: "Passw0rd",

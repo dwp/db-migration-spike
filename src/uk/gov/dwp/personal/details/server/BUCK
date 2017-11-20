@@ -51,10 +51,11 @@ java_library(
 docker(
     name = 'personal-details-docker',
     app_home = '/srv/app',
-    cmd = 'CMD java -clp "/srv/app/lib/*" uk.gov.dwp.personal.details.server.PersonalDetailsServer',
+    cmd = 'CMD java -cp "/srv/app/lib/*" uk.gov.dwp.personal.details.server.PersonalDetailsServer',
     lib = [
         ':personal-details-server',
-    ],
+    ]
 )
 
-# docker build --tag=personal-details-server --file=wip/Dockerfile .
+# TODO: Define a macro to build a docker image from the Dockerfile produced above
+# docker build --tag=personal-details-server --file=buck-out/gen/src/uk/gov/dwp/personal/details/server/personal-details-docker/Dockerfile .

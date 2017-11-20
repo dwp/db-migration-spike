@@ -12,6 +12,7 @@ mongo --username=${MONGO_ADMIN_USER} \
       --password=${MONGO_ADMIN_PASSWORD} \
       --authenticationDatabase=${MONGO_ADMIN_DB} \
       ${MONGO_DB_ADDRESS} <<!
+db.dropRole("personalDetailsReadOnly")
 db.createRole({
   role: "personalDetailsReadOnly",
     privileges: [
@@ -19,6 +20,7 @@ db.createRole({
     ],
     roles: []
 })
+db.dropRole("personalDetailsReadWrite")
 db.createRole({
   role: "personalDetailsReadWrite",
   privileges: [

@@ -5,6 +5,8 @@ import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import org.bson.BSON;
 import org.bson.Transformer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +36,8 @@ import static java.util.Collections.singletonList;
 })
 @EnableConfigurationProperties(MongoDaoProperties.class)
 public class MongoDaoConfig {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MongoDaoConfig.class);
 
     static {
         TimeZone.setDefault(TimeZone.getTimeZone(UTC));
@@ -90,6 +94,7 @@ public class MongoDaoConfig {
         return mongoDaoProperties.getServerAddresses()
                 .stream()
                 .map(serverAddress -> new ServerAddress(serverAddress.getHost(), serverAddress.getPort()))
+                .peek(serverAddress -> LOGGER.debug("Adding {} as a seed server for Mongo", serverAddress))
                 .collect(Collectors.toList());
     }
 
