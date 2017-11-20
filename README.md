@@ -6,8 +6,9 @@ This spike consists of:
   - `GET /personal-details/{personalDetailsId}`
   - `POST /personal-details`
   - `PUT /personal-details`
-  - 'DELETE /personal-details/{personalDetailsId'
+  - `DELETE /personal-details/{personalDetailsId`
 - a simple "client": `personal-details-client` which hits each of the HTTP endpoints of `personal-details-server` at regular intervals
+ (see `uk.gov.dwp.personal.details.client.PersonalDetailsClientApplication` for further details).
 - a standalone migration microservice which:
   - Does something
   
@@ -32,16 +33,30 @@ KafkaConsumer listens to topic and consumes any CRUD operations
 Once the migration is complete
 
 ## Building
+This project uses [Buck](https://buckbuild.com/) as a build tool.  Please refer to the [Getting Started Guide]() for installation and usage of Buck.
+This build has been tested using `v2017.10.01.01`
 
-## Running
+```bash
+buck build src/uk/gov/dwp/personal/details/server:personal-details-docker
+
+#TODO: Move the following step to be part of the buck build process
+docker build --tag=personal-details-server --file=buck-out/gen/src/uk/gov/dwp/personal/details/server/personal-details-docker/Dockerfile .
+```
+
 ### Starting Mongo
+Start a Docker container running an authenticated Mongo instance.
+
 ```bash
 ./start-mongo.sh
+```
+Connecting to the mongo instance from the host OS
+```bash
+mongo -username=admin -password=Passw0rd -authenticationDatabase=admin localhost:28018/admin
 ```
 
 ### Starting Kafka
 ```bash
-./start-mongo.sh
+./start-kafka.sh
 ```
 
 ### Starting HA Proxy

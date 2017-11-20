@@ -23,3 +23,15 @@ kafka:
   url: localhost:9092
   retries: 0
   topic: mongo.updates
+
+---
+
+spring:
+  profiles: docker
+dao:
+  mongo:
+    serverAddresses:
+      - host: mongo-server
+        port: 27017
+kafka:
+  url: kafka-server:9092
