@@ -22,7 +22,7 @@ dao:
 kafka:
   url: localhost:9092
   retries: 0
-  topic: mongo.updates
+  topic: mongo-updates
 
 ---
 
