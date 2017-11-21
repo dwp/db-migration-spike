@@ -8,7 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import uk.gov.dwp.common.jackson.spring.JacksonConfiguration;
 import uk.gov.dwp.common.kafka.configuration.KafkaProperties;
-import uk.gov.dwp.migration.mongo.configuration.DestinationMongoDaoProperties;
+import uk.gov.dwp.migration.mongo.configuration.DestinationMigrationDaoProperties;
+import uk.gov.dwp.migration.mongo.configuration.SourceMigrationDaoProperties;
 import uk.gov.dwp.migration.mongo.kafka.consumer.ConsumerRecordAdapterProcessor;
 import uk.gov.dwp.migration.mongo.kafka.consumer.ConsumerRecordProcessor;
 import uk.gov.dwp.migration.mongo.kafka.consumer.KafkaMessageListener;
@@ -24,12 +25,13 @@ import java.util.concurrent.Executors;
 })
 @EnableConfigurationProperties({
         KafkaProperties.class,
-        DestinationMongoDaoProperties.class
+        DestinationMigrationDaoProperties.class
 })
 public class KafkaConsumerConfiguration {
 
     @Bean
-    public Consumer<String, String> kafkaConsumer(KafkaProperties kafkaProperties) {
+    public Consumer<String, String> kafkaConsumer(SourceMigrationDaoProperties sourceMigrationDaoProperties) {
+        KafkaProperties kafkaProperties = sourceMigrationDaoProperties.getKafkaConsumer();
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(kafkaProperties.toKafkaConsumerProperties());
         consumer.subscribe(Collections.singleton(kafkaProperties.getTopic()));
         return consumer;

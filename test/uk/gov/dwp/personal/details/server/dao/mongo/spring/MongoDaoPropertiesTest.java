@@ -3,7 +3,6 @@ package uk.gov.dwp.personal.details.server.dao.mongo.spring;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -14,7 +13,6 @@ import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.ClassPathResource;
 import uk.gov.dwp.personal.details.server.dao.mongo.spring.MongoDaoProperties.Collection;
 import uk.gov.dwp.personal.details.server.dao.mongo.spring.MongoDaoProperties.MongoOptions;
-import uk.gov.dwp.personal.details.server.dao.mongo.spring.MongoDaoProperties.MongoOptions.SSL;
 import uk.gov.dwp.personal.details.server.dao.mongo.spring.MongoDaoProperties.MongoServerAddress;
 
 import java.util.Optional;
@@ -27,21 +25,11 @@ import static org.hamcrest.Matchers.is;
 
 public class MongoDaoPropertiesTest {
 
-    private final MongoDaoProperties underTest = new MongoDaoProperties();
-    private final MongoOptions mongoOptions = new MongoOptions();
-    private final SSL ssl = new SSL();
-
-    @Before
-    public void setUp() {
-        underTest.setOptions(mongoOptions);
-        mongoOptions.setSsl(ssl);
-    }
-
     @Test
     public void createMongoConfigurationWithMultipleServers() throws Exception {
         AnnotationConfigApplicationContext applicationContext = createApplicationContext("/mongo-dao-multiple-servers-and-auth.yml");
 
-        MongoDaoProperties properties = applicationContext.getBean(MongoDaoProperties.class);
+        MongoDaoProperties properties = applicationContext.getBean(PersonalDetailsDaoProperties.class).getMongo();
 
         assertThat(properties.getServerAddresses(), contains(
                 serverAddress("db1.server.com", 27017),
@@ -59,7 +47,7 @@ public class MongoDaoPropertiesTest {
     public void createDefaultMongoConfiguration() {
         AnnotationConfigApplicationContext applicationContext = createApplicationContext("/mongo-dao-defaults.yml");
 
-        MongoDaoProperties properties = applicationContext.getBean(MongoDaoProperties.class);
+        MongoDaoProperties properties = applicationContext.getBean(PersonalDetailsDaoProperties.class).getMongo();
 
         assertThat(properties.getServerAddresses(), contains(
                 serverAddress("localhost", 27017)
@@ -157,7 +145,7 @@ public class MongoDaoPropertiesTest {
     }
 
     @Configuration
-    @EnableConfigurationProperties(MongoDaoProperties.class)
+    @EnableConfigurationProperties(PersonalDetailsDaoProperties.class)
     public static class DummyConfiguration {
 
     }

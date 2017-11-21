@@ -3,6 +3,7 @@ package uk.gov.dwp.common.mongo.test.support;
 import org.bson.Document;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 
 public class DocumentMatcher extends TypeSafeMatcher<Document> {
@@ -17,7 +18,7 @@ public class DocumentMatcher extends TypeSafeMatcher<Document> {
 
     @Override
     protected boolean matchesSafely(Document item) {
-        return fieldValue.matches(item.get(fieldName));
+        return item.containsKey(fieldName) && fieldValue.matches(item.get(fieldName));
     }
 
     @Override
@@ -27,5 +28,9 @@ public class DocumentMatcher extends TypeSafeMatcher<Document> {
 
     public static DocumentMatcher hasField(String fieldName, Matcher<? extends Object> fieldValue) {
         return new DocumentMatcher(fieldName, fieldValue);
+    }
+
+    public static DocumentMatcher hasField(String fieldName) {
+        return new DocumentMatcher(fieldName, Matchers.anything());
     }
 }

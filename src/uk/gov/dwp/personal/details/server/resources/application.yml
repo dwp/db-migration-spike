@@ -15,23 +15,51 @@ dao:
         invalidHostnameAllowed: false
     dbName: personal-details
     personalDetails:
-      name: personalDetails
+      name: personalDetailsV2
       username: personalDetailsUser
       password: Passw0rd
+  kafkaProducer:
+    url: localhost:9092
+    retries: 0
+    topic: mongo-updates
 
-kafka:
-  url: localhost:9092
-  retries: 0
-  topic: mongo.updates
+migration:
+  source:
+    mongo:
+      serverAddresses:
+        - host: localhost
+          port: 27017
+      options:
+        ssl:
+          enabled: false
+          invalidHostnameAllowed: false
+      dbName: personal-details
+      collection:
+        name: personalDetails
+        username: personalDetailsUser
+        password: Passw0rd
+    kafkaConsumer:
+      url: localhost:9092
+      retries: 0
+      topic: mongo-updates
 
----
-
-spring:
-  profiles: docker
-dao:
-  mongo:
-    serverAddresses:
-      - host: mongo-server
-        port: 27017
-kafka:
-  url: kafka-server:9092
+# TODO: These properties may not be required - could the 'dao.xxx' properties be used??
+migration:
+  destination:
+    mongo:
+      serverAddresses:
+        - host: localhost
+          port: 27017
+      options:
+        ssl:
+          enabled: false
+          invalidHostnameAllowed: false
+      dbName: personal-details
+      collection:
+        name: personalDetailsV2
+        username: personalDetailsUser
+        password: Passw0rd
+    kafkaProducer:
+      url: localhost:9092
+      retries: 0
+      topic: mongo-migration-personal-details

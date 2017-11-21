@@ -1,18 +1,24 @@
 package uk.gov.dwp.personal.details.server.dao.mongo.spring;
 
 import com.mongodb.MongoClientOptions;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import static com.mongodb.MongoCredential.createScramSha1Credential;
+import static java.util.Collections.singletonList;
 import static java.util.Optional.ofNullable;
 
-@Component
-@ConfigurationProperties(prefix = "dao.mongo")
 public class MongoDaoProperties {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(MongoDaoProperties.class);
 
     private List<MongoServerAddress> serverAddresses = new ArrayList<>();
     private Optional<String> dbName = Optional.empty();
@@ -143,4 +149,25 @@ public class MongoDaoProperties {
             }
         }
     }
+
+    public List<ServerAddress> createSeeds() {
+        return serverAddresses
+                .stream()
+                .map(serverAddress -> new ServerAddress(serverAddress.getHost(), serverAddress.getPort()))
+                .peek(serverAddress -> LOGGER.debug("Adding {} as a seed server for Mongo", serverAddress))
+                .collect(Collectors.toList());
+    }
+
+    public List<MongoCredential> createCredentials() {
+        return personalDetails.getUsername()
+                .map(username -> singletonList(createScramSha1Credential(
+                        username,
+                        getDbName(),
+                        personalDetails
+                                .getPassword()
+                                .orElseThrow(() -> new IllegalArgumentException("Password is required when username specified"))
+                                .toCharArray())))
+                .orElse(Collections.emptyList());
+    }
+
 }

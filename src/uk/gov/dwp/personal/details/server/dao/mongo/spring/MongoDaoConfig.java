@@ -1,74 +1,48 @@
 package uk.gov.dwp.personal.details.server.dao.mongo.spring;
 
 import com.mongodb.MongoClient;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
-import org.bson.BSON;
-import org.bson.Transformer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import uk.gov.dwp.common.id.Id;
 import uk.gov.dwp.common.jackson.spring.JacksonConfiguration;
 import uk.gov.dwp.common.kafka.mongo.producer.MongoOperationKafkaMessageDispatcher;
+import uk.gov.dwp.common.mongo.MongoTransformerConfiguration;
 import uk.gov.dwp.personal.details.server.dao.PersonalDetailsDao;
 import uk.gov.dwp.personal.details.server.dao.mongo.MongoPersonalDetailsDao;
 import uk.gov.dwp.personal.details.server.dao.mongo.PersonalDetailsDocumentConverter;
-
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
-import java.util.stream.Collectors;
-
-import static com.mongodb.MongoCredential.createScramSha1Credential;
-import static java.time.ZoneOffset.UTC;
-import static java.util.Collections.singletonList;
 
 @Configuration
 @Import({
         JacksonConfiguration.class
 })
-@EnableConfigurationProperties(MongoDaoProperties.class)
+@EnableConfigurationProperties(PersonalDetailsDaoProperties.class)
 public class MongoDaoConfig {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MongoDaoConfig.class);
-
     static {
-        TimeZone.setDefault(TimeZone.getTimeZone(UTC));
-        BSON.addDecodingHook(LocalDateTime.class, new LocalDateTimeTransformer());
-        BSON.addEncodingHook(LocalDateTime.class, new LocalDateTimeTransformer());
-        BSON.addDecodingHook(Instant.class, new InstantTransformer());
-        BSON.addEncodingHook(Instant.class, new InstantTransformer());
-        BSON.addEncodingHook(Id.class, new IdTransformer());
-        BSON.addDecodingHook(Date.class, new InstantTransformer());
+        MongoTransformerConfiguration.registerTransformers();
     }
 
     @Bean
-    public MongoClient mongoClient(MongoDaoProperties mongoDaoProperties) {
+    public MongoClient mongoClient(PersonalDetailsDaoProperties personalDetailsDaoProperties) {
         return new MongoClient(
-                createSeeds(mongoDaoProperties),
-                createCredentials(mongoDaoProperties),
-                mongoDaoProperties.mongoClientOptions()
+                personalDetailsDaoProperties.getMongo().createSeeds(),
+                personalDetailsDaoProperties.getMongo().createCredentials(),
+                personalDetailsDaoProperties.getMongo().mongoClientOptions()
         );
     }
 
     @Bean
     public PersonalDetailsDao personalDetailsDao(MongoClient mongoClient,
-                                                 MongoDaoProperties mongoDaoProperties,
+                                                 PersonalDetailsDaoProperties personalDetailsDaoProperties,
                                                  PersonalDetailsDocumentConverter personalDetailsDocumentConverter,
                                                  MongoOperationKafkaMessageDispatcher kafkaMessageDispatcher) {
         return new MongoPersonalDetailsDao(
-                mongoDaoProperties.getDbName(),
-                mongoDaoProperties.getPersonalDetails().getName(),
+                personalDetailsDaoProperties.getMongo().getDbName(),
+                personalDetailsDaoProperties.getMongo().getPersonalDetails().getName(),
                 mongoClient
-                        .getDatabase(mongoDaoProperties.getDbName())
-                        .getCollection(mongoDaoProperties.getPersonalDetails().getName()),
+                        .getDatabase(personalDetailsDaoProperties.getMongo().getDbName())
+                        .getCollection(personalDetailsDaoProperties.getMongo().getPersonalDetails().getName()),
                 personalDetailsDocumentConverter,
                 kafkaMessageDispatcher);
     }
@@ -76,62 +50,5 @@ public class MongoDaoConfig {
     @Bean
     public PersonalDetailsDocumentConverter personalDetailsDocumentConverter() {
         return new PersonalDetailsDocumentConverter();
-    }
-
-    private List<MongoCredential> createCredentials(MongoDaoProperties mongoDaoProperties) {
-        return mongoDaoProperties.getPersonalDetails().getUsername()
-                .map(username -> singletonList(createScramSha1Credential(
-                        username,
-                        mongoDaoProperties.getDbName(),
-                        mongoDaoProperties.getPersonalDetails()
-                                .getPassword()
-                                .orElseThrow(() -> new IllegalArgumentException("Password is required when username specified"))
-                                .toCharArray())))
-                .orElse(Collections.emptyList());
-    }
-
-    private List<ServerAddress> createSeeds(MongoDaoProperties mongoDaoProperties) {
-        return mongoDaoProperties.getServerAddresses()
-                .stream()
-                .map(serverAddress -> new ServerAddress(serverAddress.getHost(), serverAddress.getPort()))
-                .peek(serverAddress -> LOGGER.debug("Adding {} as a seed server for Mongo", serverAddress))
-                .collect(Collectors.toList());
-    }
-
-    public static class LocalDateTimeTransformer implements Transformer {
-
-        @Override
-        public Object transform(Object objectToTransform) {
-            if (objectToTransform instanceof LocalDateTime) {
-                return Date.from(((LocalDateTime) objectToTransform).toInstant(UTC));
-            } else if (objectToTransform instanceof Date) {
-                return LocalDateTime.ofInstant(((Date) objectToTransform).toInstant(), UTC);
-            }
-            throw new IllegalArgumentException("LocalDateTimeTransformer can only be used with LocalDateTime or Date");
-        }
-    }
-
-    public static class InstantTransformer implements Transformer {
-
-        @Override
-        public Object transform(Object objectToTransform) {
-            if (objectToTransform instanceof Instant) {
-                return Date.from(((Instant) objectToTransform));
-            } else if (objectToTransform instanceof Date) {
-                return ((Date) objectToTransform).toInstant();
-            }
-            throw new IllegalArgumentException("InstantTransformer can only be used with Instant or Date");
-        }
-    }
-
-    public static class IdTransformer implements Transformer {
-
-        @Override
-        public Object transform(Object objectToTransform) {
-            if (objectToTransform instanceof Id) {
-                return ((Id) objectToTransform).getId().toString();
-            }
-            throw new IllegalArgumentException("IdTransformer can only be used with instances of Id");
-        }
     }
 }

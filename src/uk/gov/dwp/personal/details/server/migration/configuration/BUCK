@@ -1,0 +1,19 @@
+java_library(
+    name = 'personal-details-server-migration-configuration',
+    srcs = glob(['*.java']),
+    deps = [
+        '//lib/mongo:mongodb-driver',
+        '//lib/slf4j:slf4j-api',
+        '//lib/spring:spring-boot',
+        '//lib/spring:spring-context',
+        '//src/uk/gov/dwp/migration/mongo:migration-mongo',
+        '//src/uk/gov/dwp/migration/mongo/api:migration-mongo-api',
+        '//src/uk/gov/dwp/migration/mongo/configuration:migration-mongo-configuration',
+        '//src/uk/gov/dwp/migration/mongo/kafka/consumer:migration-mongo-kafka-consumer',
+        '//src/uk/gov/dwp/migration/mongo/kafka/consumer/configuration:migration-mongo-kafka-consumer-configuration',
+        '//src/uk/gov/dwp/personal/details/server/migration:personal-details-server-migration',
+    ],
+    visibility = [
+        'PUBLIC',
+    ]
+)

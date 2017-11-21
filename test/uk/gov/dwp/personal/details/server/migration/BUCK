@@ -1,0 +1,11 @@
+java_test(
+    name = 'test',
+    srcs = glob(['*.java']),
+    deps = [
+        '//lib/mongo:mongodb-driver',
+        '//lib/test:common',
+        '//src/uk/gov/dwp/common/mongo/test/support:common-mongo-test-support',
+        '//src/uk/gov/dwp/migration/mongo/api:migration-mongo-api',
+        '//src/uk/gov/dwp/personal/details/server/migration:personal-details-server-migration',
+    ],
+)
