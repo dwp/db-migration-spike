@@ -37,10 +37,10 @@ This project uses [Buck](https://buckbuild.com/) as a build tool.  Please refer 
 This build has been tested using `v2017.10.01.01`
 
 ```bash
-buck build src/uk/gov/dwp/personal/details/server:personal-details-docker
+buck build //src/uk/gov/dwp/personal/details/server:personal-details-docker
 
 #TODO: Move the following step to be part of the buck build process
-docker build --tag=personal-details-server --file=buck-out/gen/src/uk/gov/dwp/personal/details/server/personal-details-docker/Dockerfile .
+docker build --tag=personal-details-server:2.0 --file=buck-out/gen/src/uk/gov/dwp/personal/details/server/personal-details-docker/Dockerfile .
 ```
 
 ### Starting Mongo
