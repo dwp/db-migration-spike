@@ -1,0 +1,10 @@
+java_library(
+    name = 'common-mongo-codec',
+    srcs = glob(['*.java']),
+    deps = [
+        '//lib/mongo:mongodb-driver',
+    ],
+    visibility = [
+        'PUBLIC'
+    ],
+)
