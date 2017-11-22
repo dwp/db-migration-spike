@@ -7,6 +7,7 @@ java_library(
     visibility = [
         '//src/uk/gov/dwp/migration/...',
         '//src/uk/gov/dwp/personal/details/server/migration/...',
+        '//src/uk/gov/dwp/personal/details/server:personal-details-server',
         '//test/uk/gov/dwp/migration/...',
         '//test/uk/gov/dwp/personal/details/server/migration:test',
     ]

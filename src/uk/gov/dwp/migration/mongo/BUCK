@@ -13,6 +13,7 @@ java_library(
     visibility = [
         '//src/uk/gov/dwp/migration/mongo/configuration:migration-mongo-configuration',
         '//src/uk/gov/dwp/personal/details/server/migration/...',
+        '//src/uk/gov/dwp/personal/details/server:personal-details-server',
         '//test/uk/gov/dwp/migration/...',
     ]
 )

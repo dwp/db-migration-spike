@@ -5,6 +5,7 @@ import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.gov.dwp.common.mongo.codec.MongoCodecSupport;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -61,6 +62,7 @@ public class MongoDaoProperties {
         return new MongoClientOptions.Builder()
                 .sslEnabled(options.ssl.enabled)
                 .sslInvalidHostNameAllowed(options.ssl.invalidHostnameAllowed)
+                .codecRegistry(MongoCodecSupport.createCodecRegistry())
                 .build();
     }
 

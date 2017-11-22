@@ -14,6 +14,7 @@ java_library(
         '//src/uk/gov/dwp/common/kafka/mongo/producer:common-kafka-mongo-producer',
         '//src/uk/gov/dwp/common/kafka/mongo/producer/configuration:common-kafka-mongo-producer-configuration',
         '//src/uk/gov/dwp/common/mongo:common-mongo',
+        '//src/uk/gov/dwp/common/mongo/codec:common-mongo-codec',
         '//src/uk/gov/dwp/personal/details/client:personal-details-client',
         '//src/uk/gov/dwp/personal/details/server/dao:personal-details-dao',
         '//src/uk/gov/dwp/personal/details/server/model:personal-details-model',

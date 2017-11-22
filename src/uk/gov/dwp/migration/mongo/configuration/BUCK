@@ -14,6 +14,7 @@ java_library(
         '//src/uk/gov/dwp/common/kafka/mongo/producer:common-kafka-mongo-producer',
         '//src/uk/gov/dwp/common/kafka/mongo/producer/configuration:common-kafka-mongo-producer-configuration',
         '//src/uk/gov/dwp/common/mongo:common-mongo',
+        '//src/uk/gov/dwp/common/mongo/codec:common-mongo-codec',
         '//src/uk/gov/dwp/migration/mongo/api:migration-mongo-api',
         '//src/uk/gov/dwp/migration/mongo/kafka/api:migration-mongo-kafka-api',
         '//src/uk/gov/dwp/migration/mongo/kafka/consumer:migration-mongo-kafka-consumer',
@@ -21,5 +22,6 @@ java_library(
     visibility = [
         '//src/uk/gov/dwp/migration/mongo/kafka/consumer/configuration:migration-mongo-kafka-consumer-configuration',
         '//src/uk/gov/dwp/personal/details/server/migration/...',
+        '//src/uk/gov/dwp/personal/details/server:personal-details-server',
     ],
 )

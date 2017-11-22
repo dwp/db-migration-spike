@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import uk.gov.dwp.common.jackson.spring.JacksonConfiguration;
 import uk.gov.dwp.common.kafka.configuration.KafkaProperties;
-import uk.gov.dwp.migration.mongo.configuration.DestinationMigrationDaoProperties;
 import uk.gov.dwp.migration.mongo.configuration.SourceMigrationDaoProperties;
 import uk.gov.dwp.migration.mongo.kafka.consumer.ConsumerRecordAdapterProcessor;
 import uk.gov.dwp.migration.mongo.kafka.consumer.ConsumerRecordProcessor;
@@ -24,8 +23,7 @@ import java.util.concurrent.Executors;
         JacksonConfiguration.class,
 })
 @EnableConfigurationProperties({
-        KafkaProperties.class,
-        DestinationMigrationDaoProperties.class
+        SourceMigrationDaoProperties.class
 })
 public class KafkaConsumerConfiguration {
 

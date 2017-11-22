@@ -1,6 +1,7 @@
 package uk.gov.dwp.migration.mongo.configuration;
 
 import com.mongodb.MongoClientOptions;
+import uk.gov.dwp.common.mongo.codec.MongoCodecSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,7 @@ public class MongoDaoProperties {
         return new MongoClientOptions.Builder()
                 .sslEnabled(options.ssl.enabled)
                 .sslInvalidHostNameAllowed(options.ssl.invalidHostnameAllowed)
+                .codecRegistry(MongoCodecSupport.createCodecRegistry())
                 .build();
     }
 
