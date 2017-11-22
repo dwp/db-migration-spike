@@ -77,13 +77,15 @@ dao:
 migration:
   source:
     mongo:
-      - host: mongo-server
-        port: 27017
+      serverAddresses:
+        - host: mongo-server
+          port: 27017
     kafkaConsumer:
       url: kafka-server:9092
   destination:
     mongo:
-      - host: mongo-server
-        port: 27017
+      serverAddresses:
+        - host: mongo-server
+          port: 27017
     kafkaProducer:
       url: kafka-server:9092
