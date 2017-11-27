@@ -67,33 +67,28 @@ public class SourceMongoDaoConfig {
     }
 
     @Bean
-    public MongoOperationDelegatingProcessor mongoOperationDelegatingProcessor(DestinationMigrationDaoProperties destinationMigrationDaoProperties,
-                                                                               MongoClient destinationMongoClient,
+    public MongoOperationDelegatingProcessor mongoOperationDelegatingProcessor(SourceMigrationDaoProperties sourceMigrationDaoProperties,
+                                                                               MongoCollection<Document> destinationMongoCollection,
                                                                                MongoOperationKafkaMessageDispatcher mongoOperationKafkaMessageDispatcher,
                                                                                DocumentMigrator documentMigrator) {
-        String destinationDbName = destinationMigrationDaoProperties.getMongo().getDbName();
-        String destinationCollectionName = destinationMigrationDaoProperties.getMongo().getCollection().getName();
-        MongoCollection<Document> destinationCollection = destinationMongoClient
-                .getDatabase(destinationDbName)
-                .getCollection(destinationCollectionName);
         return new MongoOperationDelegatingProcessor(
-                destinationDbName,
-                destinationCollectionName,
+                sourceMigrationDaoProperties.getMongo().getDbName(),
+                sourceMigrationDaoProperties.getMongo().getCollection().getName(),
                 new MongoInsertOperationProcessor(
-                        destinationCollection,
-                        destinationDbName,
-                        destinationCollectionName,
+                        destinationMongoCollection,
+                        destinationMongoCollection.getNamespace().getDatabaseName(),
+                        destinationMongoCollection.getNamespace().getCollectionName(),
                         mongoOperationKafkaMessageDispatcher,
                         documentMigrator
                 ),
                 new MongoUpdateOperationProcessor(
-                        destinationCollection,
-                        destinationDbName,
-                        destinationCollectionName,
+                        destinationMongoCollection,
+                        destinationMongoCollection.getNamespace().getDatabaseName(),
+                        destinationMongoCollection.getNamespace().getCollectionName(),
                         mongoOperationKafkaMessageDispatcher,
                         documentMigrator
                 ),
-                new MongoDeleteOperationProcessor(destinationCollection)
+                new MongoDeleteOperationProcessor(destinationMongoCollection)
         );
     }
 

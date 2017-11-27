@@ -18,18 +18,18 @@ public class MongoInsertOperationProcessor implements MongoOperationProcessor<Mo
     private final MongoCollection<Document> mongoCollection;
     private final String db;
     private final String collection;
-    private final MongoOperationKafkaMessageDispatcher mongoOperationKafaMessageDispatcher;
+    private final MongoOperationKafkaMessageDispatcher mongoOperationKafkaMessageDispatcher;
     private final DocumentMigrator documentMigrator;
 
     public MongoInsertOperationProcessor(MongoCollection mongoCollection,
                                          String db,
                                          String collection,
-                                         MongoOperationKafkaMessageDispatcher mongoOperationKafaMessageDispatcher,
+                                         MongoOperationKafkaMessageDispatcher mongoOperationKafkaMessageDispatcher,
                                          DocumentMigrator documentMigrator) {
         this.mongoCollection = mongoCollection;
         this.db = db;
         this.collection = collection;
-        this.mongoOperationKafaMessageDispatcher = mongoOperationKafaMessageDispatcher;
+        this.mongoOperationKafkaMessageDispatcher = mongoOperationKafkaMessageDispatcher;
         this.documentMigrator = documentMigrator;
     }
 
@@ -40,7 +40,7 @@ public class MongoInsertOperationProcessor implements MongoOperationProcessor<Mo
         Document document = documentMigrator.migrate(new Document(mongoInsertMessage.getData()));
         try {
             mongoCollection.insertOne(document);
-            mongoOperationKafaMessageDispatcher.send(new MongoUpdateMessage(db, collection, document));
+            mongoOperationKafkaMessageDispatcher.send(new MongoUpdateMessage(db, collection, document));
         } catch (MongoWriteException e) {
             LOGGER.warn("Document: {} already exists", document.get("_id"));
         }

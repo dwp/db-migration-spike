@@ -10,5 +10,6 @@ java_library(
         '//src/uk/gov/dwp/personal/details/server:personal-details-server',
         '//test/uk/gov/dwp/migration/...',
         '//test/uk/gov/dwp/personal/details/server/migration:test',
+        '//test/uk/gov/dwp/personal/details/server/migration/acceptance:test',
     ]
 )

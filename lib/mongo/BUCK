@@ -1,4 +1,10 @@
-prebuilt_jar(name='bson', binary_jar=':bson-mvn')
+prebuilt_jar(
+    name = 'bson',
+    binary_jar = ':bson-mvn',
+    visibility = [
+        'PUBLIC',
+    ],
+)
 prebuilt_jar(name='mongodb-driver-jar', binary_jar=':mongodb-driver-mvn')
 prebuilt_jar(name='mongodb-driver-core', binary_jar=':mongodb-driver-core-mvn')
 

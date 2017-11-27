@@ -1,17 +1,11 @@
 package uk.gov.dwp.personal.details.server.dao.mongo;
 
-import org.bson.Document;
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeDiagnosingMatcher;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.internal.hamcrest.HamcrestArgumentMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
-import uk.gov.dwp.common.kafka.mongo.api.MongoDeleteMessage;
-import uk.gov.dwp.common.kafka.mongo.api.MongoInsertMessage;
 import uk.gov.dwp.common.kafka.mongo.api.MongoOperation;
-import uk.gov.dwp.common.kafka.mongo.api.MongoUpdateMessage;
+import uk.gov.dwp.common.kafka.mongo.api.test.support.MongoOperationMatcher;
 import uk.gov.dwp.common.mongo.test.support.DocumentMatcher;
 import uk.gov.dwp.personal.details.client.PersonalDetailsMatcher;
 import uk.gov.dwp.personal.details.server.dao.PersonalDetailsDao;
@@ -29,6 +23,9 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
+import static uk.gov.dwp.common.kafka.mongo.api.test.support.MongoOperationMatcher.mongoDeleteOperation;
+import static uk.gov.dwp.common.kafka.mongo.api.test.support.MongoOperationMatcher.mongoInsertOperation;
+import static uk.gov.dwp.common.kafka.mongo.api.test.support.MongoOperationMatcher.mongoUpdateOperation;
 import static uk.gov.dwp.personal.details.server.dao.mongo.PersonalDetailsDocumentConverter.DATE_OF_BIRTH_FIELD;
 import static uk.gov.dwp.personal.details.server.dao.mongo.PersonalDetailsDocumentConverter.NAME_FIELD;
 import static uk.gov.dwp.personal.details.server.model.PersonalDetails.newPersonalDetails;
@@ -133,58 +130,10 @@ public class MongoPersonalDetailsDaoTest extends AbstractMongoDaoTest {
         return "personalDetails";
     }
 
-    private MongoOperation matches(Matcher<? extends MongoOperation> mongoOperationMatcher) {
-        return Mockito.argThat(new HamcrestArgumentMatcher<>(mongoOperationMatcher));
-    }
-
-    private MongoOperationMatcher<MongoInsertMessage> mongoInsertOperation(Matcher<Document> dbObjectMatcher) {
-        return new MongoOperationMatcher<>(
-                mongoDaoProperties.getDbName(),
-                mongoDaoProperties.getPersonalDetails().getName(),
-                dbObjectMatcher
-        );
-    }
-
-    private MongoOperationMatcher<MongoUpdateMessage> mongoUpdateOperation(Matcher<Document> dbObjectMatcher) {
-        return new MongoOperationMatcher<>(
-                mongoDaoProperties.getDbName(),
-                mongoDaoProperties.getPersonalDetails().getName(),
-                dbObjectMatcher);
-    }
-
-    private MongoOperationMatcher<MongoDeleteMessage> mongoDeleteOperation(Matcher<Document> dbObjectMatcher) {
-        return new MongoOperationMatcher<>(
-                mongoDaoProperties.getDbName(),
-                mongoDaoProperties.getPersonalDetails().getName(),
-                dbObjectMatcher);
-    }
-
-    public static class MongoOperationMatcher<T extends MongoOperation> extends TypeSafeDiagnosingMatcher<T> {
-
-        private String dbName;
-        private String collectionName;
-        private Matcher<Document> documentMatcher;
-
-        MongoOperationMatcher(String dbName,
-                              String collectionName,
-                              Matcher<Document> dbObjectMatcher) {
-            this.dbName = dbName;
-            this.collectionName = collectionName;
-            this.documentMatcher = dbObjectMatcher;
-        }
-
-        @Override
-        protected boolean matchesSafely(T mongoOperation, Description description) {
-            return dbName.equals(mongoOperation.getDb()) &&
-                    collectionName.equals(mongoOperation.getCollection()) &&
-                    documentMatcher.matches(mongoOperation.getData());
-        }
-
-        @Override
-        public void describeTo(Description description) {
-            description.appendText("db=").appendText(dbName)
-                    .appendText(", collection=").appendText(collectionName)
-                    .appendText(", dbObject=").appendDescriptionOf(documentMatcher);
-        }
+    private MongoOperation matches(MongoOperationMatcher<? extends MongoOperation> mongoOperationMatcher) {
+        return Mockito.argThat(new HamcrestArgumentMatcher<>(mongoOperationMatcher
+                .withDbName(mongoDaoProperties.getDbName())
+                .withCollectionName(getCollectionName())
+        ));
     }
 }

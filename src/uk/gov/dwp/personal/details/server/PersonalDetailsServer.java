@@ -9,9 +9,10 @@ import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
 import org.springframework.context.annotation.Import;
 import uk.gov.dwp.common.cxf.server.CxfBusConfiguration;
 import uk.gov.dwp.migration.mongo.configuration.SourceMongoDaoConfig;
+import uk.gov.dwp.migration.mongo.kafka.consumer.configuration.KafkaConsumerConfiguration;
 import uk.gov.dwp.personal.details.server.dao.mongo.spring.KafkaProducerConfig;
 import uk.gov.dwp.personal.details.server.dao.mongo.spring.MongoDaoConfig;
-import uk.gov.dwp.personal.details.server.migration.configuration.PersonalDetailsMigrationConfiguration;
+import uk.gov.dwp.personal.details.server.migration.configuration.PersonalDetailsMigrationServiceConfiguration;
 import uk.gov.dwp.personal.details.server.resource.configuration.PersonalDetailsResourceConfiguration;
 
 @SpringBootApplication
@@ -19,10 +20,11 @@ import uk.gov.dwp.personal.details.server.resource.configuration.PersonalDetails
         PropertyPlaceholderAutoConfiguration.class,
         CxfBusConfiguration.class,
         HealthCheckConfiguration.class,
+        KafkaConsumerConfiguration.class,
         KafkaProducerConfig.class,
         MongoDaoConfig.class,
         PersonalDetailsResourceConfiguration.class,
-        PersonalDetailsMigrationConfiguration.class,
+        PersonalDetailsMigrationServiceConfiguration.class,
         SourceMongoDaoConfig.class
 //        EmbeddedServletContainerAutoConfiguration.class
 })

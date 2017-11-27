@@ -23,5 +23,6 @@ java_library(
         '//src/uk/gov/dwp/migration/mongo/kafka/consumer/configuration:migration-mongo-kafka-consumer-configuration',
         '//src/uk/gov/dwp/personal/details/server/migration/...',
         '//src/uk/gov/dwp/personal/details/server:personal-details-server',
+        '//test/uk/gov/dwp/personal/details/server/migration/acceptance:test',
     ],
 )

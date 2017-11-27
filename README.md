@@ -1,13 +1,13 @@
 # db-migration-spike
 
 This spike consists of:
-- a simple microservice `personal-details-server` which exposes the following CRUD operations via REST over HTTP (see 
+- a simple microservice `personal-details-server` (See building personal-details-server for deployment instructions) which exposes the following CRUD operations via REST over HTTP (see 
 `uk.gov.dwp.personal.details.api.PersonalDetailsClient` for further details):
   - `GET /personal-details/{personalDetailsId}`
   - `POST /personal-details`
   - `PUT /personal-details`
   - `DELETE /personal-details/{personalDetailsId`
-- a simple "client": `personal-details-client` which hits each of the HTTP endpoints of `personal-details-server` at regular intervals
+- a simple example "client": `personal-details-client` which hits each of the HTTP endpoints of `personal-details-server` at regular intervals
  (see `uk.gov.dwp.personal.details.client.PersonalDetailsClientApplication` for further details).
 - a standalone migration microservice which:
   - Does something
@@ -32,7 +32,13 @@ KafkaConsumer listens to topic and consumes any CRUD operations
 
 Once the migration is complete
 
-## Building
+## Building - Prerequisites
+This project uses [Buck](https://buckbuild.com/) as a build tool.  Please refer to the [Getting Started Guide]() for installation and usage of Buck.
+This build has been tested using `v2017.10.01.01` of Buck.
+
+Once the modules are compiled they are packaged up as docker images
+
+## Building `personal-details-server`
 This project uses [Buck](https://buckbuild.com/) as a build tool.  Please refer to the [Getting Started Guide]() for installation and usage of Buck.
 This build has been tested using `v2017.10.01.01`
 

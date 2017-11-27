@@ -1,0 +1,38 @@
+java_test(
+    name = 'test',
+    srcs = glob(['*.java']),
+    resources = [
+        'resources/acceptance-test.properties',
+    ],
+    resources_root = 'resources',
+    deps = [
+        '//lib/javax:javax-ws-rs-api',
+        '//lib/mongo:mongodb-driver',
+        '//lib/slf4j:slf4j-api',
+        '//lib/spring:spring-beans',
+        '//lib/spring:spring-boot',
+        '//lib/spring:spring-boot-test',
+        '//lib/spring:spring-context',
+        '//lib/spring:spring-core',
+        '//lib/spring:spring-core-dependencies',
+        '//lib/spring:spring-test',
+        '//lib/test:common',
+        '//src/uk/gov/dwp/common/id:common-id',
+        '//src/uk/gov/dwp/common/kafka/mongo/api:common-kafka-mongo-api',
+        '//src/uk/gov/dwp/common/kafka/mongo/api/test/support:common-kafka-mongo-api-test-support',
+        '//src/uk/gov/dwp/common/kafka/mongo/producer:common-kafka-mongo-producer',
+        '//src/uk/gov/dwp/common/mongo/test/support:common-mongo-test-support',
+        '//src/uk/gov/dwp/migration/mongo:migration-mongo',
+        '//src/uk/gov/dwp/migration/mongo/api:migration-mongo-api',
+        '//src/uk/gov/dwp/migration/mongo/configuration:migration-mongo-configuration',
+        '//src/uk/gov/dwp/migration/mongo/kafka/api:migration-mongo-kafka-api',
+        '//src/uk/gov/dwp/migration/mongo/kafka/consumer:migration-mongo-kafka-consumer',
+        '//src/uk/gov/dwp/migration/mongo/kafka/consumer/configuration:migration-mongo-kafka-consumer-configuration',
+        '//src/uk/gov/dwp/personal/details/server/migration:personal-details-server-migration',
+        '//src/uk/gov/dwp/personal/details/server/migration/configuration:personal-details-server-migration-configuration',
+        '//src/uk/gov/dwp/personal/details/type:personal-details-type',
+    ],
+    visibility = [
+        'PUBLIC'
+    ],
+)
