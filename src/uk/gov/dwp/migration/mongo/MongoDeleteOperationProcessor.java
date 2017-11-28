@@ -8,29 +8,41 @@ import org.slf4j.LoggerFactory;
 import uk.gov.dwp.common.kafka.mongo.api.MongoDeleteMessage;
 import uk.gov.dwp.migration.mongo.kafka.api.MongoOperationProcessor;
 
-import java.time.Instant;
+import java.time.Clock;
 
 public class MongoDeleteOperationProcessor implements MongoOperationProcessor<MongoDeleteMessage> {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(MongoInsertOperationProcessor.class);
 
-    private final MongoCollection<Document> mongoCollection;
+    private final MongoCollection<Document> destinationCollection;
+    private final Clock clock;
 
-    public MongoDeleteOperationProcessor(MongoCollection<Document> mongoCollection) {
-        this.mongoCollection = mongoCollection;
+    public MongoDeleteOperationProcessor(MongoCollection<Document> destinationCollection) {
+        this(destinationCollection, Clock.systemUTC());
+    }
+
+    MongoDeleteOperationProcessor(MongoCollection<Document> destinationCollection,
+                                  Clock clock) {
+        this.destinationCollection = destinationCollection;
+        this.clock = clock;
     }
 
     @Override
     public void process(MongoDeleteMessage mongoDeleteMessage) {
-        UpdateResult updateResult = mongoCollection.replaceOne(
-                createId(mongoDeleteMessage), new Document("_deleted", true).append("_lastModifiedDateTime", Instant.now())
+        Document removedDocument = createRemovedDocument(mongoDeleteMessage);
+        UpdateResult updateResult = destinationCollection.replaceOne(
+                createId(mongoDeleteMessage),
+                removedDocument
         );
         if (updateResult.getModifiedCount() == 0) {
-            mongoCollection.insertOne(createId(mongoDeleteMessage)
-                    .append("_deleted", true)
-                    .append("_lastModifiedDateTime", Instant.now())
-            );
+            destinationCollection.insertOne(removedDocument);
         }
+    }
+
+    private Document createRemovedDocument(MongoDeleteMessage mongoDeleteMessage) {
+        return createId(mongoDeleteMessage)
+                .append("_removedDateTime", clock.instant())
+                .append("_lastModifiedDateTime", clock.instant());
     }
 
     private Document createId(MongoDeleteMessage mongoOperation) {
