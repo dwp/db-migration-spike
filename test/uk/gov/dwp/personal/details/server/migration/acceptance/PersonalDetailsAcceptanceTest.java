@@ -42,6 +42,8 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.verifyZeroInteractions;
 import static uk.gov.dwp.common.kafka.mongo.api.test.support.MongoOperationMatcher.mongoUpdateOperation;
 import static uk.gov.dwp.common.mongo.test.support.DocumentMatcher.hasField;
 import static uk.gov.dwp.personal.details.type.PersonalDetailsId.newPersonalDetailsId;
@@ -129,23 +131,6 @@ public class PersonalDetailsAcceptanceTest {
         ))));
     }
 
-    private Instant givenARecordExistsInTheSourceCollection() {
-        clock = Clock.fixed(Instant.now(), ZoneOffset.UTC);
-        Instant lastModifiedDateTime = clock.instant();
-        sourceMongoCollection.insertOne(personalDetailsV1(personalDetailsId, "Mickey Mouse", "19281118"));
-        assertThat(sourceMongoCollection.find(createId(personalDetailsId)).first(), allOf(
-                hasField("name", equalTo("Mickey Mouse")),
-                hasField("dateOfBirth", equalTo("19281118")),
-                hasField("_createdDateTime", equalTo(CREATED_DATE_TIME)),
-                hasField("_lastModifiedDateTime", equalTo(lastModifiedDateTime)),
-                not(hasField("firstName")),
-                not(hasField("lastName"))
-        ));
-        assertThat(destinationMongoCollection.find(createId(personalDetailsId)).first(), nullValue());
-        clock = Clock.systemUTC();
-        return lastModifiedDateTime;
-    }
-
     @Test
     public void documentIsMigratedThenDeleteReceived() {
         Instant lastModifiedDateTime = givenARecordExistsInTheSourceCollection();
@@ -181,44 +166,122 @@ public class PersonalDetailsAcceptanceTest {
 
     @Test
     public void insertIsReceivedThenRecordIsMigrated() {
-        sourceMongoCollection.insertOne(personalDetailsV1(personalDetailsId, "Mick Mouse", "19281118"));
+        Instant lastModifiedDateTime = givenARecordExistsInTheSourceCollection();
 
         mongoOperationDelegatingProcessor.process(mongoInsert(personalDetailsV1(personalDetailsId, "Mick Mouse", "19281118")));
+
+        assertThat(destinationMongoCollection.find(createId(personalDetailsId)).first(), allOf(
+                hasField("firstName", equalTo("Mick")),
+                hasField("lastName", equalTo("Mouse")),
+                hasField("dateOfBirth", equalTo("19281118")),
+                hasField("_createdDateTime", equalTo(CREATED_DATE_TIME)),
+                hasField("_lastModifiedDateTime", not(equalTo(lastModifiedDateTime))),
+                not(hasField("name"))
+        ));
+        verify(mongoOperationKafkaMessageDispatcher).send(matches(mongoUpdateOperation(allOf(
+                hasField("_id", equalTo(personalDetailsId.toString())),
+                hasField("firstName", equalTo("Mick")),
+                hasField("lastName", equalTo("Mouse")),
+                hasField("dateOfBirth", equalTo("19281118")),
+                hasField("_createdDateTime", equalTo(CREATED_DATE_TIME)),
+                hasField("_lastModifiedDateTime", notNullValue())
+        ))));
+
         documentMigrationService.doMigration();
 
         assertThat(destinationMongoCollection.find(createId(personalDetailsId)).first(), allOf(
                 hasField("firstName", equalTo("Mick")),
                 hasField("lastName", equalTo("Mouse")),
-                hasField("dateOfBirth", equalTo("19281118"))
+                hasField("dateOfBirth", equalTo("19281118")),
+                hasField("_createdDateTime", equalTo(CREATED_DATE_TIME)),
+                hasField("_lastModifiedDateTime", not(equalTo(lastModifiedDateTime))),
+                not(hasField("name"))
         ));
+        verifyNoMoreInteractions(mongoOperationKafkaMessageDispatcher);
     }
 
     @Test
     public void updateIsReceivedThenRecordIsMigrated() {
-        sourceMongoCollection.insertOne(personalDetailsV1(personalDetailsId, "Mick Mouse", "19281118"));
+        Instant lastModifiedDateTime = givenARecordExistsInTheSourceCollection();
 
-        mongoOperationDelegatingProcessor.process(mongoUpdate(personalDetailsV1(personalDetailsId, "Mickey Mouse", "19281118")));
+        mongoOperationDelegatingProcessor.process(mongoUpdate(personalDetailsV1(personalDetailsId, "Donald Duck", "19281118")));
+
+        assertThat(destinationMongoCollection.find(createId(personalDetailsId)).first(), allOf(
+                hasField("firstName", equalTo("Donald")),
+                hasField("lastName", equalTo("Duck")),
+                hasField("dateOfBirth", equalTo("19281118")),
+                hasField("_createdDateTime", equalTo(CREATED_DATE_TIME)),
+                hasField("_lastModifiedDateTime", not(equalTo(lastModifiedDateTime))),
+                not(hasField("name"))
+        ));
+        verify(mongoOperationKafkaMessageDispatcher).send(matches(mongoUpdateOperation(allOf(
+                hasField("_id", equalTo(personalDetailsId.toString())),
+                hasField("firstName", equalTo("Donald")),
+                hasField("lastName", equalTo("Duck")),
+                hasField("dateOfBirth", equalTo("19281118")),
+                hasField("_createdDateTime", equalTo(CREATED_DATE_TIME)),
+                hasField("_lastModifiedDateTime", notNullValue())
+        ))));
+
         documentMigrationService.doMigration();
 
         assertThat(destinationMongoCollection.find(createId(personalDetailsId)).first(), allOf(
-                hasField("firstName", equalTo("Mickey")),
-                hasField("lastName", equalTo("Mouse")),
-                hasField("dateOfBirth", equalTo("19281118"))
+                hasField("firstName", equalTo("Donald")),
+                hasField("lastName", equalTo("Duck")),
+                hasField("dateOfBirth", equalTo("19281118")),
+                hasField("_createdDateTime", equalTo(CREATED_DATE_TIME)),
+                hasField("_lastModifiedDateTime", not(equalTo(lastModifiedDateTime))),
+                not(hasField("name"))
         ));
+        verifyNoMoreInteractions(mongoOperationKafkaMessageDispatcher);
     }
 
     @Test
     public void deleteIsReceivedThenRecordIsMigrated() {
-        sourceMongoCollection.insertOne(personalDetailsV1(personalDetailsId, "Mickey Mouse", "19281118"));
+        Instant lastModifiedDateTime = givenARecordExistsInTheSourceCollection();
 
         mongoOperationDelegatingProcessor.process(mongoDelete(personalDetailsId));
+
+        assertThat(destinationMongoCollection.find(createId(personalDetailsId)).first(), allOf(
+                hasField("_removedDateTime", notNullValue()),
+                hasField("_lastModifiedDateTime", not(equalTo(lastModifiedDateTime))),
+                not(hasField("firstName")),
+                not(hasField("lastName")),
+                not(hasField("dateOfBirth")),
+                not(hasField("_createdDateTime")),
+                not(hasField("name"))
+        ));
+        verifyZeroInteractions(mongoOperationKafkaMessageDispatcher);
+
         documentMigrationService.doMigration();
 
         assertThat(destinationMongoCollection.find(createId(personalDetailsId)).first(), allOf(
+                hasField("_removedDateTime", notNullValue()),
+                hasField("_lastModifiedDateTime", not(equalTo(lastModifiedDateTime))),
                 not(hasField("firstName")),
                 not(hasField("lastName")),
-                not(hasField("dateOfBirth"))
+                not(hasField("dateOfBirth")),
+                not(hasField("_createdDateTime")),
+                not(hasField("name"))
         ));
+        verifyZeroInteractions(mongoOperationKafkaMessageDispatcher);
+    }
+
+    private Instant givenARecordExistsInTheSourceCollection() {
+        clock = Clock.fixed(Instant.now(), ZoneOffset.UTC);
+        Instant lastModifiedDateTime = clock.instant();
+        sourceMongoCollection.insertOne(personalDetailsV1(personalDetailsId, "Mickey Mouse", "19281118"));
+        assertThat(sourceMongoCollection.find(createId(personalDetailsId)).first(), allOf(
+                hasField("name", equalTo("Mickey Mouse")),
+                hasField("dateOfBirth", equalTo("19281118")),
+                hasField("_createdDateTime", equalTo(CREATED_DATE_TIME)),
+                hasField("_lastModifiedDateTime", equalTo(lastModifiedDateTime)),
+                not(hasField("firstName")),
+                not(hasField("lastName"))
+        ));
+        assertThat(destinationMongoCollection.find(createId(personalDetailsId)).first(), nullValue());
+        clock = Clock.systemUTC();
+        return lastModifiedDateTime;
     }
 
     private MongoInsertMessage mongoInsert(Document personalDetailsDocument) {
