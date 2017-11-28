@@ -13,6 +13,7 @@ import uk.gov.dwp.common.mongo.MongoTransformerConfiguration;
 import uk.gov.dwp.migration.mongo.MongoDeleteOperationProcessor;
 import uk.gov.dwp.migration.mongo.MongoInsertOperationProcessor;
 import uk.gov.dwp.migration.mongo.MongoUpdateOperationProcessor;
+import uk.gov.dwp.migration.mongo.ReplaceFilterQueryFactory;
 import uk.gov.dwp.migration.mongo.api.DocumentMigrator;
 import uk.gov.dwp.migration.mongo.kafka.consumer.MongoOperationDelegatingProcessor;
 
@@ -86,8 +87,8 @@ public class SourceMongoDaoConfig {
                         destinationMongoCollection.getNamespace().getDatabaseName(),
                         destinationMongoCollection.getNamespace().getCollectionName(),
                         mongoOperationKafkaMessageDispatcher,
-                        documentMigrator
-                ),
+                        documentMigrator,
+                        new ReplaceFilterQueryFactory()),
                 new MongoDeleteOperationProcessor(destinationMongoCollection)
         );
     }

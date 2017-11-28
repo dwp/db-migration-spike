@@ -2,6 +2,7 @@ java_test(
     name = 'test',
     srcs = glob(['*.java']),
     deps = [
+        '//lib:guava',
         '//lib/mongo:mongodb-driver',
         '//lib/test:common',
         '//src/uk/gov/dwp/common/kafka/mongo/api:common-kafka-mongo-api',
