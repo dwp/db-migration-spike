@@ -44,7 +44,7 @@ if options.lib:
 make_clean_dir(path.join(working_dir, 'docker'))
 
 with open(path.join(working_dir, 'docker', options.out), 'w') as dockerfile:
-    dockerfile.write('FROM java:8\n\n')
+    dockerfile.write('FROM openjdk:8-jre-slim\n\n')
     for jar in jars:
         dockerfile.write('COPY %s %s/lib/\n' % (jar[jar.find('buck-out'):], options.home))
     dockerfile.write('\n%s\n' % options.cmd)
