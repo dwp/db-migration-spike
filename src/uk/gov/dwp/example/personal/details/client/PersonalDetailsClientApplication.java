@@ -7,6 +7,8 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uk.gov.dwp.common.id.Id;
 import uk.gov.dwp.common.jackson.ISO8601DateFormatWithMilliSeconds;
 import uk.gov.dwp.common.jackson.IdDeserializer;
@@ -21,6 +23,9 @@ import uk.gov.dwp.personal.details.client.PersonalDetailsClient;
 import static java.util.Collections.singletonList;
 
 public class PersonalDetailsClientApplication {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PersonalDetailsClientApplication.class);
+    private static final String DEFAULT_PERSONAL_DETAILS_SERVER_BASE_URL = "http://localhost:8008/personal-details";
 
     private final CreatePersonalDetailsService createPersonalDetailsService;
     private final DeletePersonalDetailsService deletePersonalDetailsService;
@@ -45,10 +50,7 @@ public class PersonalDetailsClientApplication {
     }
 
     public static void main(String[] args) {
-        if (args.length != 1) {
-            throw new IllegalArgumentException("URL of the personalDetails web server must be provided e.g. http://localhost:8008/personal-details");
-        }
-        final String url = args[0];
+        final String url = resolvePersonalDetailsBaseUrl(args);
 
         PersonalDetailsClient personalDetailsClient = JAXRSClientFactory.create(
                 url,
@@ -66,6 +68,19 @@ public class PersonalDetailsClientApplication {
         personalDetailsClientApplication.start();
     }
 
+    private static String resolvePersonalDetailsBaseUrl(String[] args) {
+        String url = System.getenv("PERSONAL_DETAILS_BASE_URL");
+        if (args.length == 1) {
+            url = args[0];
+            LOGGER.info("Using URL from Command Line: {}", url);
+        } else if (url == null) {
+            LOGGER.info("Using Default Url: {}", DEFAULT_PERSONAL_DETAILS_SERVER_BASE_URL);
+            url = DEFAULT_PERSONAL_DETAILS_SERVER_BASE_URL;
+        } else {
+            LOGGER.info("Using URL from PERSONAL_DETAILS_BASE_URL environment variable: {}", url);
+        }
+        return url;
+    }
 
     private static ObjectMapper objectMapper() {
             return new ObjectMapper()

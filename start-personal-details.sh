@@ -7,7 +7,7 @@ export MONGO_DB_ADDRESS="localhost:28018/personal-details"
 
 #!/bin/bash
 IMAGE_NAME="personal-details-server:1.0"
-CONTAINER_NAME="personal-details-server-v1.0"
+CONTAINER_NAME="personal-details-server-v1"
 
 # TODO: Consider adding docker build as a pre-step
 

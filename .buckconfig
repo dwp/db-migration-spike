@@ -1,3 +1,7 @@
+[alias]
+  personal-details-docker = //src/uk/gov/dwp/personal/details/server:personal-details-docker
+  personal-details-client-docker = //src/uk/gov/dwp/example/personal/details/client:example-personal-details-client-docker
+
 [download]
   in_build = True
 
