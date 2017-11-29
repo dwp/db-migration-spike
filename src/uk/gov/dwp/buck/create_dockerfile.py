@@ -35,8 +35,7 @@ def link_jars(libs, directory):
     for j in libs:
         if j not in jars:
             jars.add(j)
-            n = path.basename(j)
-            symlink(j, path.join(directory, n))
+            symlink(j, path.join(directory, path.basename(j)))
 
 if options.lib:
     link_jars(prune(options.lib), path.join(working_dir, 'lib'))
@@ -45,7 +44,7 @@ make_clean_dir(path.join(working_dir, 'docker'))
 
 with open(path.join(working_dir, 'docker', options.out), 'w') as dockerfile:
     dockerfile.write('FROM openjdk:8-jre-slim\n\n')
-    for jar in jars:
+    for jar in sorted(jars):
         dockerfile.write('COPY %s %s/lib/\n' % (jar[jar.find('buck-out'):], options.home))
     dockerfile.write('\n%s\n' % options.cmd)
         # try:

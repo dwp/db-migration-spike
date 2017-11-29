@@ -1,3 +1,5 @@
+include_defs('//src/uk/gov/dwp/buck/docker.def')
+
 java_library(
     name = 'example-personal-details-client',
     srcs = glob([
@@ -28,5 +30,14 @@ java_library(
     ],
     visibility = [
         'PUBLIC'
+    ]
+)
+
+docker(
+    name = 'example-personal-details-client-docker',
+    app_home = '/srv/app',
+    cmd = 'CMD java -cp "/srv/app/lib/*" uk.gov.dwp.example.personal.details.client.PersonalDetailsClientApplication',
+    lib = [
+        ':example-personal-details-client',
     ]
 )
