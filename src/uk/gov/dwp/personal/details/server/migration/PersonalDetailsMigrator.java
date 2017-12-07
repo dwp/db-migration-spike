@@ -1,11 +1,9 @@
 package uk.gov.dwp.personal.details.server.migration;
 
 import org.bson.Document;
-import uk.gov.dwp.migration.mongo.api.DocumentMigrator;
+import uk.gov.dwp.migration.mongo.api.LastModifiedDocumentMigrator;
 
-import java.time.Instant;
-
-public class PersonalDetailsMigrator implements DocumentMigrator {
+public class PersonalDetailsMigrator extends LastModifiedDocumentMigrator {
 
     private final NameSplitter nameSplitter;
 
@@ -14,13 +12,10 @@ public class PersonalDetailsMigrator implements DocumentMigrator {
     }
 
     @Override
-    public Document migrate(Document original) {
-        Document updated = new Document(original);
+    protected void migrateDocument(Document updated) {
         NameSplitter.Names names = nameSplitter.split((String) updated.remove("name"));
         updated.put("firstName", names.getFirstName());
         updated.put("lastName", names.getLastName());
-        updated.put("_lastModifiedDateTime", Instant.now());
-        return updated;
     }
 
 }

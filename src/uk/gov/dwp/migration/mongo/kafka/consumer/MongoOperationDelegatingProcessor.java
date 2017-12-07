@@ -51,8 +51,7 @@ public class MongoOperationDelegatingProcessor implements MongoOperationProcesso
     @Override
     public void process(MongoOperation mongoOperation) {
         if (dbName.equals(mongoOperation.getDb()) && collectionName.equals(mongoOperation.getCollection())) {
-            processors.getOrDefault(mongoOperation.getClass(), defaultMongoOperationProcessor)
-                    .process(mongoOperation);
+            processors.getOrDefault(mongoOperation.getClass(), defaultMongoOperationProcessor).process(mongoOperation);
         }
     }
 }

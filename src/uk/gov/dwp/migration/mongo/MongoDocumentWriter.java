@@ -27,7 +27,6 @@ public class MongoDocumentWriter implements DocumentWriter {
     public void writeDocument(Migration migration, Document document) {
         migration.recordMigrated();
         try {
-            // TODO: Should we "force" an update of _lastModifiedDateTime
             mongoCollection.insertOne(document);
             mongoOperationKafkaMessageDispatcher.send(new MongoUpdateMessage(
                     mongoCollection.getNamespace().getDatabaseName(),
@@ -35,7 +34,6 @@ public class MongoDocumentWriter implements DocumentWriter {
                     document
             ));
         } catch (MongoWriteException e) {
-            // TODO: Is this the right level?  Probably not
             LOGGER.warn("Document with _id: {} already exists", document.get("_id"));
         }
     }
