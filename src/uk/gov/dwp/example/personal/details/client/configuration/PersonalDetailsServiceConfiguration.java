@@ -35,36 +35,36 @@ public class PersonalDetailsServiceConfiguration {
     }
 
 
-    public CreatePersonalDetailsService createPersonalDetailsService() {
+    public CreatePersonalDetailsService createPersonalDetailsService(Duration executionFrequency) {
         return new CreatePersonalDetailsService(
                 newSingleThreadScheduledExecutor(),
                 new CreatePersonalDetailsTask(personalDetailsClient, personalDetailsIdRegistry),
-                Duration.ofSeconds(2L)
+                executionFrequency
         );
     }
 
-    public DeletePersonalDetailsService deletePersonalDetailsService() {
+    public DeletePersonalDetailsService deletePersonalDetailsService(Duration executionFrequency) {
         return new DeletePersonalDetailsService(
                 newSingleThreadScheduledExecutor(),
                 new DeletePersonalDetailsTask(
                         personalDetailsClient,
                         personalDetailsIdRegistry, personalDetailsIdGenerator
                 ),
-                Duration.ofSeconds(5L)
+                executionFrequency
         );
     }
 
-    public FindPersonalDetailsService findPersonalDetailsService() {
+    public FindPersonalDetailsService findPersonalDetailsService(Duration executionFrequency) {
         return new FindPersonalDetailsService(
                 newSingleThreadScheduledExecutor(),
                 new FindPersonalDetailsTask(
                         personalDetailsClient,
                         personalDetailsIdGenerator),
-                Duration.ofSeconds(1L)
+                executionFrequency
         );
     }
 
-    public UpdatePersonalDetailsService updatePersonalDetailsService() {
+    public UpdatePersonalDetailsService updatePersonalDetailsService(Duration executionFrequency) {
         return new UpdatePersonalDetailsService(
                 newSingleThreadScheduledExecutor(),
                 new UpdatePersonalDetailsTask(
@@ -72,7 +72,7 @@ public class PersonalDetailsServiceConfiguration {
                         personalDetailsIdGenerator,
                         new RandomPersonalDetailsGenerator()
                 ),
-                Duration.ofSeconds(3L)
+                executionFrequency
         );
     }
 

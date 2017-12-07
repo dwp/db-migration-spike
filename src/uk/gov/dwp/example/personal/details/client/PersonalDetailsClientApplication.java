@@ -20,6 +20,8 @@ import uk.gov.dwp.example.personal.details.client.find.FindPersonalDetailsServic
 import uk.gov.dwp.example.personal.details.client.update.UpdatePersonalDetailsService;
 import uk.gov.dwp.personal.details.client.PersonalDetailsClient;
 
+import java.time.Duration;
+
 import static java.util.Collections.singletonList;
 
 public class PersonalDetailsClientApplication {
@@ -60,10 +62,10 @@ public class PersonalDetailsClientApplication {
         PersonalDetailsServiceConfiguration personalDetailsServiceConfiguration = new PersonalDetailsServiceConfiguration(personalDetailsClient);
 
         PersonalDetailsClientApplication personalDetailsClientApplication = new PersonalDetailsClientApplication(
-                personalDetailsServiceConfiguration.createPersonalDetailsService(),
-                personalDetailsServiceConfiguration.deletePersonalDetailsService(),
-                personalDetailsServiceConfiguration.findPersonalDetailsService(),
-                personalDetailsServiceConfiguration.updatePersonalDetailsService()
+                personalDetailsServiceConfiguration.createPersonalDetailsService(Duration.ofSeconds(2L)),
+                personalDetailsServiceConfiguration.deletePersonalDetailsService(Duration.ofSeconds(5L)),
+                personalDetailsServiceConfiguration.findPersonalDetailsService(Duration.ofSeconds(1L)),
+                personalDetailsServiceConfiguration.updatePersonalDetailsService(Duration.ofSeconds(3L))
         );
         personalDetailsClientApplication.start();
     }
