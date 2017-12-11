@@ -1,5 +1,5 @@
 [alias]
-  personal-details-docker = //src/uk/gov/dwp/personal/details/server:personal-details-docker
+  personal-details-docker-build = //src/uk/gov/dwp/personal/details/server:docker-build
   personal-details-client-docker = //src/uk/gov/dwp/example/personal/details/client:example-personal-details-client-docker
 
 [download]
@@ -15,4 +15,4 @@
 
 [project]
   ide = intellij
-  ignore = build
+  ignore = build, .git

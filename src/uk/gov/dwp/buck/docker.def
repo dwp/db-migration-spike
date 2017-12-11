@@ -2,7 +2,6 @@ def docker(
     name,
     app_home,
     cmd,
-#    conf = [],
     lib  = [],
     docker_file = 'Dockerfile'):
     cmd = [
@@ -11,8 +10,6 @@ def docker(
         '--out', '$OUT',
         '--home', app_home,
         '--tmp', '$TMP']
-#    for c in conf:
-#        cmd.extend(['--conf ', '$(location %s)' % c])
     for l in lib:
         cmd.extend(['--lib ', '$(classpath %s)' % l])
     genrule(
@@ -21,12 +18,22 @@ def docker(
        out  = docker_file,
     )
 
-#    genrule(
-#        target_name,
-#        srcs = [docker_file],
-#        bash = ('&&'.join(map(lambda d: 'rsync -r ' + d + ' .',src)) if len(src) else 'true') + ' &&' +
-#                'cp $SRCS Dockerfile.copy &&' +
-#                'docker build --tag={0} --file=Dockerfile.copy . &&'.format(name) +
-#                'docker save --output=$OUT {0} && '.format(name) +
-#                'docker rmi {0}'.format(name),
-#        out = name + '.docker')
+def docker_build(
+    name,
+    docker_file,
+    tag,
+    version = 'latest'):
+    cmd = [
+        '$(exe //src/uk/gov/dwp/buck:build_docker_image)',
+        '-f', docker_file,
+        '-t %s:%s' % (tag, version),
+        '--out', '$OUT',
+        '--tmp', '$TMP'
+    ]
+    genrule(
+        name = name,
+        bash = ' '.join(cmd),
+        out = 'docker-build.sh',
+        executable = True
+
+    )
