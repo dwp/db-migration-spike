@@ -45,7 +45,8 @@ make_clean_dir(path.join(working_dir, 'docker'))
 with open(path.join(working_dir, 'docker', options.out), 'w') as dockerfile:
     dockerfile.write('FROM openjdk:8-jre-slim\n\n')
     for jar in sorted(jars):
-        dockerfile.write('COPY %s %s/lib/\n' % (jar[jar.find('buck-out'):], options.home))
+        relative_jar = jar[jar.find('buck-out'):]
+        dockerfile.write('COPY %s %s/lib/\n' % (relative_jar, options.home))
     dockerfile.write('\n%s\n' % options.cmd)
         # try:
         #     check_call(['tar', 'cvf', options.out, '.'], cwd=working_dir)
