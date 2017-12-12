@@ -33,7 +33,5 @@ def docker_build(
     genrule(
         name = name,
         bash = ' '.join(cmd),
-        out = 'docker-build.sh',
-        executable = True
-
+        out = 'docker-build.log',
     )

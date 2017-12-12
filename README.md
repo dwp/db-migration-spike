@@ -63,3 +63,19 @@ mongo -username=admin -password=Passw0rd -authenticationDatabase=admin localhost
 ```bash
 ./start-haproxy.sh
 ```
+
+### Start the Personal Details Server
+Start the Personal Details Microservice running in a Docker container
+```bash
+./start-personal-details.sh
+```
+If you want to connect to the Docker container execute the following command:
+```bash
+docker exec -it personal-details-server-v1 /bin/bash
+```
+
+### Start the Personal Details Client
+Start an example client which will start making HTTP requests to the `personal-details-server`
+```bash
+./start-personal-details-client.sh
+```
