@@ -61,7 +61,7 @@ A simple Spring Boot [Application](src/uk/gov/dwp/personal/details/server/Person
   - `PUT /personal-details`
   - `DELETE /personal-details/{personalDetailsId}`
 
-For for more details on the operations see the [PersonalDetailsClient](src/uk/gov/dwp/personal/details/api/PersonalDetailsClient)
+For for more details on the operations see the [PersonalDetailsClient](src/uk/gov/dwp/personal/details/api/PersonalDetailsClient.java)
 
 ### Personal Details Client Application  
 A basic client [Application](src/uk/gov/dwp/example/personal/details/client/PersonalDetailsClientApplication.java) which hits each of the HTTP endpoints of [Personal Details Server](#Personal Details Server) at the following intervals:
