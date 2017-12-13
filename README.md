@@ -2,14 +2,14 @@
 
 The purpose of this spike was to to explore different ways of running a data migration on a Mongo database with no downtime (or as little as possible).
 
-- **[Background](#Background)**
-- **[Building](#Building)**
+- **[Background](#background)**
+- **[Building](#building)**
 
 ## Background
 The code in the repository can be split into 3-strands of work
-- **[Mongo Migration Framework](#Mongo Migration Framework)**
-- **[Personal Details Server](#Personal Details Servier)**
-- **[Personal Details Client Application](#Personal Details Client Application)**
+- **[Mongo Migration Framework](#mongo-migration-framework)**
+- **[Personal Details Server](#personal-details-server)**
+- **[Personal Details Client Application](#Personal-details-client-application)**
 
 This spike demonstrates migrating a `PersonalDetails` object by removing the `name` field and introducing two new fields: `firstName` and `lastName`. For example, the object is changed from:
 ```json
@@ -32,8 +32,8 @@ To:
 ### Mongo Migration Framework
 
 Two core types of Migration:
-- [On-the-fly](#On-the-fly Migration)
-- [Bait-and-Switch](#Bait-and-Switch Migration)
+- [On-the-fly](#on-the-fly-migration)
+- [Bait-and-Switch](#bait-and-switch-migration)
 
 #### On-the-fly Migration
 Data is written back to the original collection, the data written must be backwards compatible
@@ -45,14 +45,22 @@ Data is read from the original collection, migrated and written to a new collect
 ![High Level Migration Process](docs/high-level-migration-process.png)
 
 The High Level Migration Process consists of two parts:
-- [Mongo Collection Migration](#Mongo Collection Migration)
-- [Kafka Message Listener Migration](#Kafka Message Listener Migration)
+- [Mongo Collection Migration](#mongo-collection-migration)
+- [Kafka Message Listener Migration](#kafka-message-listener-migration)
 
 ##### Mongo Collection Migration
 ![Mongo Collection Migration](docs/mongo-collection-migration.png)
+1. Obtain a lock on the source collection
+2. Read the documents from the source collection using [MongoDocumentSelector](src/uk/gov/dwp/migration/mongo/MongoDocumentSelector.java)
+3. For each document:
+    1. Migrate the document (if required) using an implementation of [DocumentMigrator](uk/gov/dwp/migration/mongo/api/DocumentMigrator.java)
+    2. Write the document to the new collection using [MongoDocumentWriter](src/uk/gov/dwp/migration/mongo/MongoDocumentWriter.java)
 
 ##### Kafka Message Listener Migration
-KafkaConsumer listens to topic and consumes any CRUD operations
+[KafkaMessageListener](src/uk/gov/dwp/migration/mongo/kafka/consumer/KafkaMessageListener.java) listens to topic and 
+consumes records related to CRUD operations on the source collection.  Each operation is processed by a 
+[MongoOperationProcessor](src/uk/gov/dwp/migration/mongo/kafka/api/MongoOperationProcessor.java) corresponding to the
+type of operation (e.g. Insert, Update, Delete)
 
 ### Personal Details Server
 A simple Spring Boot [Application](src/uk/gov/dwp/personal/details/server/PersonalDetailsServer.java) that exposes the following CRUD operations via REST over HTTP:
@@ -88,8 +96,8 @@ This will generate two Docker images:
 - `personal-details-server:${version}`
 
 Where `${version}` is:
-- `v1.0` - created by building on `v1.0` branch
-- `latest` - created by building on `master` branch
+- `v1.0` - created by building on [v1.0](https://github.com/dwp-davidparry/db-migration-spike/tree/v1.0) branch
+- `latest` - created by building on [master](https://github.com/dwp-davidparry/db-migration-spike) branch
 
 The docker images can be seen by running the following command:
 ```bash
