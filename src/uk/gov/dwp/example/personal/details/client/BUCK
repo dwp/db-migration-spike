@@ -46,5 +46,5 @@ docker_build(
     name = 'docker-build',
     docker_file = '$(location :create-dockerfile)',
     tag = 'personal-details-client',
-    version = '2.0'
+    version = 'latest'
 )
