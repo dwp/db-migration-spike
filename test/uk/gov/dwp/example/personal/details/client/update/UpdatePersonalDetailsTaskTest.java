@@ -2,7 +2,7 @@ package uk.gov.dwp.example.personal.details.client.update;
 
 import org.junit.Test;
 import uk.gov.dwp.example.personal.details.client.RandomPersonalDetailsGenerator;
-import uk.gov.dwp.personal.details.client.PersonalDetailsClient;
+import uk.gov.dwp.personal.details.client.v2.PersonalDetailsV2Client;
 import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 
 import java.time.LocalDate;
@@ -18,7 +18,7 @@ import static uk.gov.dwp.personal.details.client.UpdatePersonalDetailsRequest.ne
 public class UpdatePersonalDetailsTaskTest {
 
     private static final PersonalDetailsId PERSONAL_DETAILS_ID = PersonalDetailsId.newPersonalDetailsId();
-    private final PersonalDetailsClient personalDetailsClient = mock(PersonalDetailsClient.class);
+    private final PersonalDetailsV2Client personalDetailsClient = mock(PersonalDetailsV2Client.class);
     private final RandomPersonalDetailsGenerator personalDetailsGenerator = mock(RandomPersonalDetailsGenerator.class);
 
     @Test
@@ -31,13 +31,15 @@ public class UpdatePersonalDetailsTaskTest {
     @Test
     public void updatePersonalDetailsWhenListIsNotEmpty() {
         when(personalDetailsGenerator.randomDateOfBirth()).thenReturn(LocalDate.now());
-        when(personalDetailsGenerator.randomFullName()).thenReturn("Bob Builder");
+        when(personalDetailsGenerator.randomFirstName()).thenReturn("Bob");
+        when(personalDetailsGenerator.randomLastName()).thenReturn("Builder");
 
         new UpdatePersonalDetailsTask(personalDetailsClient, () -> Optional.of(PERSONAL_DETAILS_ID), personalDetailsGenerator).run();
 
         verify(personalDetailsClient).update(refEq(newUpdatePersonalDetailsRequest()
                 .withPersonalDetailsId(PERSONAL_DETAILS_ID)
-                .withName("Bob Builder")
+                .withFirstName("Bob")
+                .withLastName("Builder")
                 .withDateOfBirth(LocalDate.now())
                 .build())
         );

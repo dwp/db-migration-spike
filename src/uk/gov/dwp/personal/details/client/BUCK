@@ -1,6 +1,6 @@
 java_library(
     name = 'personal-details-client',
-    srcs = glob(['*.java']),
+    srcs = glob(['*.java','v2/*.java']),
     exported_deps = [
         '//lib/javax:javax-ws-rs-api',
         '//src/uk/gov/dwp/personal/details/type:personal-details-type',

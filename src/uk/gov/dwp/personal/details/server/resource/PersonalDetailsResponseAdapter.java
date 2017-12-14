@@ -11,7 +11,7 @@ public class PersonalDetailsResponseAdapter {
         }
         return PersonalDetailsResponse.newPersonalDetailsResponse()
                 .withPersonalDetailsId(personalDetails.getPersonalDetailsId())
-                .withName(personalDetails.getName())
+                .withName(personalDetails.getFirstName() + " " + personalDetails.getLastName())
                 .withDateOfBirth(personalDetails.getDateOfBirth())
                 .build();
     }

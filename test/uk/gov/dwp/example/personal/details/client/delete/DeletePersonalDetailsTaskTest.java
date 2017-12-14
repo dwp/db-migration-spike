@@ -1,7 +1,7 @@
 package uk.gov.dwp.example.personal.details.client.delete;
 
 import org.junit.Test;
-import uk.gov.dwp.personal.details.client.PersonalDetailsClient;
+import uk.gov.dwp.personal.details.client.v2.PersonalDetailsV2Client;
 import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class DeletePersonalDetailsTaskTest {
     private static final PersonalDetailsId PERSONAL_DETAILS_ID = PersonalDetailsId.newPersonalDetailsId();
 
     private final List<PersonalDetailsId> personalDetailsIdRegistry = mock(List.class);
-    private final PersonalDetailsClient personalDetailsClient = mock(PersonalDetailsClient.class);
+    private final PersonalDetailsV2Client personalDetailsClient = mock(PersonalDetailsV2Client.class);
 
     @Test
     public void updateWhenPersonalDetailsWhenListIsEmpty() {

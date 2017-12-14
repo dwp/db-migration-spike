@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #!/bin/bash
-IMAGE_NAME="personal-details-client:1.0"
-CONTAINER_NAME="personal-details-client-v1"
+IMAGE_NAME="personal-details-client:latest"
+CONTAINER_NAME="personal-details-client-latest"
 
 # TODO: Consider adding docker build as a pre-step
 

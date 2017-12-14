@@ -1,22 +1,23 @@
-package uk.gov.dwp.personal.details.server.model;
+package uk.gov.dwp.personal.details.client.v2;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 
 import java.time.LocalDate;
 
 import static uk.gov.dwp.personal.details.type.PersonalDetailsId.newPersonalDetailsId;
 
-public class PersonalDetails {
+public class PersonalDetailsV2Response {
 
     private final PersonalDetailsId personalDetailsId;
     private final String firstName;
     private final String lastName;
     private final LocalDate dateOfBirth;
 
-    public PersonalDetails(PersonalDetailsId personalDetailsId,
-                           String firstName,
-                           String lastName,
-                           LocalDate dateOfBirth) {
+    PersonalDetailsV2Response(@JsonProperty("personalDetailsId") PersonalDetailsId personalDetailsId,
+                              @JsonProperty("firstName") String firstName,
+                              @JsonProperty("lastName") String lastName,
+                              @JsonProperty("dateOfBirth") LocalDate dateOfBirth) {
         this.personalDetailsId = personalDetailsId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -39,43 +40,43 @@ public class PersonalDetails {
         return dateOfBirth;
     }
 
-    public static PersonalDetailsBuilder newPersonalDetails() {
-        return new PersonalDetailsBuilder()
+    public static PersonalDetailsResponseBuilder newPersonalDetailsResponse() {
+        return new PersonalDetailsResponseBuilder()
                 .withPersonalDetailsId(newPersonalDetailsId());
     }
 
-    public static class PersonalDetailsBuilder {
+    public static class PersonalDetailsResponseBuilder {
 
         private PersonalDetailsId personalDetailsId;
         private String firstName;
         private String lastName;
         private LocalDate dateOfBirth;
 
-        private PersonalDetailsBuilder() {
+        private PersonalDetailsResponseBuilder() {
         }
 
-        public PersonalDetailsBuilder withPersonalDetailsId(PersonalDetailsId personalDetailsId) {
+        public PersonalDetailsResponseBuilder withPersonalDetailsId(PersonalDetailsId personalDetailsId) {
             this.personalDetailsId = personalDetailsId;
             return this;
         }
 
-        public PersonalDetailsBuilder withFirstName(String firstName) {
+        public PersonalDetailsResponseBuilder withFirstName(String firstName) {
             this.firstName = firstName;
             return this;
         }
 
-        public PersonalDetailsBuilder withLastName(String lastName) {
+        public PersonalDetailsResponseBuilder withLastName(String lastName) {
             this.lastName = lastName;
             return this;
         }
 
-        public PersonalDetailsBuilder withDateOfBirth(LocalDate dateOfBirth) {
+        public PersonalDetailsResponseBuilder withDateOfBirth(LocalDate dateOfBirth) {
             this.dateOfBirth = dateOfBirth;
             return this;
         }
 
-        public PersonalDetails build() {
-            return new PersonalDetails(
+        public PersonalDetailsV2Response build() {
+            return new PersonalDetailsV2Response(
                     personalDetailsId,
                     firstName,
                     lastName,

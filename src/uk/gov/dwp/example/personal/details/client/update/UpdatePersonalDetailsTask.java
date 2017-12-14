@@ -3,7 +3,7 @@ package uk.gov.dwp.example.personal.details.client.update;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.gov.dwp.example.personal.details.client.RandomPersonalDetailsGenerator;
-import uk.gov.dwp.personal.details.client.PersonalDetailsClient;
+import uk.gov.dwp.personal.details.client.v2.PersonalDetailsV2Client;
 import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 
 import java.util.Optional;
@@ -15,11 +15,11 @@ public class UpdatePersonalDetailsTask implements Runnable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UpdatePersonalDetailsTask.class);
 
-    private final PersonalDetailsClient personalDetailsClient;
+    private final PersonalDetailsV2Client personalDetailsClient;
     private final Supplier<Optional<PersonalDetailsId>> personalDetailsIdSupplier;
     private final RandomPersonalDetailsGenerator personalDetailsGenerator;
 
-    public UpdatePersonalDetailsTask(PersonalDetailsClient personalDetailsClient,
+    public UpdatePersonalDetailsTask(PersonalDetailsV2Client personalDetailsClient,
                                      Supplier<Optional<PersonalDetailsId>> personalDetailsIdSupplier,
                                      RandomPersonalDetailsGenerator personalDetailsGenerator) {
         this.personalDetailsClient = personalDetailsClient;
@@ -34,7 +34,8 @@ public class UpdatePersonalDetailsTask implements Runnable {
                 personalDetailsClient.update(
                         newUpdatePersonalDetailsRequest()
                                 .withPersonalDetailsId(personalDetailsId)
-                                .withName(personalDetailsGenerator.randomFullName())
+                                .withFirstName(personalDetailsGenerator.randomFirstName())
+                                .withLastName(personalDetailsGenerator.randomLastName())
                                 .withDateOfBirth(personalDetailsGenerator.randomDateOfBirth())
                                 .build()
                 );

@@ -9,7 +9,7 @@ import uk.gov.dwp.example.personal.details.client.find.FindPersonalDetailsServic
 import uk.gov.dwp.example.personal.details.client.find.FindPersonalDetailsTask;
 import uk.gov.dwp.example.personal.details.client.update.UpdatePersonalDetailsService;
 import uk.gov.dwp.example.personal.details.client.update.UpdatePersonalDetailsTask;
-import uk.gov.dwp.personal.details.client.PersonalDetailsClient;
+import uk.gov.dwp.personal.details.client.v2.PersonalDetailsV2Client;
 import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 
 import java.time.Duration;
@@ -24,11 +24,11 @@ import static org.apache.commons.lang3.RandomUtils.nextInt;
 
 public class PersonalDetailsServiceConfiguration {
 
-    private final PersonalDetailsClient personalDetailsClient;
+    private final PersonalDetailsV2Client personalDetailsClient;
     private final List<PersonalDetailsId> personalDetailsIdRegistry;
     private final Supplier<Optional<PersonalDetailsId>> personalDetailsIdGenerator;
 
-    public PersonalDetailsServiceConfiguration(PersonalDetailsClient personalDetailsClient) {
+    public PersonalDetailsServiceConfiguration(PersonalDetailsV2Client personalDetailsClient) {
         this.personalDetailsClient = personalDetailsClient;
         this.personalDetailsIdRegistry = Collections.synchronizedList(new ArrayList<>());
         this.personalDetailsIdGenerator = () -> personalDetailsIdRegistry.isEmpty() ? Optional.empty() : Optional.of(personalDetailsIdRegistry.get(nextInt(0, personalDetailsIdRegistry.size() - 1)));

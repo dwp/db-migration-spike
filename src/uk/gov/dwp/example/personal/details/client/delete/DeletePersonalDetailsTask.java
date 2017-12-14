@@ -2,7 +2,7 @@ package uk.gov.dwp.example.personal.details.client.delete;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uk.gov.dwp.personal.details.client.PersonalDetailsClient;
+import uk.gov.dwp.personal.details.client.v2.PersonalDetailsV2Client;
 import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 
 import java.util.List;
@@ -13,11 +13,11 @@ public class DeletePersonalDetailsTask implements Runnable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DeletePersonalDetailsTask.class);
 
-    private final PersonalDetailsClient personalDetailsClient;
+    private final PersonalDetailsV2Client personalDetailsClient;
     private final List<PersonalDetailsId> personalDetailsIdRegistry;
     private final Supplier<Optional<PersonalDetailsId>> personalDetailsIdSupplier;
 
-    public DeletePersonalDetailsTask(PersonalDetailsClient personalDetailsClient,
+    public DeletePersonalDetailsTask(PersonalDetailsV2Client personalDetailsClient,
                                      List<PersonalDetailsId> personalDetailsIdRegistry,
                                      Supplier<Optional<PersonalDetailsId>> personalDetailsIdSupplier) {
         this.personalDetailsClient = personalDetailsClient;

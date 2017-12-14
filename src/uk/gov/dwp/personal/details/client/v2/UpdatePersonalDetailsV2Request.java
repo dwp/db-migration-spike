@@ -1,22 +1,23 @@
-package uk.gov.dwp.personal.details.server.model;
+package uk.gov.dwp.personal.details.client.v2;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 
 import java.time.LocalDate;
 
 import static uk.gov.dwp.personal.details.type.PersonalDetailsId.newPersonalDetailsId;
 
-public class PersonalDetails {
+public class UpdatePersonalDetailsV2Request {
 
     private final PersonalDetailsId personalDetailsId;
     private final String firstName;
     private final String lastName;
     private final LocalDate dateOfBirth;
 
-    public PersonalDetails(PersonalDetailsId personalDetailsId,
-                           String firstName,
-                           String lastName,
-                           LocalDate dateOfBirth) {
+    public UpdatePersonalDetailsV2Request(@JsonProperty("personalDetailsId") PersonalDetailsId personalDetailsId,
+                                          @JsonProperty("firstName") String firstName,
+                                          @JsonProperty("lastName") String lastName,
+                                          @JsonProperty("dateOfBirth") LocalDate dateOfBirth) {
         this.personalDetailsId = personalDetailsId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -39,43 +40,43 @@ public class PersonalDetails {
         return dateOfBirth;
     }
 
-    public static PersonalDetailsBuilder newPersonalDetails() {
-        return new PersonalDetailsBuilder()
+    public static UpdatePersonalDetailsRequestBuilder newUpdatePersonalDetailsRequest() {
+        return new UpdatePersonalDetailsRequestBuilder()
                 .withPersonalDetailsId(newPersonalDetailsId());
     }
 
-    public static class PersonalDetailsBuilder {
+    public static class UpdatePersonalDetailsRequestBuilder {
 
         private PersonalDetailsId personalDetailsId;
         private String firstName;
         private String lastName;
         private LocalDate dateOfBirth;
 
-        private PersonalDetailsBuilder() {
+        private UpdatePersonalDetailsRequestBuilder() {
         }
 
-        public PersonalDetailsBuilder withPersonalDetailsId(PersonalDetailsId personalDetailsId) {
+        public UpdatePersonalDetailsRequestBuilder withPersonalDetailsId(PersonalDetailsId personalDetailsId) {
             this.personalDetailsId = personalDetailsId;
             return this;
         }
 
-        public PersonalDetailsBuilder withFirstName(String firstName) {
+        public UpdatePersonalDetailsRequestBuilder withFirstName(String firstName) {
             this.firstName = firstName;
             return this;
         }
 
-        public PersonalDetailsBuilder withLastName(String lastName) {
+        public UpdatePersonalDetailsRequestBuilder withLastName(String lastName) {
             this.lastName = lastName;
             return this;
         }
 
-        public PersonalDetailsBuilder withDateOfBirth(LocalDate dateOfBirth) {
+        public UpdatePersonalDetailsRequestBuilder withDateOfBirth(LocalDate dateOfBirth) {
             this.dateOfBirth = dateOfBirth;
             return this;
         }
 
-        public PersonalDetails build() {
-            return new PersonalDetails(
+        public UpdatePersonalDetailsV2Request build() {
+            return new UpdatePersonalDetailsV2Request(
                     personalDetailsId,
                     firstName,
                     lastName,

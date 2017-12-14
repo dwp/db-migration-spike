@@ -1,7 +1,7 @@
 package uk.gov.dwp.example.personal.details.client.create;
 
 import uk.gov.dwp.example.personal.details.client.RandomPersonalDetailsGenerator;
-import uk.gov.dwp.personal.details.client.CreatePersonalDetailsRequest;
+import uk.gov.dwp.personal.details.client.v2.CreatePersonalDetailsV2Request;
 import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 
 import java.time.LocalDate;
@@ -47,10 +47,11 @@ public class RandomCreatePersonalDetailsRequestBuilder {
         return this;
     }
 
-    public CreatePersonalDetailsRequest build() {
-        return new CreatePersonalDetailsRequest(
+    public CreatePersonalDetailsV2Request build() {
+        return new CreatePersonalDetailsV2Request(
                 personalDetailsId,
-                firstName + " "  + lastName,
+                firstName,
+                lastName,
                 dateOfBirth
         );
     }

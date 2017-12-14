@@ -6,8 +6,8 @@ export MONGO_DB_ADDRESS="localhost:28018/personal-details"
 ./src/uk/gov/dwp/personal/details/server/dao/mongo/mongo-personal-details-users.sh
 
 #!/bin/bash
-IMAGE_NAME="personal-details-server:2.0"
-CONTAINER_NAME="personal-details-server-v2"
+IMAGE_NAME="personal-details-server:latest"
+CONTAINER_NAME="personal-details-server-latest"
 
 # TODO: Consider adding docker build as a pre-step
 

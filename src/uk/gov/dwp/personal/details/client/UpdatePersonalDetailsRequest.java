@@ -1,6 +1,7 @@
 package uk.gov.dwp.personal.details.client;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import uk.gov.dwp.personal.details.client.v2.UpdatePersonalDetailsV2Request;
 import uk.gov.dwp.personal.details.type.PersonalDetailsId;
 
 import java.time.LocalDate;
@@ -10,14 +11,17 @@ import static uk.gov.dwp.personal.details.type.PersonalDetailsId.newPersonalDeta
 public class UpdatePersonalDetailsRequest {
 
     private final PersonalDetailsId personalDetailsId;
-    private final String name;
+    private final String firstName;
+    private final String lastName;
     private final LocalDate dateOfBirth;
 
     public UpdatePersonalDetailsRequest(@JsonProperty("personalDetailsId") PersonalDetailsId personalDetailsId,
-                                        @JsonProperty("name") String name,
+                                        @JsonProperty("firstName") String firstName,
+                                        @JsonProperty("lastName") String lastName,
                                         @JsonProperty("dateOfBirth") LocalDate dateOfBirth) {
         this.personalDetailsId = personalDetailsId;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -25,8 +29,12 @@ public class UpdatePersonalDetailsRequest {
         return personalDetailsId;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public LocalDate getDateOfBirth() {
@@ -41,7 +49,8 @@ public class UpdatePersonalDetailsRequest {
     public static class UpdatePersonalDetailsRequestBuilder {
 
         private PersonalDetailsId personalDetailsId;
-        private String name;
+        private String firstName;
+        private String lastName;
         private LocalDate dateOfBirth;
 
         private UpdatePersonalDetailsRequestBuilder() {
@@ -52,8 +61,13 @@ public class UpdatePersonalDetailsRequest {
             return this;
         }
 
-        public UpdatePersonalDetailsRequestBuilder withName(String name) {
-            this.name = name;
+        public UpdatePersonalDetailsRequestBuilder withFirstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public UpdatePersonalDetailsRequestBuilder withLastName(String firstName) {
+            this.firstName = firstName;
             return this;
         }
 
@@ -62,10 +76,11 @@ public class UpdatePersonalDetailsRequest {
             return this;
         }
 
-        public UpdatePersonalDetailsRequest build() {
-            return new UpdatePersonalDetailsRequest(
+        public UpdatePersonalDetailsV2Request build() {
+            return new UpdatePersonalDetailsV2Request(
                     personalDetailsId,
-                    name,
+                    firstName,
+                    lastName,
                     dateOfBirth
             );
         }

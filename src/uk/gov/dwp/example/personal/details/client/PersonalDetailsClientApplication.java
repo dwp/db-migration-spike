@@ -18,7 +18,7 @@ import uk.gov.dwp.example.personal.details.client.create.CreatePersonalDetailsSe
 import uk.gov.dwp.example.personal.details.client.delete.DeletePersonalDetailsService;
 import uk.gov.dwp.example.personal.details.client.find.FindPersonalDetailsService;
 import uk.gov.dwp.example.personal.details.client.update.UpdatePersonalDetailsService;
-import uk.gov.dwp.personal.details.client.PersonalDetailsClient;
+import uk.gov.dwp.personal.details.client.v2.PersonalDetailsV2Client;
 
 import java.time.Duration;
 
@@ -54,9 +54,9 @@ public class PersonalDetailsClientApplication {
     public static void main(String[] args) {
         final String url = resolvePersonalDetailsBaseUrl(args);
 
-        PersonalDetailsClient personalDetailsClient = JAXRSClientFactory.create(
+        PersonalDetailsV2Client personalDetailsClient = JAXRSClientFactory.create(
                 url,
-                PersonalDetailsClient.class,
+                PersonalDetailsV2Client.class,
                 singletonList(new JacksonJsonProvider(objectMapper()))
         );
         PersonalDetailsServiceConfiguration personalDetailsServiceConfiguration = new PersonalDetailsServiceConfiguration(personalDetailsClient);

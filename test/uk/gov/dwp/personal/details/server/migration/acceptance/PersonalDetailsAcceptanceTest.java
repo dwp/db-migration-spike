@@ -85,8 +85,8 @@ public class PersonalDetailsAcceptanceTest {
                 personalDetailsDocumentMigrator,
                 personalDetailsDocumentWriter
         );
-        sourceMongoCollection.deleteOne(createId(personalDetailsId));
-        destinationMongoCollection.deleteOne(createId(personalDetailsId));
+        sourceMongoCollection.deleteMany(new Document());
+        destinationMongoCollection.deleteMany(new Document());
         reset(mongoOperationKafkaMessageDispatcher);
     }
 

@@ -1,5 +1,6 @@
 java_test(
     name = 'test',
+    run_test_separately = True,
     srcs = glob(['*.java']),
     resources = [
         'resources/acceptance-test.properties',

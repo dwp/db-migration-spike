@@ -12,7 +12,8 @@ import java.time.LocalDate;
 public class PersonalDetailsMatcher extends TypeSafeMatcher<PersonalDetails> {
 
     private Matcher<PersonalDetailsId> personalDetailsIdMatcher = new IsAnything<>();
-    private Matcher<String> nameMatcher = new IsAnything<>();
+    private Matcher<String> firstNameMatcher = new IsAnything<>();
+    private Matcher<String> lastNameMatcher = new IsAnything<>();
     private Matcher<LocalDate> dateOfBirthMatcher = new IsAnything<>();
 
     private PersonalDetailsMatcher() {}
@@ -26,8 +27,13 @@ public class PersonalDetailsMatcher extends TypeSafeMatcher<PersonalDetails> {
         return this;
     }
 
-    public PersonalDetailsMatcher withName(Matcher<String> name) {
-        this.nameMatcher = name;
+    public PersonalDetailsMatcher withFirstName(Matcher<String> firstName) {
+        this.firstNameMatcher = firstName;
+        return this;
+    }
+
+    public PersonalDetailsMatcher withLastName(Matcher<String> lastName) {
+        this.lastNameMatcher = lastName;
         return this;
     }
 
@@ -39,7 +45,8 @@ public class PersonalDetailsMatcher extends TypeSafeMatcher<PersonalDetails> {
     @Override
     protected boolean matchesSafely(PersonalDetails personalDetails) {
         return personalDetailsIdMatcher.matches(personalDetails.getPersonalDetailsId())
-                && nameMatcher.matches(personalDetails.getName())
+                && firstNameMatcher.matches(personalDetails.getFirstName())
+                && lastNameMatcher.matches(personalDetails.getLastName())
                 && dateOfBirthMatcher.matches(personalDetails.getDateOfBirth());
     }
 
@@ -47,7 +54,8 @@ public class PersonalDetailsMatcher extends TypeSafeMatcher<PersonalDetails> {
     public void describeTo(Description description) {
         description
                 .appendText("personalDetailsId=").appendDescriptionOf(personalDetailsIdMatcher)
-                .appendText(" name").appendDescriptionOf(nameMatcher)
+                .appendText(" firstName").appendDescriptionOf(firstNameMatcher)
+                .appendText(" lastName").appendDescriptionOf(lastNameMatcher)
                 .appendText(" dateOfBirth=").appendDescriptionOf(dateOfBirthMatcher);
     }
 }
