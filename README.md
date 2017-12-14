@@ -3,15 +3,15 @@
 The purpose of this spike was to to explore different ways of running a data migration on a Mongo database with no downtime (or as little as possible).
 
 - **[Background](#background)**
-- **[Building](#building)**
+- **[Building](#building---prerequisites)**
 
 ## Background
 The code in the repository can be split into 3-strands of work
 - **[Mongo Migration Framework](#mongo-migration-framework)**
 - **[Personal Details Server](#personal-details-server)**
-- **[Personal Details Client Application](#Personal-details-client-application)**
+- **[Personal Details Client Application](#personal-details-client-application)**
 
-This spike demonstrates migrating a `PersonalDetails` object by removing the `name` field and introducing two new fields: `firstName` and `lastName`. For example, the object is changed from:
+This spike demonstrates a migration on the `PersonalDetails` object where the `name` field is removed and two new fields: `firstName` and `lastName` are introduced. For example, the object is changed from:
 ```json
 {
   "personalDetailsId": "12345",
