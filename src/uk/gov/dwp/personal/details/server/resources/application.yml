@@ -31,7 +31,7 @@ spring:
 dao:
   mongo:
     serverAddresses:
-      - host: mongo-server
+      - host: mongo-server-demo
         port: 27017
 kafka:
   url: kafka-server:9092

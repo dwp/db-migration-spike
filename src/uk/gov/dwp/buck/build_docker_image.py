@@ -1,25 +1,36 @@
+from __future__ import print_function
 from optparse import OptionParser
-
-import subprocess
+from subprocess import check_call, CalledProcessError
+from sys import stderr
 
 parser = OptionParser()
-parser.add_option('-o', '--out', dest='out', help='Script to create the docker image', default='build_docker_image.sh')
-parser.add_option('-f', '--file', dest='dockerfile')
+parser.add_option('-o', '--out', dest='out', help='Docker image')
+parser.add_option('-s', '--src', dest='src', help='Directory containing the Dockerfile and contents to be added')
 parser.add_option('-t', '--tag', dest='tag')
-parser.add_option('--tmp', help='Temporary directory')
 
 (options, args) = parser.parse_args()
 
-tmp_dir = options.tmp
-root = tmp_dir[:tmp_dir.index('buck-out')-1]
+try:
+    check_call([
+        'cd', options.src, ';',
+        'docker', 'build', '--tag', options.tag, '--file', 'Dockerfile', '.',
+    ])
+except CalledProcessError as err:
+    print('Error occurred executing docker build %s' % err, file=stderr)
+    exit(1)
 
-cmd = [
-    'docker', 'build',
-    '--tag', options.tag,
-    '--file', options.dockerfile,
-    '.'
-]
-with open(options.out,'w') as f:
-    r = subprocess.call(cmd, stdout = f, stderr=subprocess.STDOUT, cwd = root)
-    if r != 0:
-        raise subprocess.CalledProcessError(r, ' '.join(cmd))
+try:
+    check_call([
+        'docker', 'save', '--output', options.out, options.tag
+    ])
+except CalledProcessError as err:
+    print('Error occured executing docker save %s' % err, file=stderr)
+    exit(1)
+
+try:
+    check_call([
+        'docker', 'rmi', options.tag
+    ])
+except CalledProcessError as err:
+    print('Error occurred executing docker rmi %s' % err, file=stderr)
+    exit(1)

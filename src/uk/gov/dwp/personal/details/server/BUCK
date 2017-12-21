@@ -48,18 +48,13 @@ java_library(
     ]
 )
 
-docker(
-    name = 'create-dockerfile',
+docker_build(
+    name = 'docker-build',
     app_home = '/srv/app',
     cmd = 'CMD java -cp "/srv/app/lib/*" uk.gov.dwp.personal.details.server.PersonalDetailsServer',
     lib = [
-        ':personal-details-server',
-    ]
-)
-
-docker_build(
-    name = 'docker-build',
-    docker_file = '$(location :create-dockerfile)',
+        '$(classpath :personal-details-server)',
+    ],
     tag = 'personal-details-server',
     version = '1.0'
 )

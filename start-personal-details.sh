@@ -1,11 +1,20 @@
 #!/bin/bash
 
+# Start Mongo if not running
+if [ ! "$(docker ps -q -f name=mongo-server-demo)" ]; then
+    `dirname $0`/start-mongo.sh demo
+fi
+
+# Confirm Kafka is running
+if [ ! "$(docker ps -q -f name=kafka-server)" ]; then
+    `dirname $0`/start-kafka.sh
+fi
+
 echo "Bootstrap Mongo..."
-export MONGO_DB_ADDRESS="localhost:28018/personal-details"
+export MONGO_DB_ADDRESS="localhost:27018/personal-details"
 ./src/uk/gov/dwp/personal/details/server/dao/mongo/mongo-personal-details-roles.sh
 ./src/uk/gov/dwp/personal/details/server/dao/mongo/mongo-personal-details-users.sh
 
-#!/bin/bash
 IMAGE_NAME="personal-details-server:1.0"
 CONTAINER_NAME="personal-details-server-v1"
 
@@ -17,7 +26,7 @@ if [ ! "$(docker ps -q -f name=${CONTAINER_NAME})" ]; then
         docker rm ${CONTAINER_NAME}
     fi
     echo "Running ${CONTAINER_NAME}"
-    docker run --name ${CONTAINER_NAME} --link mongo-server --link kafka-server -it -p 8008:8008 -e SPRING_PROFILES_ACTIVE='docker' ${IMAGE_NAME}
+    docker run --name ${CONTAINER_NAME} --link mongo-server-demo --link kafka-server -it -p 8008:8008 -e SPRING_PROFILES_ACTIVE='docker' ${IMAGE_NAME}
 else
     echo "${CONTAINER_NAME} is already running."
 fi
