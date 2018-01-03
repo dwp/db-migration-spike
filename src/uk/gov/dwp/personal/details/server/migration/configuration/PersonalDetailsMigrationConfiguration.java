@@ -23,8 +23,13 @@ public class PersonalDetailsMigrationConfiguration {
     }
 
     @Bean
-    public DocumentMigrator personalDetailsDocumentMigrator() {
-        return new PersonalDetailsMigrator(new NameSplitter());
+    public DocumentMigrator personalDetailsDocumentMigrator(NameSplitter nameSplitter) {
+        return new PersonalDetailsMigrator(nameSplitter);
+    }
+
+    @Bean
+    public NameSplitter nameSplitter() {
+        return new NameSplitter();
     }
 
     @Bean

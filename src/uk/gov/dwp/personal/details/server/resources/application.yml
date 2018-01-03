@@ -69,7 +69,7 @@ spring:
 dao:
   mongo:
     serverAddresses:
-      - host: mongo-server
+      - host: mongo-server-demo
         port: 27017
   kafkaProducer:
     url: kafka-server:9092
@@ -78,14 +78,14 @@ migration:
   source:
     mongo:
       serverAddresses:
-        - host: mongo-server
+        - host: mongo-server-demo
           port: 27017
     kafkaConsumer:
       url: kafka-server:9092
   destination:
     mongo:
       serverAddresses:
-        - host: mongo-server
+        - host: mongo-server-demo
           port: 27017
     kafkaProducer:
       url: kafka-server:9092

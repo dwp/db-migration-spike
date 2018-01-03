@@ -1,37 +1,66 @@
-def docker(
+# Create a directory containing:
+#  - Dockerfile
+#  - All of the application dependencies
+#
+# This macro takes the following parameters:
+#    name     - Name of the build rule
+#    app_home - The home directory of the application within the container
+#    cmd      - The command to execute container is started
+#    lib - files to copy to $app_home/lib, these can be in either of the following formats:
+#      - '$(classpath :abc)'
+#      - '$(location :xyz)'
+def dockerfile(
     name,
     app_home,
     cmd,
-    lib  = [],
-    docker_file = 'Dockerfile'):
+    lib  = []):
     cmd = [
         '$(exe //src/uk/gov/dwp/buck:create_dockerfile)',
         '--cmd', "'%s'" % cmd,
         '--out', '$OUT',
         '--home', app_home,
-        '--tmp', '$TMP']
+    ]
     for l in lib:
-        cmd.extend(['--lib ', '$(classpath %s)' % l])
+        cmd.extend(['--lib ', l])
     genrule(
-       name = name,
-       bash = ' '.join(cmd),
-       out  = docker_file,
+        name = name,
+        bash = ' '.join(cmd),
+        out =  '.',
     )
 
+# Generate a file containing a Docker image.  This file can be loaded via the
+# `docker load -i ${tag}_${version}.docker` command
+#
+# This macro takes the following parameters:
+#    name     - Name of the build rule
+#    app_home - Home directory of the application within the container
+#    cmd      - Command to execute container is started
+#    tag      - Name and optionally a tag in the 'name:tag' format
+#    lib - files to copy to $app_home/lib, these can be in either of the following formats:
+#      - '$(classpath :abc)'
+#      - '$(location :xyz)'
 def docker_build(
     name,
-    docker_file,
+    app_home,
+    cmd,
     tag,
-    version = 'latest'):
+    lib  = []):
+    dockerfile(
+        name = name + '__dockerfile',
+        app_home = app_home,
+        cmd = cmd,
+        lib = lib,
+    )
+    if len(tag.split(':')) == 1:
+        tag = tag + ':latest'
+    docker_image_name = '-'.join(tag.split(':'))
     cmd = [
-        '$(exe //src/uk/gov/dwp/buck:build_docker_image)',
-        '-f', docker_file,
-        '-t %s:%s' % (tag, version),
-        '--out', '$OUT',
-        '--tmp', '$TMP'
+        'docker', 'build', '--tag', tag, '--file', '$(location :%s__dockerfile)/Dockerfile' % name, '$(location :%s__dockerfile)' % name, '&&',
+        'docker', 'save', '--output', '$OUT', tag, '&&',
+        'docker', 'rmi', tag
     ]
     genrule(
         name = name,
         bash = ' '.join(cmd),
-        out = 'docker-build.log',
+        out = '%s.docker' % docker_image_name,
     )
