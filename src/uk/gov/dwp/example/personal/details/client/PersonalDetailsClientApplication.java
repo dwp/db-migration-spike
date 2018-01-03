@@ -76,7 +76,7 @@ public class PersonalDetailsClientApplication {
             url = args[0];
             LOGGER.info("Using URL from Command Line: {}", url);
         } else if (url == null) {
-            LOGGER.info("Using Default Url: {}", DEFAULT_PERSONAL_DETAILS_SERVER_BASE_URL);
+            LOGGER.info("Using default URL: {}", DEFAULT_PERSONAL_DETAILS_SERVER_BASE_URL);
             url = DEFAULT_PERSONAL_DETAILS_SERVER_BASE_URL;
         } else {
             LOGGER.info("Using URL from PERSONAL_DETAILS_BASE_URL environment variable: {}", url);

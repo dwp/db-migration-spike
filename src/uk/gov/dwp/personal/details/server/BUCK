@@ -55,6 +55,5 @@ docker_build(
     lib = [
         '$(classpath :personal-details-server)',
     ],
-    tag = 'personal-details-server',
-    version = '1.0'
+    tag = 'personal-details-server:1.0',
 )

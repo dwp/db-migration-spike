@@ -3,9 +3,3 @@ python_binary(
     main = 'create_dockerfile.py',
     visibility = ['PUBLIC'],
 )
-
-python_binary(
-    name = 'build_docker_image',
-    main = 'build_docker_image.py',
-    visibility = ['PUBLIC'],
-)

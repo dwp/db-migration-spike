@@ -16,6 +16,7 @@ export MONGO_DB_ADDRESS="localhost:27018/personal-details"
 ./src/uk/gov/dwp/personal/details/server/dao/mongo/mongo-personal-details-users.sh
 
 IMAGE_NAME="personal-details-server:1.0"
+IMAGE_PATH="buck-out/gen/src/uk/gov/dwp/personal/details/server/docker-build/personal-details-server-1.0.docker"
 CONTAINER_NAME="personal-details-server-v1"
 
 # TODO: Consider adding docker build as a pre-step
@@ -25,6 +26,7 @@ if [ ! "$(docker ps -q -f name=${CONTAINER_NAME})" ]; then
         echo "Cleaning up ${CONTAINER_NAME}"
         docker rm ${CONTAINER_NAME}
     fi
+    docker load --input ${IMAGE_PATH}
     echo "Running ${CONTAINER_NAME}"
     docker run --name ${CONTAINER_NAME} --link mongo-server-demo --link kafka-server -it -p 8008:8008 -e SPRING_PROFILES_ACTIVE='docker' ${IMAGE_NAME}
 else

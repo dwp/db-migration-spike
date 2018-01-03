@@ -45,6 +45,6 @@ dockerfile_path = path.join(options.out, 'Dockerfile')
 with open(dockerfile_path, 'w') as dockerfile:
     dockerfile.write('FROM openjdk:8-jre-slim\n\n')
     for jar in sorted(jars):
-        relative_jar = jar[jar.find('buck-out'):]
-        dockerfile.write('COPY %s %s/lib/\n' % (relative_jar, options.home))
+        jar_filename = path.basename(jar)
+        dockerfile.write('COPY lib/%s %s/lib/\n' % (jar_filename, options.home))
     dockerfile.write('\n%s\n' % options.cmd)

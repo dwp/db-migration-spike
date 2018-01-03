@@ -40,6 +40,5 @@ docker_build(
     lib = [
         '$(classpath :example-personal-details-client)',
     ],
-    tag = 'personal-details-client',
-    version = '1.0'
+    tag = 'personal-details-client:1.0',
 )

@@ -53,13 +53,12 @@ def docker_build(
     )
     if len(tag.split(':')) == 1:
         tag = tag + ':latest'
+    docker_image_name = '-'.join(tag.split(':'))
     cmd = [
-        '$(exe //src/uk/gov/dwp/buck:build_docker_image)',
-        '--out', '$OUT',
-        '--src', '$(location :%s__dockerfile)' % name,
-        '--tag', tag,
+        'docker', 'build', '--tag', tag, '--file', '$(location :%s__dockerfile)/Dockerfile' % name, '$(location :%s__dockerfile)' % name, '&&',
+        'docker', 'save', '--output', '$OUT', tag, '&&',
+        'docker', 'rmi', tag
     ]
-    docker_image_name = '_'.join(tag.split(':'))
     genrule(
         name = name,
         bash = ' '.join(cmd),
